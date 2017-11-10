@@ -1,38 +1,4 @@
-const suits = [
-  'Clubs',
-  'Diamonds',
-  'Hearts',
-  'Spades'
-];
+const Deck = require('./Deck.js');
 
-const ranks = [
-  'Ace',
-  'Two',
-  'Three',
-  'Four',
-  'Five',
-  'Six',
-  'Seven',
-  'Eight',
-  'Nine',
-  'Ten',
-  'Jack',
-  'Queen',
-  'King'
-];
-
-function Card(suit, rank)
-{
-  this.suit = suit;
-  this.rank = rank;
-}
-
-let cards = [];
-
-suits.forEach((suit) => {
-  ranks.forEach((rank) => {
-    cards.push(new Card(suit, rank));
-  });
-});
-
-console.log(cards.length);
+let deck = new Deck();
+console.log(deck.cards[0]);
