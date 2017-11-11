@@ -8,14 +8,14 @@ module.exports = class {
     this.cards.push(card);
   }
 
-  getPip() {
+  getPipTotal(includeFaceDown) {
     let pip = 0;
     let aceCount = 0;
 
     // Total up the base pip values
     this.cards.forEach((card) => {
 
-      if(!card.isFaceUp)
+      if(!includeFaceDown && !card.isFaceUp)
       {
         return;
       }
@@ -69,16 +69,19 @@ module.exports = class {
     });
 
     // Add in the ace values
-    if(aceCount > 1)
+    if(aceCount > 0)
     {
-      // If the player has more than one ace, they are both worth 1
-      pip += aceCount;
-    }
-    else if(aceCount == 1)
-    {
-      // Otherwise, the ace is worth 11 unless this would cause the player
-      // to exceed 21
-      pip += (pip + 11 > 21) ? 1 : 11;
+      // Start by assuming all of the aces in the hand can be equal to
+      // 11 and then work backwards from that assumption until the total pip
+      // value is under 21 or you are just treating aces as ones
+      let aceTotal = aceCount * 11;
+
+      while((pip + aceTotal) > 21 && aceTotal != aceCount)
+      {
+        aceTotal -= 10;
+      }
+
+      pip += aceTotal;
     }
 
     return pip;
