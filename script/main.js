@@ -7,7 +7,7 @@ const RoundEndState = require('./RoundEndState.js');
 const bet = 5;
 
 let playerPot = 100;
-const deck = new Deck();
+let deck = new Deck();
 let playerHand = null;
 let dealerHand = null;
 
@@ -34,6 +34,7 @@ const startRound = () => {
   console.log('');
   console.log('==== START ROUND ====')
   console.log(`Player Pot: ${playerPot}`);
+  console.log(`Cards Left in Deck: ${deck.cards.length}`);
   console.log('');
 
   playerHand = new Hand();
@@ -148,9 +149,21 @@ const handlePlayerStand = () => {
     return;
   }
 
-  if(dealerHand.getPipTotal() > playerHand.getPipTotal())
+  if(dealerHand.getPipTotal() > 17)
   {
-    handleRoundEnd(RoundEndState.DealerWins, RoundEndCondition.HigherScore);
+    if(dealerHand.getPipTotal() > playerHand.getPipTotal())
+    {
+      handleRoundEnd(RoundEndState.DealerWins, RoundEndCondition.HigherScore);
+    }
+    else if(playerHand.getPipTotal() > dealerHand.getPipTotal())
+    {
+      handleRoundEnd(RoundEndState.PlayerWins, RoundEndCondition.HigherScore);
+    }
+    else
+    {
+      handleRoundEnd(RoundEndState.Tie);
+    }
+
     return;
   }
 
@@ -197,6 +210,20 @@ const handleRoundEnd = (roundEndState, roundEndCondition) => {
     {
       console.log('Dealer busted. Player wins!');
     }
+    else if(roundEndCondition === RoundEndCondition.HigherScore)
+    {
+      console.log('Player has higher score than dealer. Player wins!');
+    }
+  }
+  else if(roundEndState === RoundEndState.Tie)
+  {
+    console.log('Tie!');
+  }
+
+  if(deck.cards.length < 15)
+  {
+    // If the deck has less than 15 cards, reset the deck
+    deck = new Deck();
   }
 
   startRound();
