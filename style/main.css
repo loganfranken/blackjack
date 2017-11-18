@@ -1,4 +1,47 @@
 html, body
 {
-  background: #000;
+  background: #115F11;
+}
+
+body
+{
+  padding: 5em;
+}
+
+.card
+{
+  background: #FFF;
+  border-radius: 5px;
+  float: left;
+  height: 300px;
+  margin: 0.5em;
+  position: relative;
+  width: 200px;
+}
+
+.card::before, .card::after
+{
+  display: block;
+  content: '';
+  font-family: Arial, sans-serif;
+  font-size: 3em;
+  font-weight: bold;
+  padding: 0.1em 0.2em;
+  position: absolute;
+}
+
+.card::before
+{
+  right: 0;
+}
+
+.card::after
+{
+  bottom: 0;
+  left: 0;
+}
+
+.card::before, .card::after
+{
+  content: attr(data-rank);
 }
