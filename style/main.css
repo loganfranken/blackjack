@@ -11,11 +11,14 @@ body
 .card
 {
   background: #FFF;
+  background-repeat: no-repeat;
+  background-position: center center;
   border-radius: 5px;
   float: left;
   height: 300px;
   margin: 0.5em;
   position: relative;
+  text-indent: -9999em;
   width: 200px;
 }
 
@@ -44,4 +47,25 @@ body
 .card::before, .card::after
 {
   content: attr(data-rank);
+  text-indent: 0;
+}
+
+.card.club
+{
+  background-image: url('../images/club.png');
+}
+
+.card.spade
+{
+  background-image: url('../images/spade.png');
+}
+
+.card.heart
+{
+  background-image: url('../images/heart.png');
+}
+
+.card.diamond
+{
+  background-image: url('../images/diamond.png');
 }
