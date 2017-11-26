@@ -1,11 +1,12 @@
 html, body
 {
   background: #115F11;
+  font-family: Arial, sans-serif;
 }
 
 body
 {
-  padding: 5em;
+  padding: 2em;
 }
 
 .card
@@ -68,4 +69,11 @@ body
 .card.diamond
 {
   background-image: url('../images/diamond.png');
+}
+
+#dealer-dialog
+{
+  background: #FFF;
+  border-radius: 8px;
+  padding: 1em;
 }
