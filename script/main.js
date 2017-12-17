@@ -1,13 +1,3 @@
-const DialogManager = require('./DialogManager.js');
-
-const chipDialog = document.getElementById('chip-dialog');
-
-const dealerDialog = [
-  "Hiya! My name's *Chip*! Let's play some Blackjack!"
-];
-
-const dealerDialogManager = new DialogManager(dealerDialog);
-
 /*
 document.addEventListener('keydown', (event) => {
   if(event.keyCode === 13)
@@ -23,3 +13,16 @@ document.addEventListener('keydown', (event) => {
   }
 });
 */
+
+const chipDialog = document.getElementById('dealer-dialog');
+const dealerDialogManager = new DialogManager(chipDialog);
+
+const chip = (message) => {
+  return () => (dealerDialogManager.outputMessage(message));
+};
+
+sequence([
+    chip("Hiya! My name's *Chip*! Let's play some Blackjack!"),
+    chip("First dialog test"),
+    chip("Second dialog test")
+]);
