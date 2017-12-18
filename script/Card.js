@@ -1,4 +1,4 @@
-module.exports = class {
+const Card = class {
 
   constructor(suit, rank, isFaceUp)
   {

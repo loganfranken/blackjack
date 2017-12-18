@@ -51,22 +51,22 @@ body
   text-indent: 0;
 }
 
-.card.club
+.card.clubs
 {
   background-image: url('../images/club.png');
 }
 
-.card.spade
+.card.spades
 {
   background-image: url('../images/spade.png');
 }
 
-.card.heart
+.card.hearts
 {
   background-image: url('../images/heart.png');
 }
 
-.card.diamond
+.card.diamonds
 {
   background-image: url('../images/diamond.png');
 }

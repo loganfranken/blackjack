@@ -1,9 +1,4 @@
-const Card = require('./Card.js');
-const Ranks = require('./Ranks.js');
-const Suits = require('./Suits.js');
-const shuffle = require('./Utility.js').shuffle;
-
-module.exports = class {
+const Deck = class {
 
   constructor()
   {

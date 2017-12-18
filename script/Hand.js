@@ -1,4 +1,4 @@
-module.exports = class {
+const Hand = class {
 
   constructor() {
     this.cards = [];

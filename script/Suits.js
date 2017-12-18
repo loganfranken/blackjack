@@ -1,4 +1,4 @@
-module.exports = [
+const Suits = [
   'Clubs',
   'Diamonds',
   'Hearts',

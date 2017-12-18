@@ -1,4 +1,4 @@
-module.exports = [
+const Ranks = [
   'A',
   '2',
   '3',
