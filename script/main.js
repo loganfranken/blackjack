@@ -26,25 +26,24 @@ const chip = (message) => {
 };
 
 const dealPlayerCard = () => {
-  const newCard = deck.dealFaceUpCard();
-  playerHand.takeCard(newCard);
-  return newCard;
+  return dealCard(deck.dealFaceUpCard(), playerHand);
+};
+
+const dealDealerFaceUpCard = () => {
+  return dealCard(deck.dealFaceUpCard(), dealerHand);
+};
+
+const dealDealerFaceDownCard = () => {
+  return dealCard(deck.dealFaceDownCard(), dealerHand);
+};
+
+const dealCard = (newCard, hand) => {
+  hand.takeCard(newCard);
+  return { card: newCard, pipTotal: hand.getPipTotal(false) };
 };
 
 const displayNewPlayerCard = (card) => {
   playerHandDisplay.addCard(card);
-};
-
-const dealDealerFaceUpCard = () => {
-  const newCard = deck.dealFaceUpCard();
-  dealerHand.takeCard(newCard);
-  return newCard;
-};
-
-const dealDealerFaceDownCard = () => {
-  const newCard = deck.dealFaceDownCard();
-  dealerHand.takeCard(newCard);
-  return newCard;
 };
 
 const displayNewDealerCard = (card) => {
@@ -69,6 +68,6 @@ sequence([
 
     chip("And one more for me, but this one face down! No peeking!"),
     dealDealerFaceDownCard,
-    displayNewDealerCard,
+    displayNewDealerCard
 
 ]);

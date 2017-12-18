@@ -71,6 +71,17 @@ body
   background-image: url('../images/diamond.png');
 }
 
+.card.facedown
+{
+  background-color: blue;
+  background-image: none;
+}
+
+.hand
+{
+  clear: both;
+}
+
 #dealer-dialog
 {
   background: #FFF;
