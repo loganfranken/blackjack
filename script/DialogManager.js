@@ -4,16 +4,31 @@ const DialogManager = class {
   {
     this.currMessageIndex = 0;
     this.domElement = domElement;
+    this.isSkipping = false;
+    this.isTalking = false;
+    this.onFinished = null;
   }
 
   outputMessage(message)
   {
+    this.isTalking = true;
+
     return new Promise((resolve, reject) => {
+
+      this.onFinished = resolve;
 
       let currIndex = 0;
       const length = message.length;
 
       const outputNextCharacter = () => {
+
+          if(this.isSkipping)
+          {
+            this.domElement.innerHTML = this.convertMessageToHtml(message);
+            this.isSkipping = false;
+            this.isTalking = false;
+            return;
+          }
 
           const character = message[currIndex];
           this.domElement.innerHTML = this.convertMessageToHtml(message.slice(0, currIndex + 1));
@@ -31,7 +46,7 @@ const DialogManager = class {
           }
           else
           {
-            resolve();
+            this.isTalking = false;
           }
 
       };
@@ -62,6 +77,26 @@ const DialogManager = class {
     }
 
     return outputHtml;
+  }
+
+  advanceMessage()
+  {
+    if(this.isTalking)
+    {
+      if(!this.isSkipping)
+      {
+        this.isSkipping = true;
+      }
+    }
+    else
+    {
+      if(this.onFinished != null)
+      {
+        this.onFinished();
+      }
+
+      this.onFinished = null;
+    }
   }
 
 };

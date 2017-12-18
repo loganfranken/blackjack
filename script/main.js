@@ -1,21 +1,12 @@
-/*
+const chipDialog = document.getElementById('dealer-dialog');
+const dealerDialogManager = new DialogManager(chipDialog);
+
 document.addEventListener('keydown', (event) => {
   if(event.keyCode === 13)
   {
-    if(!isTalking)
-    {
-      outputNextMessage();
-    }
-    else if(!isSkipping)
-    {
-      isSkipping = true;
-    }
+    dealerDialogManager.advanceMessage();
   }
 });
-*/
-
-const chipDialog = document.getElementById('dealer-dialog');
-const dealerDialogManager = new DialogManager(chipDialog);
 
 const chip = (message) => {
   return () => (dealerDialogManager.outputMessage(message));
