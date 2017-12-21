@@ -7,6 +7,14 @@ const DialogManager = class {
     this.isSkipping = false;
     this.isTalking = false;
     this.onFinished = null;
+
+    const self = this;
+    document.addEventListener('keydown', (event) => {
+      if(event.keyCode === 13)
+      {
+        self.advanceMessage();
+      }
+    });
   }
 
   outputMessage(message)
@@ -34,7 +42,7 @@ const DialogManager = class {
           this.domElement.innerHTML = this.convertMessageToHtml(message.slice(0, currIndex + 1));
           currIndex++;
 
-          let timeout = 50;
+          let timeout = 30;
           if(character === '.' || character === '?' || character === '!')
           {
             timeout = 200;
