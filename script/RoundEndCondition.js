@@ -1,4 +1,4 @@
-module.exports = {
+const RoundEndCondition = {
   NaturalBlackjack: 0,
   Blackjack: 1,
   Busted: 2,
