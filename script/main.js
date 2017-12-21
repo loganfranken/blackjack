@@ -1,3 +1,7 @@
+// ==================
+// DOM ELEMENTS
+// ==================
+
 const domElements = {
   chipDialog: document.getElementById('dealer-dialog'),
   playerHand: document.getElementById('player-hand'),
@@ -5,6 +9,10 @@ const domElements = {
   hitButton: document.getElementById('action-hit'),
   standButton: document.getElementById('action-stand')
 };
+
+// ==================
+// GAME FIELDS
+// ==================
 
 const dealerDialogManager = new DialogManager(domElements.chipDialog);
 
@@ -16,24 +24,113 @@ let playerHandDisplay = null;
 let dealerHand = null;
 let dealerHandDisplay = null;
 
+// ==================
+// MAIN GAME LOGIC
+// ==================
+
+const startRound = () => {
+
+  playerHand = new Hand();
+  playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
+  playerHandDisplay.refreshHand();
+
+  dealerHand = new Hand();
+  dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
+  dealerHandDisplay.refreshHand();
+
+  sequence([
+
+      chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!"),
+
+      chip("First, I'll deal you a card."),
+      dealPlayerCard,
+      refreshPlayerHandDisplay,
+
+      chip("Next, I'll deal myself a card."),
+      dealDealerFaceUpCard,
+      refreshDealerHandDisplay,
+
+      chip("And another for you!"),
+      dealPlayerCard,
+      refreshPlayerHandDisplay,
+
+      chip("And one more for me, but this one face down! *No peeking!*"),
+      dealDealerHoleCard,
+      refreshDealerHandDisplay,
+
+      scoreOpeningHand,
+      evaluateScore,
+
+      chip("Do you want to hit or stand?"),
+      getPlayerMove,
+
+      handlePlayerMove
+
+  ]);
+
+};
+
+// ==================
+// SHORTCUT FUNCTIONS
+// ==================
+
+const chip = (message) => {
+  return () => (dealerDialogManager.outputMessage(message));
+};
+
+const dealPlayerCard = () => {
+  playerHand.takeCard(deck.dealFaceUpCard());
+};
+
+const dealDealerFaceUpCard = () => {
+  dealerHand.takeCard(deck.dealFaceUpCard());
+};
+
+const dealDealerHoleCard = () => {
+  dealerHand.takeCard(deck.dealFaceDownCard());
+};
+
+const revealDealerHoleCard = () => {
+  dealerHand.cards[1].isFaceUp = true;
+};
+
+const refreshPlayerHandDisplay = () => {
+  playerHandDisplay.refreshHand();
+};
+
+const refreshDealerHandDisplay = () => {
+  dealerHandDisplay.refreshHand();
+};
+
 const scoreOpeningHand = () => {
 
   if(dealerHand.getPipTotal(true) === 21)
   {
-    handleRoundEnd(RoundEndState.DealerWins, RoundEndCondition.NaturalBlackjack);
-    return;
+    return {
+      isRoundOver: true,
+      roundEndState: RoundEndState.DealerWins,
+      roundEndCondition: RoundEndCondition.NaturalBlackjack
+    };
   }
 
   if(playerHand.getPipTotal() === 21)
   {
-    handleRoundEnd(RoundEndState.PlayerWins, RoundEndCondition.NaturalBlackjack);
-    return;
+    return {
+      isRoundOver: true,
+      roundEndState: RoundEndState.PlayerWins,
+      roundEndCondition: RoundEndCondition.NaturalBlackjack
+    };
   }
+
+  return {
+    isRoundOver: false
+  };
 
 };
 
-const handleRoundEnd = (roundEndState, roundEndCondition) => {
+const evaluateScore = (scoreResult) => {
 
+  /*
   if(roundEndState == RoundEndState.DealerWins)
   {
     if(roundEndCondition === RoundEndCondition.NaturalBlackjack)
@@ -78,6 +175,7 @@ const handleRoundEnd = (roundEndState, roundEndCondition) => {
   }
 
   startRound();
+  */
 
 };
 
@@ -112,11 +210,11 @@ const handlePlayerMove = (playerMove) => {
   switch(playerMove)
   {
     case PlayerMove.Hit:
-      handlePlayerHit();
+      //handlePlayerHit();
       break;
 
     case PlayerMove.Stand:
-      handlePlayerStand();
+      //handlePlayerStand();
       break;
   }
 
@@ -124,6 +222,7 @@ const handlePlayerMove = (playerMove) => {
 
 const handlePlayerStand = () => {
 
+  /*
   if(!dealerHand.cards[1].isFaceUp)
   {
     // First, reveal the dealer's hole card
@@ -168,11 +267,13 @@ const handlePlayerStand = () => {
   }
 
   handlePlayerStand();
+  */
 
 };
 
 const handlePlayerHit = () => {
 
+  /*
   // Deal face-up card to the player
   playerHand.takeCard(deck.dealFaceUpCard());
   playerHandDisplay.refreshHand();
@@ -190,81 +291,8 @@ const handlePlayerHit = () => {
   }
 
   promptPlayer();
+  */
 
-};
-
-const startRound = () => {
-
-  playerHand = new Hand();
-  playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
-  playerHandDisplay.refreshHand();
-
-  dealerHand = new Hand();
-  dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
-  dealerHandDisplay.refreshHand();
-
-  sequence([
-
-      chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!"),
-
-      chip("First, I'll deal you a card."),
-      dealPlayerCard,
-      refreshPlayerHandDisplay,
-
-      chip("Next, I'll deal myself a card."),
-      dealDealerFaceUpCard,
-      refreshDealerHandDisplay,
-
-      chip("And another for you!"),
-      dealPlayerCard,
-      refreshPlayerHandDisplay,
-
-      chip("And one more for me, but this one face down! *No peeking!*"),
-      dealDealerHoleCard,
-      refreshDealerHandDisplay,
-
-      scoreOpeningHand,
-
-      chip("Do you want to hit or stand?"),
-      getPlayerMove,
-
-      handlePlayerMove
-
-  ]);
-
-};
-
-
-// ==================
-// SHORTCUT FUNCTIONS
-// ==================
-
-const chip = (message) => {
-  return () => (dealerDialogManager.outputMessage(message));
-};
-
-const dealPlayerCard = () => {
-  playerHand.takeCard(deck.dealFaceUpCard());
-};
-
-const dealDealerFaceUpCard = () => {
-  dealerHand.takeCard(deck.dealFaceUpCard());
-};
-
-const dealDealerHoleCard = () => {
-  dealerHand.takeCard(deck.dealFaceDownCard());
-};
-
-const revealDealerHoleCard = () => {
-  dealerHand.cards[1].isFaceUp = true;
-};
-
-const refreshPlayerHandDisplay = () => {
-  playerHandDisplay.refreshHand();
-};
-
-const refreshDealerHandDisplay = () => {
-  dealerHandDisplay.refreshHand();
 };
 
 startRound();
