@@ -17,7 +17,7 @@ const DialogManager = class {
     });
   }
 
-  async outputMessage(message)
+  async outputMessage(message, skipConfirm)
   {
     this.isTalking = true;
     this.isFinished = false;
@@ -55,9 +55,12 @@ const DialogManager = class {
       }
     }
 
-    await new Promise(resolve => {
-      this.onFinished = resolve;
-    });
+    if(!skipConfirm)
+    {
+      await new Promise(resolve => {
+        this.onFinished = resolve;
+      });
+    }
   }
 
   convertMessageToHtml(message)

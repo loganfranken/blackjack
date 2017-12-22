@@ -59,32 +59,47 @@ async function startRound()
     dealDealerHoleCard();
     refreshDealerHandDisplay();
 
-    if(scoreOpeningHands().isRoundOver)
+    let score = scoreOpeningHands();
+    if(score.isRoundOver)
     {
+      await chipRoundEnd(score);
       continue;
     }
 
     // Loop: Player Choice
     while(true)
     {
-      await chip("Do you want to hit or stand?");
+      await chip("Do you want to hit or stand?", true);
       let playerMove = await getPlayerMove();
 
       if(playerMove === PlayerMove.Hit)
       {
+        await chip("Alright, here's your card.");
         dealPlayerCard();
         refreshPlayerHandDisplay();
       }
 
       if(playerMove === PlayerMove.Stand)
       {
-        revealDealerHoleCardOrDeal();
-        refreshDealerHandDisplay();
+        // Loop: Stand
+        while(true)
+        {
+          await chip("Alright, another card for me.");
+          revealDealerHoleCardOrDeal();
+          refreshDealerHandDisplay();
+
+          if(scoreHands().isRoundOver)
+          {
+            break;
+          }
+        }
       }
 
-      if(scoreHands().isRoundOver)
+      let score = scoreHands();
+      if(score.isRoundOver)
       {
-        continue;
+        await chipRoundEnd(score);
+        break;
       }
     }
   }
@@ -94,9 +109,9 @@ async function startRound()
 // SHORTCUT FUNCTIONS
 // ==================
 
-async function chip(message)
+async function chip(message, skipConfirm)
 {
-  await dealerDialogManager.outputMessage(message);
+  await dealerDialogManager.outputMessage(message, skipConfirm);
 }
 
 const dealPlayerCard = () => {
@@ -257,6 +272,47 @@ const getPlayerMove = () => {
 
   });
 
+};
+
+async function chipRoundEnd(score)
+{
+  let message = '';
+
+  switch(score.roundEndState)
+  {
+    case RoundEndState.DealerWins:
+      message += '*Dealer Wins!* ';
+      break;
+
+    case RoundEndState.PlayerWins:
+      message += '*Player Wins!* ';
+      break;
+
+    case RoundEndState.Tie:
+      message += '*Tie!* ';
+      break;
+  }
+
+  switch(score.roundEndCondition)
+  {
+    case RoundEndCondition.NaturalBlackjack:
+      message += 'Natural Blackjack!';
+      break;
+
+    case RoundEndCondition.Blackjack:
+      message += 'Blackjack!';
+      break;
+
+    case RoundEndCondition.Busted:
+      message += 'Busted!';
+      break;
+
+    case RoundEndCondition.HigherScore:
+      message += 'Higher Score!';
+      break;
+  }
+
+  await dealerDialogManager.outputMessage(message);
 };
 
 startRound();
