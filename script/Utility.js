@@ -19,3 +19,9 @@ const shuffle = (array) => {
 const sequence = (tasks) => {
   tasks.reduce((promise, task) => promise.then(task), Promise.resolve());
 }
+
+const halt = (timeout) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => { resolve(); }, timeout);
+  });
+}

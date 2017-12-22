@@ -28,7 +28,8 @@ let dealerHandDisplay = null;
 // MAIN GAME LOGIC
 // ==================
 
-const startRound = () => {
+async function startRound()
+{
 
   playerHand = new Hand();
   playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
@@ -38,6 +39,11 @@ const startRound = () => {
   dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
   dealerHandDisplay.refreshHand();
 
+  await chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!");
+
+  await chip("First, I'll deal you a card.");
+
+  /*
   function handlePlayerMove(playerMove)
   {
     switch(playerMove)
@@ -97,6 +103,7 @@ const startRound = () => {
       handlePlayerMove
 
   ]);
+  */
 
 };
 
@@ -104,9 +111,10 @@ const startRound = () => {
 // SHORTCUT FUNCTIONS
 // ==================
 
-const chip = (message) => {
-  return () => (dealerDialogManager.outputMessage(message));
-};
+async function chip(message)
+{
+  await dealerDialogManager.outputMessage(message);
+}
 
 const dealPlayerCard = () => {
   playerHand.takeCard(deck.dealFaceUpCard());

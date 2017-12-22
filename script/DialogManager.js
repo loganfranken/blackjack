@@ -17,50 +17,46 @@ const DialogManager = class {
     });
   }
 
-  outputMessage(message)
+  async outputMessage(message)
   {
     this.isTalking = true;
+    this.isFinished = false;
 
-    return new Promise((resolve, reject) => {
+    let currIndex = 0;
+    const length = message.length;
 
+    while(this.isTalking)
+    {
+      if(this.isSkipping)
+      {
+        this.domElement.innerHTML = this.convertMessageToHtml(message);
+        this.isSkipping = false;
+        this.isTalking = false;
+        break;
+      }
+
+      const character = message[currIndex];
+      this.domElement.innerHTML = this.convertMessageToHtml(message.slice(0, currIndex + 1));
+      currIndex++;
+
+      let timeout = 30;
+      if(character === '.' || character === '?' || character === '!')
+      {
+        timeout = 200;
+      }
+
+      if(currIndex < length)
+      {
+        await halt(timeout);
+      }
+      else
+      {
+        this.isTalking = false;
+      }
+    }
+
+    await new Promise(resolve => {
       this.onFinished = resolve;
-
-      let currIndex = 0;
-      const length = message.length;
-
-      const outputNextCharacter = () => {
-
-          if(this.isSkipping)
-          {
-            this.domElement.innerHTML = this.convertMessageToHtml(message);
-            this.isSkipping = false;
-            this.isTalking = false;
-            return;
-          }
-
-          const character = message[currIndex];
-          this.domElement.innerHTML = this.convertMessageToHtml(message.slice(0, currIndex + 1));
-          currIndex++;
-
-          let timeout = 30;
-          if(character === '.' || character === '?' || character === '!')
-          {
-            timeout = 200;
-          }
-
-          if(currIndex < length)
-          {
-            setTimeout(outputNextCharacter, timeout);
-          }
-          else
-          {
-            this.isTalking = false;
-          }
-
-      };
-
-      outputNextCharacter();
-
     });
   }
 
