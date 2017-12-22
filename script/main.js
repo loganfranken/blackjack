@@ -38,6 +38,36 @@ const startRound = () => {
   dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
   dealerHandDisplay.refreshHand();
 
+  function handlePlayerMove(playerMove)
+  {
+    switch(playerMove)
+    {
+      case PlayerMove.Hit:
+        hit();
+        break;
+
+      case PlayerMove.Stand:
+        stand();
+        break;
+    }
+  };
+
+  function hit()
+  {
+    sequence([
+      dealPlayerCard,
+      refreshPlayerHandDisplay
+    ]);
+  };
+
+  function stand()
+  {
+    sequence([
+      revealDealerHoleCardOrDeal,
+      refreshDealerHandDisplay
+    ]);
+  };
+
   sequence([
 
       chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!"),
@@ -58,8 +88,8 @@ const startRound = () => {
       dealDealerHoleCard,
       refreshDealerHandDisplay,
 
-      scoreOpeningHand,
-      evaluateScore,
+      scoreOpeningHands,
+      handleRoundEnd,
 
       chip("Do you want to hit or stand?"),
       getPlayerMove,
@@ -90,6 +120,19 @@ const dealDealerHoleCard = () => {
   dealerHand.takeCard(deck.dealFaceDownCard());
 };
 
+const revealDealerHoleCardOrDeal = () => {
+  if(!dealerHand.cards[1].isFaceUp)
+  {
+    // First, reveal the dealer's hole card
+    revealDealerHoleCard();
+  }
+  else
+  {
+    // After revealing the hole card, draw a face-up card
+    dealDealerFaceUpCard();
+  }
+};
+
 const revealDealerHoleCard = () => {
   dealerHand.cards[1].isFaceUp = true;
 };
@@ -102,7 +145,7 @@ const refreshDealerHandDisplay = () => {
   dealerHandDisplay.refreshHand();
 };
 
-const scoreOpeningHand = () => {
+const scoreOpeningHands = () => {
 
   if(dealerHand.getPipTotal(true) === 21)
   {
@@ -128,54 +171,86 @@ const scoreOpeningHand = () => {
 
 };
 
-const evaluateScore = (scoreResult) => {
+const scoreHands = () => {
 
-  /*
-  if(roundEndState == RoundEndState.DealerWins)
+  if(playerHand.getPipTotal() === 21)
   {
-    if(roundEndCondition === RoundEndCondition.NaturalBlackjack)
-    {
-      console.log('Dealer started with a natural blackjack. Dealer wins!');
-    }
-    else if(roundEndCondition === RoundEndCondition.Blackjack)
-    {
-      console.log('Dealer got a blackjack. Dealer wins!');
-    }
-    else if(roundEndCondition === RoundEndCondition.Busted)
-    {
-      console.log('Player busted. Dealer wins!');
-    }
-    else if(roundEndCondition === RoundEndCondition.HigherScore)
-    {
-      console.log('Dealer has higher score than player. Dealer wins!');
-    }
-  }
-  else if(roundEndState === RoundEndState.PlayerWins)
-  {
-    if(roundEndCondition === RoundEndCondition.NaturalBlackjack)
-    {
-      console.log('Player started with a natural blackjack. Player wins!');
-    }
-    else if(roundEndCondition === RoundEndCondition.Blackjack)
-    {
-      console.log('Player got a blackjack. Player wins!');
-    }
-    else if(roundEndCondition === RoundEndCondition.Busted)
-    {
-      console.log('Dealer busted. Player wins!');
-    }
-    else if(roundEndCondition === RoundEndCondition.HigherScore)
-    {
-      console.log('Player has higher score than dealer. Player wins!');
-    }
-  }
-  else if(roundEndState === RoundEndState.Tie)
-  {
-    console.log('Tie!');
+    return {
+      isRoundOver: true,
+      roundEndState: RoundEndState.PlayerWins,
+      roundEndCondition: RoundEndCondition.Blackjack
+    };
   }
 
-  startRound();
-  */
+  if(playerHand.getPipTotal() > 21)
+  {
+    return {
+      isRoundOver: true,
+      roundEndState: RoundEndState.DealerWins,
+      roundEndCondition: RoundEndCondition.Busted
+    };
+  }
+
+  if(dealerHand.getPipTotal() === 21)
+  {
+    return {
+      isRoundOver: true,
+      roundEndState: RoundEndState.DealerWins,
+      roundEndCondition: RoundEndCondition.Blackjack
+    };
+  }
+
+  if(dealerHand.getPipTotal() > 21)
+  {
+    return {
+      isRoundOver: true,
+      roundEndState: RoundEndState.PlayerWins,
+      roundEndCondition: RoundEndCondition.Busted
+    };
+  }
+
+  if(dealerHand.getPipTotal() > 17)
+  {
+    if(dealerHand.getPipTotal() > playerHand.getPipTotal())
+    {
+      return {
+        isRoundOver: true,
+        roundEndState: RoundEndState.DealerWins,
+        roundEndCondition: RoundEndCondition.HigherScore
+      };
+    }
+    else if(playerHand.getPipTotal() > dealerHand.getPipTotal())
+    {
+      return {
+        isRoundOver: true,
+        roundEndState: RoundEndState.PlayerWins,
+        roundEndCondition: RoundEndCondition.HigherScore
+      };
+    }
+    else
+    {
+      return {
+        isRoundOver: true,
+        roundEndState: RoundEndState.Tie
+      };
+    }
+  }
+
+  return {
+    isRoundOver: false
+  };
+
+};
+
+const handleRoundEnd = (scoreResult) => {
+
+  if(!scoreResult.isRoundOver)
+  {
+    return;
+  }
+
+  console.log('Round End!');
+  console.log(scoreResult);
 
 };
 
@@ -202,96 +277,6 @@ const getPlayerMove = () => {
     standButton.addEventListener('click', onClickStandButton);
 
   });
-
-};
-
-const handlePlayerMove = (playerMove) => {
-
-  switch(playerMove)
-  {
-    case PlayerMove.Hit:
-      //handlePlayerHit();
-      break;
-
-    case PlayerMove.Stand:
-      //handlePlayerStand();
-      break;
-  }
-
-};
-
-const handlePlayerStand = () => {
-
-  /*
-  if(!dealerHand.cards[1].isFaceUp)
-  {
-    // First, reveal the dealer's hole card
-    revealDealerHoleCard();
-  }
-  else
-  {
-    // After revealing the hole card, draw a face-up card
-    dealDealerFaceUpCard();
-  }
-
-  refreshDealerHandDisplay();
-
-  if(dealerHand.getPipTotal() === 21)
-  {
-    handleRoundEnd(RoundEndState.DealerWins, RoundEndCondition.Blackjack);
-    return;
-  }
-
-  if(dealerHand.getPipTotal() > 21)
-  {
-    handleRoundEnd(RoundEndState.PlayerWins, RoundEndCondition.Busted);
-    return;
-  }
-
-  if(dealerHand.getPipTotal() > 17)
-  {
-    if(dealerHand.getPipTotal() > playerHand.getPipTotal())
-    {
-      handleRoundEnd(RoundEndState.DealerWins, RoundEndCondition.HigherScore);
-    }
-    else if(playerHand.getPipTotal() > dealerHand.getPipTotal())
-    {
-      handleRoundEnd(RoundEndState.PlayerWins, RoundEndCondition.HigherScore);
-    }
-    else
-    {
-      handleRoundEnd(RoundEndState.Tie);
-    }
-
-    return;
-  }
-
-  handlePlayerStand();
-  */
-
-};
-
-const handlePlayerHit = () => {
-
-  /*
-  // Deal face-up card to the player
-  playerHand.takeCard(deck.dealFaceUpCard());
-  playerHandDisplay.refreshHand();
-
-  if(playerHand.getPipTotal() === 21)
-  {
-    handleRoundEnd(RoundEndState.PlayerWins, RoundEndCondition.Blackjack);
-    return;
-  }
-
-  if(playerHand.getPipTotal() > 21)
-  {
-    handleRoundEnd(RoundEndState.DealerWins, RoundEndCondition.Busted);
-    return;
-  }
-
-  promptPlayer();
-  */
 
 };
 
