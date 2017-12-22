@@ -15,11 +15,6 @@ const shuffle = (array) => {
 
 }
 
-// Source: https://codepen.io/dbushell/pen/yVQKar
-const sequence = (tasks) => {
-  tasks.reduce((promise, task) => promise.then(task), Promise.resolve());
-}
-
 const halt = (timeout) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => { resolve(); }, timeout);

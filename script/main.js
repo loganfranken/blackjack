@@ -30,81 +30,64 @@ let dealerHandDisplay = null;
 
 async function startRound()
 {
-
-  playerHand = new Hand();
-  playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
-  playerHandDisplay.refreshHand();
-
-  dealerHand = new Hand();
-  dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
-  dealerHandDisplay.refreshHand();
-
-  await chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!");
-
-  await chip("First, I'll deal you a card.");
-
-  /*
-  function handlePlayerMove(playerMove)
+  // Loop: Round
+  while(true)
   {
-    switch(playerMove)
+    playerHand = new Hand();
+    playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
+    playerHandDisplay.refreshHand();
+
+    dealerHand = new Hand();
+    dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
+    dealerHandDisplay.refreshHand();
+
+    await chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!");
+
+    await chip("First, I'll deal you a card.");
+    dealPlayerCard();
+    refreshPlayerHandDisplay();
+
+    await chip("Next, I'll deal myself a card.");
+    dealDealerFaceUpCard();
+    refreshDealerHandDisplay();
+
+    await chip("And another for you!");
+    dealPlayerCard();
+    refreshPlayerHandDisplay();
+
+    await chip("And one more for me, but this one face down! *No peeking!*");
+    dealDealerHoleCard();
+    refreshDealerHandDisplay();
+
+    if(scoreOpeningHands().isRoundOver)
     {
-      case PlayerMove.Hit:
-        hit();
-        break;
-
-      case PlayerMove.Stand:
-        stand();
-        break;
+      continue;
     }
-  };
 
-  function hit()
-  {
-    sequence([
-      dealPlayerCard,
-      refreshPlayerHandDisplay
-    ]);
-  };
+    // Loop: Player Choice
+    while(true)
+    {
+      await chip("Do you want to hit or stand?");
+      let playerMove = await getPlayerMove();
 
-  function stand()
-  {
-    sequence([
-      revealDealerHoleCardOrDeal,
-      refreshDealerHandDisplay
-    ]);
-  };
+      if(playerMove === PlayerMove.Hit)
+      {
+        dealPlayerCard();
+        refreshPlayerHandDisplay();
+      }
 
-  sequence([
+      if(playerMove === PlayerMove.Stand)
+      {
+        revealDealerHoleCardOrDeal();
+        refreshDealerHandDisplay();
+      }
 
-      chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!"),
-
-      chip("First, I'll deal you a card."),
-      dealPlayerCard,
-      refreshPlayerHandDisplay,
-
-      chip("Next, I'll deal myself a card."),
-      dealDealerFaceUpCard,
-      refreshDealerHandDisplay,
-
-      chip("And another for you!"),
-      dealPlayerCard,
-      refreshPlayerHandDisplay,
-
-      chip("And one more for me, but this one face down! *No peeking!*"),
-      dealDealerHoleCard,
-      refreshDealerHandDisplay,
-
-      scoreOpeningHands,
-      handleRoundEnd,
-
-      chip("Do you want to hit or stand?"),
-      getPlayerMove,
-
-      handlePlayerMove
-
-  ]);
-  */
-
+      if(scoreHands().isRoundOver)
+      {
+        continue;
+      }
+    }
+  }
 };
 
 // ==================
@@ -247,18 +230,6 @@ const scoreHands = () => {
   return {
     isRoundOver: false
   };
-
-};
-
-const handleRoundEnd = (scoreResult) => {
-
-  if(!scoreResult.isRoundOver)
-  {
-    return;
-  }
-
-  console.log('Round End!');
-  console.log(scoreResult);
 
 };
 
