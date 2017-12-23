@@ -7,7 +7,8 @@ const domElements = {
   playerHand: document.getElementById('player-hand'),
   dealerHand: document.getElementById('dealer-hand'),
   hitButton: document.getElementById('action-hit'),
-  standButton: document.getElementById('action-stand')
+  standButton: document.getElementById('action-stand'),
+  scoreDisplay: document.getElementById('player-pot')
 };
 
 // ==================
@@ -24,12 +25,17 @@ let playerHandDisplay = null;
 let dealerHand = null;
 let dealerHandDisplay = null;
 
+let playerPot = 100;
+let bet = 10;
+
 // ==================
 // MAIN GAME LOGIC
 // ==================
 
 async function startRound()
 {
+  updatePotDisplay();
+
   // Loop: Round
   while(true)
   {
@@ -62,6 +68,8 @@ async function startRound()
     let score = scoreOpeningHands();
     if(score.isRoundOver)
     {
+      updatePot(score);
+      updatePotDisplay();
       await chipRoundEnd(score);
       continue;
     }
@@ -98,6 +106,8 @@ async function startRound()
       let score = scoreHands();
       if(score.isRoundOver)
       {
+        updatePot(score);
+        updatePotDisplay();
         await chipRoundEnd(score);
         break;
       }
@@ -313,6 +323,24 @@ async function chipRoundEnd(score)
   }
 
   await dealerDialogManager.outputMessage(message);
+};
+
+const updatePot = (scoreResult) => {
+
+  if(scoreResult.roundEndState === RoundEndState.DealerWins)
+  {
+    playerPot -= bet;
+  }
+
+  if(scoreResult.roundEndState === RoundEndState.PlayerWins)
+  {
+    playerPot += bet;
+  }
+
+};
+
+const updatePotDisplay = () => {
+  domElements.scoreDisplay.innerHTML = playerPot;
 };
 
 startRound();

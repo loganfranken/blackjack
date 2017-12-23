@@ -93,3 +93,8 @@ body
 {
   clear: both;
 }
+
+.player-score-display
+{
+  display: block;
+}
