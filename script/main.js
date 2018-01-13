@@ -8,7 +8,8 @@ const domElements = {
   dealerHand: document.getElementById('dealer-hand'),
   hitButton: document.getElementById('action-hit'),
   standButton: document.getElementById('action-stand'),
-  scoreDisplay: document.getElementById('player-pot')
+  scoreDisplay: document.getElementById('player-pot'),
+  playerControls: document.getElementById('player-controls')
 };
 
 // ==================
@@ -260,6 +261,8 @@ const scoreHands = () => {
 
 const getPlayerMove = () => {
 
+  const playerControls = domElements.playerControls;
+
   const hitButton = domElements.hitButton;
   const standButton = domElements.standButton;
 
@@ -268,17 +271,22 @@ const getPlayerMove = () => {
     const onClickHitButton = () => {
       hitButton.removeEventListener('click', onClickHitButton);
       standButton.removeEventListener('click', onClickStandButton);
+      playerControls.className = '';
       resolve(PlayerMove.Hit);
     };
 
     const onClickStandButton = () => {
       hitButton.removeEventListener('click', onClickHitButton);
       standButton.removeEventListener('click', onClickStandButton);
+      playerControls.className = '';
       resolve(PlayerMove.Stand);
     };
 
     hitButton.addEventListener('click', onClickHitButton);
     standButton.addEventListener('click', onClickStandButton);
+
+    // Display the controls
+    playerControls.className = 'active';
 
   });
 

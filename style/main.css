@@ -181,6 +181,7 @@ h2
 #player-controls
 {
   clear: both;
+  display: none;
 }
 
 .player-control
@@ -204,6 +205,11 @@ h2
 #action-stand
 {
   float: right;
+}
+
+#player-controls.active
+{
+  display: block;
 }
 
 /* =PLAYER-SCORE
