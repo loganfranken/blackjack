@@ -33,6 +33,7 @@ h2
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 200%;
 }
 
 .card
@@ -44,8 +45,8 @@ h2
   box-shadow: -3px 0 0 rgba(0, 0, 0, 0.2);
   float: left;
   height: 9em;
-  left: -5em;
   margin: 0;
+  margin-left: -5em;
   position: relative;
   text-indent: -9999em;
   width: 6.5em;
@@ -54,7 +55,7 @@ h2
 .card:first-child
 {
   box-shadow: none;
-  left: 0;
+  margin-left: 0;
 }
 
 .card::before, .card::after

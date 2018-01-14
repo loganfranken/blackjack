@@ -261,8 +261,6 @@ const scoreHands = () => {
 
 const getPlayerMove = () => {
 
-  const playerControls = domElements.playerControls;
-
   const hitButton = domElements.hitButton;
   const standButton = domElements.standButton;
 
@@ -271,14 +269,14 @@ const getPlayerMove = () => {
     const onClickHitButton = () => {
       hitButton.removeEventListener('click', onClickHitButton);
       standButton.removeEventListener('click', onClickStandButton);
-      playerControls.className = '';
+      hidePlayerControls();
       resolve(PlayerMove.Hit);
     };
 
     const onClickStandButton = () => {
       hitButton.removeEventListener('click', onClickHitButton);
       standButton.removeEventListener('click', onClickStandButton);
-      playerControls.className = '';
+      hidePlayerControls();
       resolve(PlayerMove.Stand);
     };
 
@@ -286,7 +284,7 @@ const getPlayerMove = () => {
     standButton.addEventListener('click', onClickStandButton);
 
     // Display the controls
-    playerControls.className = 'active';
+    showPlayerControls();
 
   });
 
@@ -349,6 +347,14 @@ const updatePot = (scoreResult) => {
 
 const updatePotDisplay = () => {
   domElements.scoreDisplay.innerHTML = playerPot;
+};
+
+const showPlayerControls = () => {
+  domElements.playerControls.className = 'active';
+};
+
+const hidePlayerControls = () => {
+  domElements.playerControls.className = '';
 };
 
 startRound();
