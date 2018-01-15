@@ -29,6 +29,8 @@ let dealerHandDisplay = null;
 let playerPot = 100;
 let bet = 10;
 
+let roundCount = 0;
+
 // ==================
 // MAIN GAME LOGIC
 // ==================
@@ -48,21 +50,25 @@ async function startRound()
     dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
     dealerHandDisplay.refreshHand();
 
-    await chip("Hiya! My name's *Chip*! Let's play some *Blackjack*!");
+    await chipRoundStart(roundCount);
 
-    await chip("First, I'll deal you a card.");
+    // First Card: Player, face-up
+    await chipRoundFirstCard(roundCount);
     dealPlayerCard();
     refreshPlayerHandDisplay();
 
-    await chip("Next, I'll deal myself a card.");
+    // Second Card: Dealer, face-up
+    await chipRoundSecondCard(roundCount);
     dealDealerFaceUpCard();
     refreshDealerHandDisplay();
 
-    await chip("And another for you!");
+    // Third Card: Player, face-up
+    await chipRoundThirdCard(roundCount);
     dealPlayerCard();
     refreshPlayerHandDisplay();
 
-    await chip("And one more for me, but this one face down! *No peeking!*");
+    // Fourth Card: Dealer, face-down
+    await chipRoundFourthCard(roundCount);
     dealDealerHoleCard();
     refreshDealerHandDisplay();
 
@@ -110,6 +116,7 @@ async function startRound()
         updatePot(score);
         updatePotDisplay();
         await chipRoundEnd(score);
+        roundCount++;
         break;
       }
     }
@@ -289,6 +296,66 @@ const getPlayerMove = () => {
   });
 
 };
+
+async function chipRoundStart(roundCount)
+{
+  if(roundCount === 0)
+  {
+    await chip("Hiya! My name's *Chip*! Let's play some *Blackjack*! (Press *Enter*)");
+  }
+  else
+  {
+    await chip("Next round!");
+  }
+}
+
+async function chipRoundFirstCard(roundCount)
+{
+  if(roundCount === 0)
+  {
+    await chip("First, I'll deal you a card.");
+  }
+  else
+  {
+    await chip("Here's your card.");
+  }
+}
+
+async function chipRoundSecondCard(roundCount)
+{
+  if(roundCount === 0)
+  {
+    await chip("Next, I'll deal myself a card.");
+  }
+  else
+  {
+    await chip("And here's my card.");
+  }
+}
+
+async function chipRoundThirdCard(roundCount)
+{
+  if(roundCount === 0)
+  {
+    await chip("And another for you!");
+  }
+  else
+  {
+    await chip("And another for you.");
+  }
+}
+
+async function chipRoundFourthCard(roundCount)
+{
+  if(roundCount === 0)
+  {
+    await chip("And one more for me, but this one face down! *No peeking!*");
+  }
+  else
+  {
+    await chip("And another for me.")
+  }
+}
 
 async function chipRoundEnd(score)
 {
