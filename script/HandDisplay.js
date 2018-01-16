@@ -4,7 +4,8 @@ const HandDisplay = class {
     this.domElement = domElement;
     this.hand = hand;
     this.listElement = this.domElement.querySelector('ul');
-    this.scoreElment = this.domElement.querySelector('.score');
+    this.pipTotalElement = this.domElement.querySelector('.pip-total');
+    this.pipTotalElement.className = 'pip-total';
   }
 
   refreshHand() {
@@ -34,8 +35,14 @@ const HandDisplay = class {
     });
 
     // Update the score
-    this.scoreElment.innerHTML = this.hand.getPipTotal();
+    const pipTotal = this.hand.getPipTotal();
+    this.pipTotalElement.innerHTML = pipTotal;
 
+    // If applicable, display the score
+    if(pipTotal > 0 && this.pipTotalElement.className === 'pip-total')
+    {
+      this.pipTotalElement.className += ' active';
+    }
   }
 
 };

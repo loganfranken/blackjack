@@ -121,11 +121,12 @@ h2
   position: relative;
 }
 
-.score
+.pip-total
 {
   background: #1356C1;
   border-radius: 1em;
   color: #FFF;
+  display: none;
   font-weight: bold;
   height: 1.5em;
   padding-top: 0.5em;
@@ -134,6 +135,11 @@ h2
   top: 0;
   right: 0;
   width: 2em;
+}
+
+.pip-total.active
+{
+  display: block;
 }
 
 /* =DEALER
