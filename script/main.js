@@ -42,6 +42,8 @@ async function startRound()
   // Loop: Round
   while(true)
   {
+    let card = null;
+
     playerHand = new Hand();
     playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
     playerHandDisplay.refreshHand();
@@ -54,18 +56,21 @@ async function startRound()
 
     // First Card: Player, face-up
     await chipRoundFirstCard(roundCount);
-    dealPlayerCard();
+    card = dealPlayerCard();
     refreshPlayerHandDisplay();
+    await chipReactToPlayerCard(card);
 
     // Second Card: Dealer, face-up
     await chipRoundSecondCard(roundCount);
-    dealDealerFaceUpCard();
+    card = dealDealerFaceUpCard();
     refreshDealerHandDisplay();
+    await chipReactToDealerCard(card);
 
     // Third Card: Player, face-up
     await chipRoundThirdCard(roundCount);
-    dealPlayerCard();
+    card = dealPlayerCard();
     refreshPlayerHandDisplay();
+    await chipReactToPlayerCard(card);
 
     // Fourth Card: Dealer, face-down
     await chipRoundFourthCard(roundCount);
@@ -90,8 +95,9 @@ async function startRound()
       if(playerMove === PlayerMove.Hit)
       {
         await chip("Alright, here's your card.");
-        dealPlayerCard();
+        card = dealPlayerCard();
         refreshPlayerHandDisplay();
+        await chipReactToPlayerCard(card);
       }
 
       if(playerMove === PlayerMove.Stand)
@@ -100,8 +106,9 @@ async function startRound()
         while(true)
         {
           await chip("Alright, another card for me.");
-          revealDealerHoleCardOrDeal();
+          card = revealDealerHoleCardOrDeal();
           refreshDealerHandDisplay();
+          await chipReactToDealerCard(card);
 
           if(scoreHands().isRoundOver)
           {
@@ -133,32 +140,45 @@ async function chip(message, skipConfirm)
 }
 
 const dealPlayerCard = () => {
-  playerHand.takeCard(deck.dealFaceUpCard());
+  let card = deck.dealFaceUpCard();
+  playerHand.takeCard(card);
+  return card;
 };
 
 const dealDealerFaceUpCard = () => {
-  dealerHand.takeCard(deck.dealFaceUpCard());
+  let card = deck.dealFaceUpCard();
+  dealerHand.takeCard(card);
+  return card;
 };
 
 const dealDealerHoleCard = () => {
-  dealerHand.takeCard(deck.dealFaceDownCard());
+  let card = deck.dealFaceDownCard();
+  dealerHand.takeCard(card);
+  return card;
 };
 
 const revealDealerHoleCardOrDeal = () => {
+
+  let card;
+
   if(!dealerHand.cards[1].isFaceUp)
   {
     // First, reveal the dealer's hole card
-    revealDealerHoleCard();
+    card = revealDealerHoleCard();
   }
   else
   {
     // After revealing the hole card, draw a face-up card
-    dealDealerFaceUpCard();
+    card = dealDealerFaceUpCard();
   }
+
+  return card;
+
 };
 
 const revealDealerHoleCard = () => {
   dealerHand.cards[1].isFaceUp = true;
+  return dealerHand.cards[1];
 };
 
 const refreshPlayerHandDisplay = () => {
@@ -357,6 +377,16 @@ async function chipRoundFourthCard(roundCount)
   }
 }
 
+async function chipReactToPlayerCard(newCard)
+{
+  await chip(`You got a ${getRankDescription(newCard.rank)}.`);
+}
+
+async function chipReactToDealerCard(newCard)
+{
+  await chip(`I got a ${getRankDescription(newCard.rank)}.`);
+}
+
 async function chipRoundEnd(score)
 {
   let message = '';
@@ -423,5 +453,51 @@ const showPlayerControls = () => {
 const hidePlayerControls = () => {
   domElements.playerControls.className = '';
 };
+
+const getRankDescription = (rank) => {
+
+  switch(rank)
+  {
+    case 'A':
+      return 'ace';
+
+    case '2':
+      return 'two';
+
+    case '3':
+      return 'three';
+
+    case '4':
+      return 'four';
+
+    case '5':
+      return 'five';
+
+    case '6':
+      return 'six';
+
+    case '7':
+      return 'seven';
+
+    case '8':
+      return 'eight';
+
+    case '9':
+      return 'nine';
+
+    case '10':
+      return 'ten';
+
+    case 'J':
+      return 'jack';
+
+    case 'Q':
+      return 'queen';
+
+    case 'K':
+      return 'king';
+  }
+
+}
 
 startRound();
