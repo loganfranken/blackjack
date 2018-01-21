@@ -87,14 +87,17 @@ async function startRound()
     }
 
     // Loop: Player Choice
+    let choiceCount = -1;
     while(true)
     {
-      await chip("Do you want to hit or stand?", true);
-      let playerMove = await getPlayerMove();
+      choiceCount++;
+
+      let dialogInfo = await chipPlayerChoice(roundCount, choiceCount);
+      let playerMove = await getPlayerMove(dialogInfo.hitPlayerResponse, dialogInfo.standPlayerResponse);
 
       if(playerMove === PlayerMove.Hit)
       {
-        await chip("Alright, here's your card.");
+        await chip(dialogInfo.hitChipResponse);
         card = dealPlayerCard();
         refreshPlayerHandDisplay();
         await chipReactToPlayerCard(card);
@@ -105,7 +108,7 @@ async function startRound()
         // Loop: Stand
         while(true)
         {
-          await chip("Alright, another card for me.");
+          await chip(dialogInfo.standChipResponse);
           card = revealDealerHoleCardOrDeal();
           refreshDealerHandDisplay();
           await chipReactToDealerCard(card);
@@ -286,10 +289,13 @@ const scoreHands = () => {
 
 };
 
-const getPlayerMove = () => {
+const getPlayerMove = (hitPlayerResponse, standPlayerResponse) => {
 
   const hitButton = domElements.hitButton;
   const standButton = domElements.standButton;
+
+  hitButton.innerHTML = hitPlayerResponse;
+  standButton.innerHTML = standPlayerResponse;
 
   return new Promise((resolve, reject) => {
 
@@ -427,6 +433,30 @@ async function chipRoundEnd(score)
 
   await dealerDialogManager.outputMessage(message);
 };
+
+async function chipPlayerChoice(roundCount, choiceCount)
+{
+  if(roundCount === 1 && choiceCount === 0)
+  {
+    await chip("You know the drill: hit or stand? And, hey, how are you doing today?", true);
+    return {
+      hitPlayerResponse: "Great! Hit me!",
+      standPlayerResponse: "Terrible. I'll stand",
+      hitChipResponse: "That's great! Here's your card!",
+      standChipResponse: "Oh no, sorry to hear that."
+    };
+  }
+  else
+  {
+    await chip("Do you want to hit or stand?", true);
+    return {
+      hitPlayerResponse: "Hit",
+      standPlayerResponse: "Stand",
+      hitChipResponse: "Alright, here's your card.",
+      standChipResponse: "Alright, another card for me."
+    };
+  }
+}
 
 const updatePot = (scoreResult) => {
 
