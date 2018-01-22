@@ -385,12 +385,12 @@ async function chipRoundFourthCard(roundCount)
 
 async function chipReactToPlayerCard(newCard)
 {
-  await chip(`You got a ${getRankDescription(newCard.rank)}.`);
+  await chip(`You got ${getRankDescription(newCard.rank)}.`);
 }
 
 async function chipReactToDealerCard(newCard)
 {
-  await chip(`I got a ${getRankDescription(newCard.rank)}.`);
+  await chip(`I got ${getRankDescription(newCard.rank)}.`);
 }
 
 async function chipRoundEnd(score)
@@ -489,43 +489,43 @@ const getRankDescription = (rank) => {
   switch(rank)
   {
     case 'A':
-      return 'ace';
+      return 'an ace';
 
     case '2':
-      return 'two';
+      return 'a two';
 
     case '3':
-      return 'three';
+      return 'a three';
 
     case '4':
-      return 'four';
+      return 'a four';
 
     case '5':
-      return 'five';
+      return 'a five';
 
     case '6':
-      return 'six';
+      return 'a six';
 
     case '7':
-      return 'seven';
+      return 'a seven';
 
     case '8':
-      return 'eight';
+      return 'an eight';
 
     case '9':
-      return 'nine';
+      return 'a nine';
 
     case '10':
-      return 'ten';
+      return 'a ten';
 
     case 'J':
-      return 'jack';
+      return 'a jack';
 
     case 'Q':
-      return 'queen';
+      return 'a queen';
 
     case 'K':
-      return 'king';
+      return 'a king';
   }
 
 }
