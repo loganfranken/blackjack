@@ -328,6 +328,8 @@ async function chipRoundStart(roundCount)
   if(roundCount === 0)
   {
     await chip("Hiya! My name's *Chip*! Let's play some *Blackjack*! (Press *Enter*)");
+    await chip("It's easy: just try and get a *higher score* than me.");
+    await chip("But *don't go over 21*!");
   }
   else
   {
@@ -363,7 +365,7 @@ async function chipRoundThirdCard(roundCount)
 {
   if(roundCount === 0)
   {
-    await chip("And another for you!");
+    await chip("And now I'll deal you another card.");
   }
   else
   {
@@ -383,7 +385,7 @@ async function chipRoundFourthCard(roundCount)
   }
 }
 
-async function chipReactToPlayerCard(newCard)
+async function chipReactToPlayerCard(newCard, score, roundCount)
 {
   await chip(`You got ${getRankDescription(newCard.rank)}.`);
 }
