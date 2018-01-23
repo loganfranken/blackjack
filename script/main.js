@@ -450,7 +450,10 @@ async function chipPlayerChoice(roundCount, choiceCount)
   }
   else
   {
-    await chip("Do you want to hit or stand?", true);
+    await chip("Now you get to make a *choice*...");
+    await chip("You can *hit* and take another card.");
+    await chip("Or you can *stand* and I'll start dealing myself cards.");
+    await chip("Sooo, do you want to hit or stand?", true);
     return {
       hitPlayerResponse: "Hit",
       standPlayerResponse: "Stand",
