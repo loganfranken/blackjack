@@ -20,3 +20,27 @@ const halt = (timeout) => {
     setTimeout(() => { resolve(); }, timeout);
   });
 }
+
+const convertMessageToHtml = (message) => {
+
+  let isStrong = false;
+
+  let outputHtml = '';
+  for(let i=0; i<message.length; i++)
+  {
+    const currLetter = message[i];
+
+    if(currLetter === '*')
+    {
+      outputHtml += (!isStrong) ? '<strong>' : '</strong>';
+      isStrong = !isStrong;
+    }
+    else
+    {
+      outputHtml += currLetter;
+    }
+  }
+
+  return outputHtml;
+
+}

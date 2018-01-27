@@ -29,14 +29,14 @@ const DialogManager = class {
     {
       if(this.isSkipping)
       {
-        this.domElement.innerHTML = this.convertMessageToHtml(message);
+        this.domElement.innerHTML = convertMessageToHtml(message);
         this.isSkipping = false;
         this.isTalking = false;
         break;
       }
 
       const character = message[currIndex];
-      this.domElement.innerHTML = this.convertMessageToHtml(message.slice(0, currIndex + 1));
+      this.domElement.innerHTML = convertMessageToHtml(message.slice(0, currIndex + 1));
       currIndex++;
 
       let timeout = 30;
@@ -61,29 +61,6 @@ const DialogManager = class {
         this.onFinished = resolve;
       });
     }
-  }
-
-  convertMessageToHtml(message)
-  {
-    let isStrong = false;
-
-    let outputHtml = '';
-    for(let i=0; i<message.length; i++)
-    {
-      const currLetter = message[i];
-
-      if(currLetter === '*')
-      {
-        outputHtml += (!isStrong) ? '<strong>' : '</strong>';
-        isStrong = !isStrong;
-      }
-      else
-      {
-        outputHtml += currLetter;
-      }
-    }
-
-    return outputHtml;
   }
 
   advanceMessage()
