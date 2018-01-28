@@ -7,4 +7,14 @@ const Card = class {
     this.isFaceUp = isFaceUp;
   }
 
+  isFaceCard()
+  {
+    return (this.rank === 'J' || this.rank === 'Q' || this.rank === 'K');
+  }
+
+  isAce()
+  {
+    return (this.rank === 'A');
+  }
+
 };

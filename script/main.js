@@ -31,6 +31,9 @@ let bet = 10;
 
 let roundCount = 0;
 
+let hasExplainedFaceCard = false;
+let hasExplainedAceCard = false;
+
 // ==================
 // MAIN GAME LOGIC
 // ==================
@@ -388,11 +391,50 @@ async function chipRoundFourthCard(roundCount)
 async function chipReactToPlayerCard(newCard, score, roundCount)
 {
   await chip(`You got ${getRankDescription(newCard.rank)}.`);
+
+  if(newCard.isFaceCard())
+  {
+    await chipExplainFaceCard();
+  }
+
+  if(newCard.isAce())
+  {
+    await chipExplainAceCard();
+  }
 }
 
 async function chipReactToDealerCard(newCard)
 {
   await chip(`I got ${getRankDescription(newCard.rank)}.`);
+
+  if(newCard.isFaceCard())
+  {
+    await chipExplainFaceCard();
+  }
+
+  if(newCard.isAce())
+  {
+    await chipExplainAceCard();
+  }
+}
+
+async function chipExplainFaceCard()
+{
+  if(!hasExplainedFaceCard)
+  {
+    await chip(`Face cards are worth ten points.`);
+    hasExplainedFaceCard = true;
+  }
+}
+
+async function chipExplainAceCard()
+{
+  if(!hasExplainedAceCard)
+  {
+    await chip(`An ace is worth 11 unless it would push your score over 21.`);
+    await chip(`Then it's worth only one point.`)
+    hasExplainedAceCard = true;
+  }
 }
 
 async function chipRoundEnd(score)
