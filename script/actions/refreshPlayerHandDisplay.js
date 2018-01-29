@@ -1,0 +1,3 @@
+const refreshPlayerHandDisplay = () => {
+  playerHandDisplay.refreshHand();
+};
