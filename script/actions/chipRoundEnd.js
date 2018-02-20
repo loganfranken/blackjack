@@ -4,6 +4,28 @@ async function chipRoundEnd(score)
 
   switch(score.roundEndState)
   {
+    // Dealer Wins
+    case RoundEndState.DealerWins:
+        switch(score.roundEndCondition)
+        {
+          case RoundEndCondition
+        }
+      break;
+
+    // Player Wins
+    case RoundEndState.PlayerWins:
+      break;
+
+    // Tie
+    case RoundEndCondition.Tie:
+      break;
+  }
+
+  /*
+  let message = '';
+
+  switch(score.roundEndState)
+  {
     case RoundEndState.DealerWins:
       message += '*Dealer Wins!* ';
       break;
@@ -35,6 +57,7 @@ async function chipRoundEnd(score)
       message += 'Higher Score!';
       break;
   }
+  */
 
   await dealerDialogManager.outputMessage(message);
 };
