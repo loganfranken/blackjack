@@ -1,7 +1,8 @@
-async function chipRoundEnd(score)
+async function chipRoundEnd(score, roundCount)
 {
   let message = '';
 
+  // Explain end state
   switch(score.roundEndState)
   {
     // Dealer Wins
@@ -62,4 +63,27 @@ async function chipRoundEnd(score)
   }
 
   await dealerDialogManager.outputMessage(message);
+
+  // Explain pot
+  let potExplanation = '';
+
+  if(roundCount === 0)
+  {
+    switch(score.roundEndState)
+    {
+      case RoundEndState.DealerWins:
+        potExplanation = `Since I win, you lose 10 coins.`;
+        break;
+
+      case RoundEndState.PlayerWins:
+        potExplanation = `Since you win, you get 10 coins.`;
+        break;
+
+      case RoundEndState.Tie:
+        potExplanation = `Since we tied, on one gets any coins`;
+        break;
+    }
+
+    await dealerDialogManager.outputMessage(potExplanation);
+  }
 };

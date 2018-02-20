@@ -85,7 +85,7 @@ async function startRound()
     {
       updatePot(score);
       updatePotDisplay();
-      await chipRoundEnd(score);
+      await chipRoundEnd(score, roundCount);
       continue;
     }
 
