@@ -1,16 +1,6 @@
 async function chipPlayerChoice(roundCount, choiceCount)
 {
-  if(roundCount === 1 && choiceCount === 0)
-  {
-    await chip("You know the drill: hit or stand? And, hey, how are you doing today?", true);
-    return {
-      hitPlayerResponse: "Great! *Hit me!*",
-      standPlayerResponse: "Terrible. *I'll stand*",
-      hitChipResponse: "That's great! Here's your card!",
-      standChipResponse: "Oh no, sorry to hear that."
-    };
-  }
-  else
+  if(roundCount === 0 && choiceCount === 0)
   {
     await chip("Now you get to make a *choice*...");
     await chip("You can *hit* and take another card.");
@@ -20,7 +10,49 @@ async function chipPlayerChoice(roundCount, choiceCount)
       hitPlayerResponse: "*Hit*",
       standPlayerResponse: "*Stand*",
       hitChipResponse: "Alright, here's your card.",
-      standChipResponse: "Alright, another card for me."
+      standChipResponse: {
+        holeCard: "Alright, let's look at that hidden card.",
+        newCard: "Another for me."
+      }
+    };
+  }
+  else if(roundCount === 1 && choiceCount === 0)
+  {
+    await chip("You know the drill: hit or stand?", true);
+    return {
+      hitPlayerResponse: "*Hit*",
+      standPlayerResponse: "*Stand*",
+      hitChipResponse: "Alright, here's your card.",
+      standChipResponse: {
+        holeCard: "Alright, let's look at that hidden card.",
+        newCard: "Another for me."
+      }
+    };
+  }
+  else if(roundCount === 1 && choiceCount === 1)
+  {
+    await chip("Same choice again! Hit or stand?", true);
+    return {
+      hitPlayerResponse: "*Hit*",
+      standPlayerResponse: "*Stand*",
+      hitChipResponse: "Alright, here's your card.",
+      standChipResponse: {
+        holeCard: "Alright, let's look at that hidden card.",
+        newCard: "Another for me."
+      }
+    };
+  }
+  else
+  {
+    await chip("Hit or stand?", true);
+    return {
+      hitPlayerResponse: "*Hit*",
+      standPlayerResponse: "*Stand*",
+      hitChipResponse: "Alright, here's your card.",
+      standChipResponse: {
+        holeCard: "Alright, let's look at that hidden card.",
+        newCard: "Another for me."
+      }
     };
   }
 }

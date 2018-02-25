@@ -75,17 +75,20 @@ async function startRound()
     refreshPlayerHandDisplay();
     await chipReactToPlayerCard(card);
 
+    // We have to score after the third opening card since the player
+    // may win with a natural blackjack
+    if(await handleOpeningHandScoring())
+    {
+      continue;
+    }
+
     // Fourth Card: Dealer, face-down
     await chipRoundFourthCard(roundCount);
     dealDealerHoleCard();
     refreshDealerHandDisplay();
 
-    let score = scoreOpeningHands();
-    if(score.isRoundOver)
+    if(await handleOpeningHandScoring())
     {
-      updatePot(score);
-      updatePotDisplay();
-      await chipRoundEnd(score, roundCount);
       continue;
     }
 
@@ -111,10 +114,23 @@ async function startRound()
         // Loop: Stand
         while(true)
         {
-          await chip(dialogInfo.standChipResponse);
+          let isHoleCard = !dealerHand.cards[1].isFaceUp;
+
+          // Has the hole card been revealed?
+          if(isHoleCard)
+          {
+            // If not, explain that it's being revealed
+            await chip(dialogInfo.standChipResponse.holeCard);
+          }
+          else
+          {
+            // Otherwise, explain that a new card is being dealt
+            await chip(dialogInfo.standChipResponse.newCard);
+          }
+
           card = revealDealerHoleCardOrDeal();
           refreshDealerHandDisplay();
-          await chipReactToDealerCard(card);
+          await chipReactToDealerCard(card, isHoleCard);
 
           if(scoreHands().isRoundOver)
           {
@@ -126,14 +142,36 @@ async function startRound()
       let score = scoreHands();
       if(score.isRoundOver)
       {
+        await chipRoundEnd(score, roundCount);
         updatePot(score);
         updatePotDisplay();
-        await chipRoundEnd(score, roundCount);
         roundCount++;
         break;
       }
     }
   }
 };
+
+async function handleOpeningHandScoring()
+{
+  let score = scoreOpeningHands();
+
+  if(score.isRoundOver)
+  {
+    // Has the dealer been dealt two cards yet?
+    if(dealerHand.cards.length > 1)
+    {
+      // Reveal the hole card so the player can understand why the round ended
+      revealDealerHoleCardOrDeal();
+      refreshDealerHandDisplay();
+    }
+
+    updatePot(score);
+    updatePotDisplay();
+    await chipRoundEnd(score, roundCount);
+  }
+
+  return score.isRoundOver;
+}
 
 startRound();

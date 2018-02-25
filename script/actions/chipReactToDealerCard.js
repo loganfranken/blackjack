@@ -1,6 +1,13 @@
-async function chipReactToDealerCard(newCard)
+async function chipReactToDealerCard(newCard, isHoleCard)
 {
-  await chip(`I got ${getRankDescription(newCard.rank)}.`);
+  if(isHoleCard)
+  {
+    await chip(`I had ${getRankDescription(newCard.rank)}.`)
+  }
+  else
+  {
+    await chip(`I got ${getRankDescription(newCard.rank)}.`);
+  }
 
   if(newCard.isFaceCard())
   {
