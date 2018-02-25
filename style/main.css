@@ -156,7 +156,7 @@ h2
 
 #dealer-picture
 {
-  background: red;
+  background: red url('../images/chip.png') no-repeat;
   border-radius: 5em;
   height: 5em;
   width: 5em;
