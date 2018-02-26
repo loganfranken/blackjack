@@ -46,7 +46,7 @@ h2
   background-repeat: no-repeat;
   background-position: center center;
   border-radius: 5px;
-  box-shadow: -3px 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: -3px 0 4px rgba(0, 0, 0, 0.1);
   float: left;
   height: 9em;
   margin: 0;
@@ -157,6 +157,7 @@ h2
 #dealer-picture
 {
   background: red url('../images/chip.png') no-repeat;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5em;
   height: 5em;
   width: 5em;
@@ -236,15 +237,28 @@ h2
   top: 0.3em;
 }
 
+.player-pot-display::before, .player-pot-display::after
+{
+  border-radius: 0.7em;
+  content: '';
+  display: block;
+  left: -0.65em;
+  position: absolute;
+  top: 0.25em;
+}
+
 .player-pot-display::before
 {
-  content: '$';
-  color: gold;
-  display: block;
-  font-size: 0.6em;
-  height: 0.5em;
-  position: absolute;
-  top: 0.2em;
-  left: -0.6em;
-  width: 0.5em;
+  background: yellow;
+  border: 0.08em solid #FDCD01;
+  color: #FDCD01;
+  height: 0.4em;
+  width: 0.4em;
+}
+
+.player-pot-display::after
+{
+  background-image: linear-gradient(0deg, rgba(255, 198, 0, 0.7) 0%, transparent 100%);
+  height: 0.55em;
+  width: 0.55em;
 }

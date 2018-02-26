@@ -34,6 +34,10 @@ let roundCount = 0;
 let hasExplainedFaceCard = false;
 let hasExplainedAceCard = false;
 
+let state = {
+  hasExplainedPot: false
+};
+
 // ==================
 // MAIN GAME LOGIC
 // ==================
@@ -142,9 +146,7 @@ async function startRound()
       let score = scoreHands();
       if(score.isRoundOver)
       {
-        await chipRoundEnd(score, roundCount);
-        updatePot(score);
-        updatePotDisplay();
+        handleRoundEnd(score, roundCount, state);
         roundCount++;
         break;
       }
@@ -166,12 +168,19 @@ async function handleOpeningHandScoring()
       refreshDealerHandDisplay();
     }
 
-    updatePot(score);
-    updatePotDisplay();
-    await chipRoundEnd(score, roundCount);
+    handleRoundEnd(score, roundCount, state);
   }
 
   return score.isRoundOver;
+}
+
+async function handleRoundEnd(score, roundCount, state)
+{
+  await chipRoundEnd(score, roundCount);
+
+  updatePot(score);
+  updatePotDisplay();
+  chipExplainPot(score, state);
 }
 
 startRound();
