@@ -262,3 +262,8 @@ h2
   height: 0.55em;
   width: 0.55em;
 }
+
+.player-pot-display .leading-zero
+{
+  opacity: 0.1;
+}

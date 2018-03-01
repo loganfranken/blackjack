@@ -29,13 +29,12 @@ let dealerHandDisplay = null;
 let playerPot = 100;
 let bet = 10;
 
-let roundCount = 0;
-
 let hasExplainedFaceCard = false;
 let hasExplainedAceCard = false;
 
 let state = {
-  hasExplainedPot: false
+  hasExplainedPot: false,
+  roundCount: 0
 };
 
 // ==================
@@ -59,22 +58,22 @@ async function startRound()
     dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
     dealerHandDisplay.refreshHand();
 
-    await chipRoundStart(roundCount);
+    await chipRoundStart(state.roundCount);
 
     // First Card: Player, face-up
-    await chipRoundFirstCard(roundCount);
+    await chipRoundFirstCard(state.roundCount);
     card = dealPlayerCard();
     refreshPlayerHandDisplay();
     await chipReactToPlayerCard(card);
 
     // Second Card: Dealer, face-up
-    await chipRoundSecondCard(roundCount);
+    await chipRoundSecondCard(state.roundCount);
     card = dealDealerFaceUpCard();
     refreshDealerHandDisplay();
     await chipReactToDealerCard(card);
 
     // Third Card: Player, face-up
-    await chipRoundThirdCard(roundCount);
+    await chipRoundThirdCard(state.roundCount);
     card = dealPlayerCard();
     refreshPlayerHandDisplay();
     await chipReactToPlayerCard(card);
@@ -87,7 +86,7 @@ async function startRound()
     }
 
     // Fourth Card: Dealer, face-down
-    await chipRoundFourthCard(roundCount);
+    await chipRoundFourthCard(state.roundCount);
     dealDealerHoleCard();
     refreshDealerHandDisplay();
 
@@ -102,7 +101,7 @@ async function startRound()
     {
       choiceCount++;
 
-      let dialogInfo = await chipPlayerChoice(roundCount, choiceCount);
+      let dialogInfo = await chipPlayerChoice(state.roundCount, choiceCount);
       let playerMove = await getPlayerMove(dialogInfo.hitPlayerResponse, dialogInfo.standPlayerResponse);
 
       if(playerMove === PlayerMove.Hit)
@@ -146,8 +145,7 @@ async function startRound()
       let score = scoreHands();
       if(score.isRoundOver)
       {
-        handleRoundEnd(score, roundCount, state);
-        roundCount++;
+        await handleRoundEnd(score, state);
         break;
       }
     }
@@ -168,19 +166,21 @@ async function handleOpeningHandScoring()
       refreshDealerHandDisplay();
     }
 
-    handleRoundEnd(score, roundCount, state);
+    await handleRoundEnd(score, state);
   }
 
   return score.isRoundOver;
 }
 
-async function handleRoundEnd(score, roundCount, state)
+async function handleRoundEnd(score, state)
 {
-  await chipRoundEnd(score, roundCount);
+  await chipRoundEnd(score, state.roundCount);
 
   updatePot(score);
   updatePotDisplay();
-  chipExplainPot(score, state);
+  await chipExplainPot(score, state);
+
+  state.roundCount++;
 }
 
 startRound();
