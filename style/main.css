@@ -113,8 +113,22 @@ h2
 
 .card.facedown
 {
-  background-color: blue;
+  background-color: #0B56D0;
   background-image: none;
+}
+
+.card.facedown::before
+{
+  /* Source: http://lea.verou.me/css3patterns/#chocolate-weave */
+  background-image: url('../images/card_back.png');
+  background-repeat: repeat;
+  border: 2px solid #b6cdf1;
+  border-radius: 5px;
+  content: '';
+  display: block;
+  height: 83%;
+  margin: 8%;
+  width: 70%;
 }
 
 .hand
