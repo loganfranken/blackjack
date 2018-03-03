@@ -141,8 +141,9 @@ h2
 
 .pip-total
 {
-  background: #1356C1;
-  border-radius: 1em;
+  background: #0B56D0;
+  border: 2px solid #DDD;
+  border-radius: 2em;
   color: #FFF;
   display: none;
   font-weight: bold;
@@ -158,6 +159,11 @@ h2
 .pip-total.active
 {
   display: block;
+}
+
+#dealer-hand .pip-total
+{
+  background: red;
 }
 
 /* =DEALER
