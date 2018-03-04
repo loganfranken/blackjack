@@ -3,23 +3,22 @@
 
 html, body
 {
+  background: #047740 url('../images/felt.png') repeat;
   font-family: Arial, sans-serif;
-  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-body
+#table
 {
-  background: #047740 url('../images/felt.png') repeat;
+  margin: 0 auto;
+  max-width: 25em;
+  padding: 5%;
+  position: relative;
 }
 
-#wrapper
+#header
 {
-  height: 90%;
-  margin: 0 auto;
-  max-width: 50em;
-  padding: 5%;
   position: relative;
 }
 
@@ -27,6 +26,24 @@ h2
 {
   left: -1000em;
   position: absolute;
+}
+
+@media (min-width: 31.25em)
+{
+  html, body
+  {
+    background: #040404;
+  }
+
+  #table
+  {
+    background: #047740 url('../images/felt.png') repeat;
+    border: 10px solid #65351C;
+    border-radius: 0.5em;
+    box-shadow: inset 0 0 10px #044626;
+    margin-top: 2em;
+    padding: 3em;
+  }
 }
 
 /* =CARD
@@ -213,7 +230,8 @@ h2
 #player-controls
 {
   clear: both;
-  display: none;
+  height: 3em;
+  overflow: auto;
 }
 
 .player-control
@@ -222,6 +240,7 @@ h2
   border-radius: 0.5em;
   border: 0;
   cursor: pointer;
+  display: none;
   font-size: 1em;
   height: 3em;
   padding: 0.5em;
@@ -238,7 +257,7 @@ h2
   float: right;
 }
 
-#player-controls.active
+#player-controls.active .player-control
 {
   display: block;
 }
@@ -253,8 +272,8 @@ h2
   font-size: 3em;
   font-weight: bold;
   position: absolute;
-  right: 0.3em;
-  top: 0.3em;
+  right: 0;
+  top: 0;
 }
 
 .player-pot-display::before, .player-pot-display::after
