@@ -86,9 +86,9 @@ async function startRound()
     }
 
     // Fourth Card: Dealer, face-down
-    await chipRoundFourthCard(state.roundCount);
     dealDealerHoleCard();
     refreshDealerHandDisplay();
+    await chipRoundFourthCard(state.roundCount);
 
     if(await handleOpeningHandScoring())
     {
