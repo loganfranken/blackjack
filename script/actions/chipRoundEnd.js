@@ -80,7 +80,7 @@ async function chipRoundEnd(score, roundCount)
         break;
 
       case RoundEndState.Tie:
-        potExplanation = `Since we tied, on one gets any coins`;
+        potExplanation = `Since we tied, no one gets any coins`;
         break;
     }
 

@@ -34,7 +34,8 @@ let hasExplainedAceCard = false;
 
 let state = {
   hasExplainedPot: false,
-  roundCount: 0
+  roundCount: 0,
+  dialogLevel: 0
 };
 
 // ==================
@@ -101,7 +102,7 @@ async function startRound()
     {
       choiceCount++;
 
-      let dialogInfo = await chipPlayerChoice(state.roundCount, choiceCount);
+      let dialogInfo = await chipPlayerChoice(state.roundCount, choiceCount, state);
       let playerMove = await getPlayerMove(dialogInfo.hitPlayerResponse, dialogInfo.standPlayerResponse);
 
       if(playerMove === PlayerMove.Hit)
