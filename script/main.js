@@ -35,7 +35,11 @@ let hasExplainedAceCard = false;
 let state = {
   hasExplainedPot: false,
   roundCount: 0,
-  dialogLevel: 0
+  dialogLevel: 0,
+  hasReactedToPlayerCard: false,
+  hasReactedToHoleCard: false,
+  hasExplainedFaceCard: false,
+  hasExplainedAceCard: false
 };
 
 // ==================
@@ -62,22 +66,22 @@ async function startRound()
     await chipRoundStart(state.roundCount);
 
     // First Card: Player, face-up
-    await chipRoundFirstCard(state.roundCount);
     card = dealPlayerCard();
     refreshPlayerHandDisplay();
-    await chipReactToPlayerCard(card);
+    await chipRoundFirstCard(state.roundCount);
+    await chipReactToPlayerCard(card, state);
 
     // Second Card: Dealer, face-up
-    await chipRoundSecondCard(state.roundCount);
     card = dealDealerFaceUpCard();
     refreshDealerHandDisplay();
-    await chipReactToDealerCard(card);
+    await chipRoundSecondCard(state.roundCount);
+    await chipReactToDealerCard(card, false, state);
 
     // Third Card: Player, face-up
-    await chipRoundThirdCard(state.roundCount);
     card = dealPlayerCard();
     refreshPlayerHandDisplay();
-    await chipReactToPlayerCard(card);
+    await chipRoundThirdCard(state.roundCount);
+    await chipReactToPlayerCard(card, state);
 
     // We have to score after the third opening card since the player
     // may win with a natural blackjack
@@ -110,7 +114,7 @@ async function startRound()
         await chip(dialogInfo.hitChipResponse);
         card = dealPlayerCard();
         refreshPlayerHandDisplay();
-        await chipReactToPlayerCard(card);
+        await chipReactToPlayerCard(card, state);
       }
 
       if(playerMove === PlayerMove.Stand)
@@ -134,7 +138,7 @@ async function startRound()
 
           card = revealDealerHoleCardOrDeal();
           refreshDealerHandDisplay();
-          await chipReactToDealerCard(card, isHoleCard);
+          await chipReactToDealerCard(card, isHoleCard, state);
 
           if(scoreHands().isRoundOver)
           {

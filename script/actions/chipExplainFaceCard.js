@@ -1,8 +1,8 @@
-async function chipExplainFaceCard()
+async function chipExplainFaceCard(state)
 {
-  if(!hasExplainedFaceCard)
+  if(!state.hasExplainedFaceCard)
   {
     await chip(`Face cards are worth ten points.`);
-    hasExplainedFaceCard = true;
+    state.hasExplainedFaceCard = true;
   }
 }

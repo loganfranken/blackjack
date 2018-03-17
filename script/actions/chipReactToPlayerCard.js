@@ -1,14 +1,18 @@
-async function chipReactToPlayerCard(newCard, score, roundCount)
+async function chipReactToPlayerCard(newCard, state)
 {
-  await chip(`You got ${getRankDescription(newCard.rank)}.`);
+  if(!state.hasReactedToPlayerCard)
+  {
+    await chip(`You got ${getRankDescription(newCard.rank)}.`);
+    state.hasReactedToPlayerCard = true;
+  }
 
   if(newCard.isFaceCard())
   {
-    await chipExplainFaceCard();
+    await chipExplainFaceCard(state);
   }
 
   if(newCard.isAce())
   {
-    await chipExplainAceCard();
+    await chipExplainAceCard(state);
   }
 }

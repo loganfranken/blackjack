@@ -1,9 +1,9 @@
-async function chipExplainAceCard()
+async function chipExplainAceCard(state)
 {
-  if(!hasExplainedAceCard)
+  if(!state.hasExplainedAceCard)
   {
     await chip(`An ace is worth 11 unless it would push your score over 21.`);
     await chip(`Then it's worth only one point.`)
-    hasExplainedAceCard = true;
+    state.hasExplainedAceCard = true;
   }
 }

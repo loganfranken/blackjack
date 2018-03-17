@@ -56,6 +56,18 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
           newCard: "Oh. Yeah. Well, the cool weather is better for my plastic."
         }
       };
+
+    case 8:
+      await chip("What are you going to do with your winnings?", true);
+      return {
+        hitPlayerResponse: "Put them right in the bank. *Hit*",
+        standPlayerResponse: "Blow them on something fun. *Stand*",
+        hitChipResponse: "Wow, so practical!",
+        standChipResponse: {
+          holeCard: "Well, you only live once.",
+          newCard: "Well, you only live once."
+        }
+      };
   }
 
   // Default choice
