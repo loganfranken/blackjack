@@ -18,12 +18,18 @@ const HandDisplay = class {
     }
 
     // Update the cards
-    this.hand.cards.forEach((card) => {
+    let lastCardIndex = (this.hand.cards.length - 1);
+    this.hand.cards.forEach((card, index) => {
 
       const newCardElem = document.createElement('li');
       const isFaceUp = card.isFaceUp;
 
-      newCardElem.setAttribute('class', `card ${isFaceUp ? card.suit.toLowerCase() : 'facedown'}`);
+      newCardElem.classList = `card ${isFaceUp ? card.suit.toLowerCase() : 'facedown'}`;
+
+      if(index === lastCardIndex)
+      {
+        newCardElem.classList += ' new';
+      }
 
       if(isFaceUp)
       {

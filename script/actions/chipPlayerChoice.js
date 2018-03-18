@@ -68,6 +68,18 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
           newCard: "Well, you only live once."
         }
       };
+
+    case 9:
+      await chip("Are you feeling lucky today?", true);
+      return {
+        hitPlayerResponse: "Oh yeah! *Hit*",
+        standPlayerResponse: "No way. *Stand*",
+        hitChipResponse: "That's the spirit!",
+        standChipResponse: {
+          holeCard: "Not with that attitude!",
+          newCard: "Not with that attitude!"
+        }
+      };
   }
 
   // Default choice

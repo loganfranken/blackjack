@@ -49,6 +49,18 @@ h2
 /* =CARD
 ------------------------------------------------------- */
 
+@keyframes show-card
+{
+  0%   { margin-left: -4em; opacity: 0; }
+  100% { margin-left: -5em; opacity: 1; }
+}
+
+@keyframes show-card-first
+{
+  0%   { margin-left: 1em; opacity: 0; }
+  100% { margin-left: 0; opacity: 1; }
+}
+
 .cards
 {
   list-style: none;
@@ -70,6 +82,8 @@ h2
   margin-left: -5em;
   position: relative;
   text-indent: -9999em;
+  transition-property: margin-left, opacity;
+  transition-duration: 2s;
   width: 6.5em;
 }
 
@@ -77,6 +91,16 @@ h2
 {
   box-shadow: none;
   margin-left: 0;
+}
+
+.card.new
+{
+  animation: show-card 0.2s 1;
+}
+
+.card:first-child.new
+{
+  animation: show-card-first 0.2s 1;
 }
 
 .card::before, .card::after
