@@ -80,6 +80,18 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
           newCard: "Not with that attitude!"
         }
       };
+
+     case 10:
+        await chip("Do you think it's usually better to hit or stand?", true);
+        return {
+          hitPlayerResponse: "Better to stand. *Hit*",
+          standPlayerResponse: "Always hit! *Stand*",
+          hitChipResponse: "Better safe than sorry, right?",
+          standChipResponse: {
+            holeCard: "Got to take the risk!",
+            newCard: "Got to take the risk!"
+          }
+        };
   }
 
   // Default choice
