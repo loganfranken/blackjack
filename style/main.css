@@ -82,8 +82,6 @@ h2
   margin-left: -5em;
   position: relative;
   text-indent: -9999em;
-  transition-property: margin-left, opacity;
-  transition-duration: 2s;
   width: 6.5em;
 }
 
@@ -160,7 +158,6 @@ h2
 
 .card.facedown::before
 {
-  /* Source: http://lea.verou.me/css3patterns/#chocolate-weave */
   background-image: url('../images/card_back.png');
   background-repeat: repeat;
   border: 2px solid #b6cdf1;
@@ -289,6 +286,34 @@ h2
 /* =PLAYER-SCORE
 ------------------------------------------------------- */
 
+@keyframes bounce-coin-down
+{
+  0%   { top: 0.25em; }
+  50% { top: 0.35em; }
+  100% { top: 0.25em; }
+}
+
+@keyframes bounce-coin-up
+{
+  0%   { top: 0.25em; }
+  50% { top: 0.15em; }
+  100% { top: 0.25em; }
+}
+
+@keyframes flash-text-decrease
+{
+  0%   { color: #FFF; }
+  50% { color: red; }
+  100% { color: #FFF; }
+}
+
+@keyframes flash-text-increase
+{
+  0%   { color: #FFF; }
+  50% { color: yellow; }
+  100% { color: #FFF; }
+}
+
 .player-pot-display
 {
   color: #FFF;
@@ -308,6 +333,26 @@ h2
   left: -0.65em;
   position: absolute;
   top: 0.25em;
+}
+
+.player-pot-display.increase::before, .player-pot-display.increase::after
+{
+  animation: bounce-coin-up 0.4s 1;
+}
+
+.player-pot-display.increase #player-pot
+{
+  animation: flash-text-increase 1s 1;
+}
+
+.player-pot-display.decrease::before, .player-pot-display.decrease::after
+{
+  animation: bounce-coin-down 0.4s 1;
+}
+
+.player-pot-display.decrease #player-pot
+{
+  animation: flash-text-decrease 1s 1;
 }
 
 .player-pot-display::before

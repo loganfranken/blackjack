@@ -1,13 +1,15 @@
-const updatePot = (scoreResult) => {
+const updatePot = (scoreResult, state) => {
+
+  state.previousPlayerPot = (state.playerPot);
 
   if(scoreResult.roundEndState === RoundEndState.DealerWins)
   {
-    playerPot -= bet;
+    state.playerPot -= state.bet;
   }
 
   if(scoreResult.roundEndState === RoundEndState.PlayerWins)
   {
-    playerPot += bet;
+    state.playerPot += state.bet;
   }
 
 };

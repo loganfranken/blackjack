@@ -26,20 +26,25 @@ let playerHandDisplay = null;
 let dealerHand = null;
 let dealerHandDisplay = null;
 
-let playerPot = 100;
-let bet = 10;
-
 let hasExplainedFaceCard = false;
 let hasExplainedAceCard = false;
 
 let state = {
-  hasExplainedPot: false,
+
   roundCount: 0,
+
   dialogLevel: 0,
+  hasExplainedPot: false,
   hasReactedToPlayerCard: false,
   hasReactedToHoleCard: false,
   hasExplainedFaceCard: false,
-  hasExplainedAceCard: false
+  hasExplainedAceCard: false,
+
+  domElements: domElements,
+
+  playerPot: 100,
+  bet: 10
+
 };
 
 // ==================
@@ -48,7 +53,7 @@ let state = {
 
 async function startRound()
 {
-  updatePotDisplay();
+  updatePotDisplay(state);
 
   // Loop: Round
   while(true)
@@ -181,8 +186,8 @@ async function handleRoundEnd(score, state)
 {
   await chipRoundEnd(score, state.roundCount);
 
-  updatePot(score);
-  updatePotDisplay();
+  updatePot(score, state);
+  updatePotDisplay(state);
   await chipExplainPot(score, state);
 
   state.roundCount++;
