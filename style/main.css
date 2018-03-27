@@ -179,29 +179,32 @@ h2
 
 .pip-total
 {
-  background: #0B56D0;
-  border: 2px solid #DDD;
+  background-color: #FFF;
+  border: 2px solid #FFF;
   border-radius: 2em;
   color: #FFF;
-  display: none;
   font-weight: bold;
   height: 1.5em;
+  opacity: 0;
   padding-top: 0.5em;
   position: absolute;
   text-align: center;
   top: 0;
+  transition: background-color 0.5s, border-color 0.5s;
   right: 0;
   width: 2em;
 }
 
 .pip-total.active
 {
-  display: block;
+  background-color: #0B56D0;
+  border: 2px solid #DDD;
+  opacity: 1;
 }
 
-#dealer-hand .pip-total
+#dealer-hand .pip-total.active
 {
-  background: red;
+  background-color: red;
 }
 
 /* =DEALER
