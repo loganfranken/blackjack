@@ -27,10 +27,7 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
         hitPlayerResponse: "Pretty good! *Hit*",
         standPlayerResponse: "Not so great. *Stand*",
         hitChipResponse: "That's great!",
-        standChipResponse: {
-          holeCard: "Oh no, sorry to hear that.",
-          newCard: "Oh no, sorry to hear that."
-        }
+        standChipResponse: "Oh no, sorry to hear that."
       };
 
     case 6:
@@ -39,10 +36,7 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
         hitPlayerResponse: "Oh yeah, I'm an expert. *Hit*",
         standPlayerResponse: "Nah, just getting started. *Stand*",
         hitChipResponse: "Dang, I knew it!",
-        standChipResponse: {
-          holeCard: "Oh, great! Welcome to the game!",
-          newCard: "Oh, great! Welcome to the game!"
-        }
+        standChipResponse: "Oh, great! Welcome to the game!"
       };
 
     case 7:
@@ -51,10 +45,7 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
         hitPlayerResponse: "Oh yeah, I've been loving the sun. *Hit*",
         standPlayerResponse: "You think so? It's so dreary and overcast. *Stand*",
         hitChipResponse: "I just love a little sun on my plastic!",
-        standChipResponse: {
-          holeCard: "Oh. Yeah. Well, the cool weather is better for my plastic.",
-          newCard: "Oh. Yeah. Well, the cool weather is better for my plastic."
-        }
+        standChipResponse: "Oh. Yeah. Well, the cool weather is better for my plastic."
       };
 
     case 8:
@@ -63,10 +54,7 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
         hitPlayerResponse: "Put them right in the bank. *Hit*",
         standPlayerResponse: "Blow them on something fun. *Stand*",
         hitChipResponse: "Wow, so practical!",
-        standChipResponse: {
-          holeCard: "Well, you only live once.",
-          newCard: "Well, you only live once."
-        }
+        standChipResponse: "Well, you only live once."
       };
 
     case 9:
@@ -75,10 +63,7 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
         hitPlayerResponse: "Oh yeah! *Hit*",
         standPlayerResponse: "No way. *Stand*",
         hitChipResponse: "That's the spirit!",
-        standChipResponse: {
-          holeCard: "Not with that attitude!",
-          newCard: "Not with that attitude!"
-        }
+        standChipResponse: "Not with that attitude!"
       };
 
      case 10:
@@ -87,10 +72,7 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
           hitPlayerResponse: "Better to stand. *Hit*",
           standPlayerResponse: "Always hit! *Stand*",
           hitChipResponse: "Better safe than sorry, right?",
-          standChipResponse: {
-            holeCard: "Got to take the risk!",
-            newCard: "Got to take the risk!"
-          }
+          standChipResponse: "Got to take the risk!"
         };
   }
 

@@ -129,16 +129,25 @@ async function startRound()
         {
           let isHoleCard = !dealerHand.cards[1].isFaceUp;
 
-          // Has the hole card been revealed?
-          if(isHoleCard)
+          // Are there different responses based on hole card vs new card?
+          if(typeof dialogInfo.standChipResponse === "object")
           {
-            // If not, explain that it's being revealed
-            await chip(dialogInfo.standChipResponse.holeCard);
+            // Has the hole card been revealed?
+            if(isHoleCard)
+            {
+              // If not, explain that it's being revealed
+              await chip(dialogInfo.standChipResponse.holeCard);
+            }
+            else
+            {
+              // Otherwise, explain that a new card is being dealt
+              await chip(dialogInfo.standChipResponse.newCard);
+            }
           }
           else
           {
-            // Otherwise, explain that a new card is being dealt
-            await chip(dialogInfo.standChipResponse.newCard);
+            // There's no difference between the hole card and new card responses
+            await chip(dialogInfo.standChipResponse);
           }
 
           card = revealDealerHoleCardOrDeal();
