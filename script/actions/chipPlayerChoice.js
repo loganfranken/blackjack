@@ -74,6 +74,15 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
           hitChipResponse: "Better safe than sorry, right?",
           standChipResponse: "Got to take the risk!"
         };
+
+     case 11:
+        await chip("Do you believe in fate?", true);
+        return {
+          hitPlayerResponse: "Yes, I think we are all on a predetermined path. *Hit*",
+          standPlayerResponse: "No, our actions determine our path in life. *Stand*",
+          hitChipResponse: "Wow, I wonder what's in store for the both of us.",
+          standChipResponse: "How exciting!"
+        };
   }
 
   // Default choice
