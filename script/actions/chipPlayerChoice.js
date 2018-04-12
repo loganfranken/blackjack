@@ -23,66 +23,52 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
 
     case 4:
       await chip("How are you doing today?", true);
-      return {
-        hitPlayerResponse: "Pretty good! *Hit*",
-        standPlayerResponse: "Not so great. *Stand*",
-        hitChipResponse: "That's great!",
-        standChipResponse: "Oh no, sorry to hear that."
-      };
+      return getPlayerChoice(
+        "Pretty good!", "Not so great.",
+        "That's great!", "Oh no, sorry to hear that."
+      );
 
     case 6:
       await chip("Have you been playing blackjack long?", true);
-      return {
-        hitPlayerResponse: "Oh yeah, I'm an expert. *Hit*",
-        standPlayerResponse: "Nah, just getting started. *Stand*",
-        hitChipResponse: "Dang, I knew it!",
-        standChipResponse: "Oh, great! Welcome to the game!"
-      };
+      return getPlayerChoice(
+        "Oh yeah, I'm an expert.", "Nah, just getting started.",
+        "Dang, I knew it!", "Oh, great! Welcome to the game!"
+      );
 
     case 7:
       await chip("Nice weather this afternoon, right?", true);
-      return {
-        hitPlayerResponse: "Oh yeah, I've been loving the sun. *Hit*",
-        standPlayerResponse: "You think so? It's so dreary and overcast. *Stand*",
-        hitChipResponse: "I just love a little sun on my plastic!",
-        standChipResponse: "Oh. Yeah. Well, the cool weather is better for my plastic."
-      };
+      return getPlayerChoice(
+        "Oh yeah, I've been loving the sun.", "You think so? It's so dreary and overcast.",
+        "I just love a little sun on my plastic!", "Oh. Yeah. Well, the cool weather is better for my plastic."
+      );
 
     case 8:
       await chip("What are you going to do with your winnings?", true);
-      return {
-        hitPlayerResponse: "Put them right in the bank. *Hit*",
-        standPlayerResponse: "Blow them on something fun. *Stand*",
-        hitChipResponse: "Wow, so practical!",
-        standChipResponse: "Well, you only live once."
-      };
+      return getPlayerChoice(
+        "Put them right in the bank.", "Blow them on something fun.",
+        "Wow, so practical!", "Well, you only live once."
+      );
 
     case 9:
       await chip("Are you feeling lucky today?", true);
-      return {
-        hitPlayerResponse: "Oh yeah! *Hit*",
-        standPlayerResponse: "No way. *Stand*",
-        hitChipResponse: "That's the spirit!",
-        standChipResponse: "Not with that attitude!"
-      };
+      return getPlayerChoice(
+        "Oh yeah!", "No way.",
+        "That's the spirit!", "Not with that attitude!"
+      );
 
      case 10:
         await chip("Do you think it's usually better to hit or stand?", true);
-        return {
-          hitPlayerResponse: "Better to stand. *Hit*",
-          standPlayerResponse: "Always hit! *Stand*",
-          hitChipResponse: "Better safe than sorry, right?",
-          standChipResponse: "Got to take the risk!"
-        };
+        return getPlayerChoice(
+          "Better to stand.", "Always hit!",
+          "Better safe than sorry, right?", "Got to take the risk!"
+        );
 
      case 11:
         await chip("Do you believe in fate?", true);
-        return {
-          hitPlayerResponse: "Yes, I think we are all on a predetermined path. *Hit*",
-          standPlayerResponse: "No, our actions determine our path in life. *Stand*",
-          hitChipResponse: "Wow, I wonder what's in store for the both of us.",
-          standChipResponse: "How exciting!"
-        };
+        return getPlayerChoice(
+          "Yes, I think we are all on a predetermined path.", "No, our actions determine our path in life.",
+          "Wow, I wonder what's in store for the both of us.", "How exciting!"
+        );
   }
 
   // Default choice
@@ -100,5 +86,27 @@ function getStandardPlayerChoice()
       holeCard: "Alright, let's look at that hidden card.",
       newCard: "Another for me."
     }
+  };
+}
+
+function getPlayerChoice(firstStatement, secondStatement, firstResponse, secondResponse)
+{
+  let rand = Math.round(Math.random());
+
+  if(rand)
+  {
+    return {
+      hitPlayerResponse: `${firstStatement} *Hit*`,
+      standPlayerResponse: `${secondStatement} *Stand*`,
+      hitChipResponse: `${firstResponse}`,
+      standChipResponse: `${secondResponse}`
+    };
+  }
+
+  return {
+    hitPlayerResponse: `${secondStatement} *Hit*`,
+    standPlayerResponse: `${firstStatement} *Stand*`,
+    hitChipResponse: `${secondResponse}`,
+    standChipResponse: `${firstResponse}`
   };
 }
