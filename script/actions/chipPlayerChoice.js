@@ -69,6 +69,13 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
           "Yes, I think we are all on a predetermined path.", "No, our actions determine our path in life.",
           "Wow, I wonder what's in store for the both of us.", "How exciting!"
         );
+
+    case 12:
+       await chip("Do you think you'll win this round?", true);
+       return getPlayerChoice(
+         "Yes, I'm sure of it.", "No, probably not.",
+         "How confident!", "You gotta have hope!"
+       );
   }
 
   // Default choice
