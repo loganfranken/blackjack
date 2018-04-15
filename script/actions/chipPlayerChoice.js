@@ -30,7 +30,7 @@ function getStandardPlayerChoice()
   };
 }
 
-function getPlayerChoice(firstStatement, secondStatement, firstResponse, secondResponse)
+function getPlayerChoice(firstStatement, firstResponse, firstAction, secondStatement, secondResponse, secondAction)
 {
   let rand = Math.round(Math.random());
 
@@ -40,7 +40,9 @@ function getPlayerChoice(firstStatement, secondStatement, firstResponse, secondR
       hitPlayerResponse: `${firstStatement} *Hit*`,
       standPlayerResponse: `${secondStatement} *Stand*`,
       hitChipResponse: `${firstResponse}`,
-      standChipResponse: `${secondResponse}`
+      standChipResponse: `${secondResponse}`,
+      hitAction: firstAction,
+      standAction: secondAction
     };
   }
 
@@ -48,7 +50,9 @@ function getPlayerChoice(firstStatement, secondStatement, firstResponse, secondR
     hitPlayerResponse: `${secondStatement} *Hit*`,
     standPlayerResponse: `${firstStatement} *Stand*`,
     hitChipResponse: `${secondResponse}`,
-    standChipResponse: `${firstResponse}`
+    standChipResponse: `${firstResponse}`,
+    hitAction: firstAction,
+    standAction: secondAction
   };
 }
 
@@ -94,10 +98,32 @@ const dialogChoices = [
       action: async () => {
         await chip("How are you doing today?", true);
         return getPlayerChoice(
-          "Pretty good!", "Not so great.",
-          "That's great!", "Oh no, sorry to hear that."
+          "Pretty good!", "That's great!", (state) => { state.dialogKeys['good-day'] = true; },
+          "Not so great.", "Oh no, sorry to hear that.", (state) => { state.dialogKeys['bad-day'] = true; }
         );
       }
+  },
+
+  {
+    filter: (state) => (state.dialogKeys['good-day']),
+    action: async () => {
+      await chip("Any reason you're in such a good mood?", true);
+      return getPlayerChoice(
+        "Yes, it's a big day for me!", "Oh, wow!", null,
+        "Nope, just feeling good!", "How nice!", null
+      );
+    }
+  },
+
+  {
+    filter: (state) => (state.dialogKeys['bad-day']),
+    action: async () => {
+      await chip("What's bringing you down today?", true);
+      return getPlayerChoice(
+        "I just woke up feeling terrible.", "Ouch, hopefully you'll feel better.", null,
+        "I don't really want to talk about it.", "Oh. I totally understand. Sorry.", null
+      );
+    }
   },
 
   {
@@ -105,8 +131,8 @@ const dialogChoices = [
     action: async () => {
       await chip("Have you been playing blackjack long?", true);
       return getPlayerChoice(
-        "Oh yeah, I'm an expert.", "Nah, just getting started.",
-        "Dang, I knew it!", "Oh, great! Welcome to the game!"
+        "Oh yeah, I'm an expert.", "Dang, I knew it!", null,
+        "Nah, just getting started.", "Oh, great! Welcome to the game!", null
       );
     }
   },
@@ -116,8 +142,8 @@ const dialogChoices = [
     action: async () => {
       await chip("Nice weather this afternoon, right?", true);
       return getPlayerChoice(
-        "Oh yeah, I've been loving the sun.", "You think so? It's so dreary and overcast.",
-        "I just love a little sun on my plastic!", "Oh. Yeah. Well, the cool weather is better for my plastic."
+        "Oh yeah, I've been loving the sun.", "I just love a little sun on my plastic!", null,
+        "You think so? It's so dreary and overcast.", "Oh. Yeah. Well, the cool weather is better for my plastic.", null
       );
     }
   },
@@ -127,8 +153,8 @@ const dialogChoices = [
     action: async () => {
       await chip("What are you going to do with your winnings?", true);
       return getPlayerChoice(
-        "Put them right in the bank.", "Blow them on something fun.",
-        "Wow, so practical!", "Well, you only live once."
+        "Put them right in the bank.", "Wow, so practical!", null,
+        "Blow them on something fun.", "Well, you only live once.", null
       );
     }
   },
@@ -138,8 +164,8 @@ const dialogChoices = [
     action: async () => {
       await chip("Are you feeling lucky today?", true);
       return getPlayerChoice(
-        "Oh yeah!", "No way.",
-        "That's the spirit!", "Not with that attitude!"
+        "Oh yeah!", "That's the spirit!", null,
+        "No way.", "Not with that attitude!", null
       );
     }
   },
@@ -149,8 +175,8 @@ const dialogChoices = [
     action: async () => {
       await chip("Do you think it's usually better to hit or stand?", true);
       return getPlayerChoice(
-        "Better to stand.", "Always hit!",
-        "Better safe than sorry, right?", "Got to take the risk!"
+        "Better to stand.", "Better safe than sorry, right?", null,
+        "Always hit!", "Got to take the risk!", null
       );
     }
   },
@@ -160,8 +186,8 @@ const dialogChoices = [
     action: async () => {
       await chip("Do you believe in fate?", true);
       return getPlayerChoice(
-        "Yes, I think we are all on a predetermined path.", "No, our actions determine our path in life.",
-        "Wow, I wonder what's in store for the both of us.", "How exciting!"
+        "Yes, I think we are all on a predetermined path.", "Wow, I wonder what's in store for the both of us.", null,
+        "No, our actions determine our path in life.", "How exciting!", null
       );
     }
   },
@@ -171,8 +197,8 @@ const dialogChoices = [
     action: async () => {
       await chip("Do you think you'll win this round?", true);
       return getPlayerChoice(
-        "Yes, I'm sure of it.", "No, probably not.",
-        "How confident!", "You gotta have hope!"
+        "Yes, I'm sure of it.", "How confident!", null,
+        "No, probably not.", "You gotta have hope!", null
       );
     }
   }

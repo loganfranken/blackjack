@@ -34,6 +34,7 @@ let state = {
   roundCount: 0,
 
   dialogLevel: 0,
+  dialogKeys: [],
   hasExplainedPot: false,
   hasReactedToPlayerCard: false,
   hasReactedToHoleCard: false,
@@ -117,6 +118,12 @@ async function startRound()
       if(playerMove === PlayerMove.Hit)
       {
         await chip(dialogInfo.hitChipResponse);
+
+        if(dialogInfo.hitAction)
+        {
+          dialogInfo.hitAction(state);
+        }
+
         card = dealPlayerCard();
         refreshPlayerHandDisplay();
         await chipReactToPlayerCard(card, state);
@@ -124,6 +131,11 @@ async function startRound()
 
       if(playerMove === PlayerMove.Stand)
       {
+        if(dialogInfo.standAction)
+        {
+          dialogInfo.standAction(state);
+        }
+
         // Loop: Stand
         while(true)
         {
