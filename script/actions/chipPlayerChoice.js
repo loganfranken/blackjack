@@ -223,6 +223,17 @@ const dialogChoices = [
         "No, probably not.", "You gotta have hope!", null
       );
     }
+  },
+
+  {
+    filter: (state) => (state.dialogLevel === 14),
+    action: async () => {
+      await chip("Would you want to know how you would die?", true);
+      return getPlayerChoice(
+        "Yeah, it would be better to just know.", "It's true, it would no longer be a question.", null,
+        "No, I wouldn't want that always on my mind.", "Yeah, it could really wear on you.", null
+      );
+    }
   }
 
 ];
