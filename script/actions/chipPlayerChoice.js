@@ -7,7 +7,7 @@ async function chipPlayerChoice(roundCount, choiceCount, gameState)
     if(dialogChoices[i].filter(gameState))
     {
       let dialogChoice = dialogChoices[i];
-      dialogChoices.splice(i, 0);
+      dialogChoices.splice(i, 1);
       return await dialogChoice.action();
     }
   }
@@ -51,8 +51,8 @@ function getPlayerChoice(firstStatement, firstResponse, firstAction, secondState
     standPlayerResponse: `${firstStatement} *Stand*`,
     hitChipResponse: `${secondResponse}`,
     standChipResponse: `${firstResponse}`,
-    hitAction: firstAction,
-    standAction: secondAction
+    hitAction: secondAction,
+    standAction: firstAction
   };
 }
 
@@ -122,6 +122,28 @@ const dialogChoices = [
       return getPlayerChoice(
         "I just woke up feeling terrible.", "Ouch, hopefully you'll feel better.", null,
         "I don't really want to talk about it.", "Oh. I totally understand. Sorry.", null
+      );
+    }
+  },
+
+  {
+    filter: (state) => (state.dialogLevel === 7),
+    action: async () => {
+      await chip("Do you think I'm good at this?", true);
+      return getPlayerChoice(
+        "Yeah, you're great!", "Really? Thanks!", (state) => { state.mood++; },
+        "Honestly, not really.", "Oh. Well. That's honest.", (state) => { state.mood--; }
+      );
+    }
+  },
+
+  {
+    filter: (state) => (state.mood > 0),
+    action: async () => {
+      await chip("You're really nice, you know?", true);
+      return getPlayerChoice(
+        "Aww, thanks!", "No, thank *you*!", null,
+        "Oh, no, I can be a real jerk.", "What? I don't see that at all.", null
       );
     }
   },

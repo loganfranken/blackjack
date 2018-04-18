@@ -35,6 +35,7 @@ let state = {
 
   dialogLevel: 0,
   dialogKeys: [],
+  mood: 0,
   hasExplainedPot: false,
   hasReactedToPlayerCard: false,
   hasReactedToHoleCard: false,
