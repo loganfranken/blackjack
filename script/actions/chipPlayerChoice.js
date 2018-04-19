@@ -234,6 +234,17 @@ const dialogChoices = [
         "No, I wouldn't want that always on my mind.", "Yeah, it could really wear on you.", null
       );
     }
+  },
+
+  {
+    filter: (state) => (state.dialogLevel === 15),
+    action: async () => {
+      await chip("Are you responsible for your own actions?", true);
+      return getPlayerChoice(
+        "Yes, I have shaped my life.", "What about the things out of your control?", null,
+        "No, external forces have shaped my life.", "What about the things in your control?", null
+      );
+    }
   }
 
 ];
