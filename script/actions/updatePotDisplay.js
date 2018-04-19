@@ -3,9 +3,6 @@ const updatePotDisplay = (state) => {
   let scoreDisplay = state.domElements.scoreDisplay;
   let scoreDisplayWrapper = state.domElements.scoreDisplay.parentElement;
 
-  // Reset the increase/decrease class
-  scoreDisplayWrapper.classList = 'player-pot-display';
-
   // Update the pot text
   let displayPot = state.playerPot;
 
@@ -37,4 +34,9 @@ const updatePotDisplay = (state) => {
     // Has the pot increased?
     scoreDisplayWrapper.classList += ' increase';
   }
+
+  setTimeout(() => {
+    // Reset the increase/decrease class
+    scoreDisplayWrapper.classList = 'player-pot-display';
+  }, 500);
 };
