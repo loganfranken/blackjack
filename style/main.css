@@ -210,6 +210,14 @@ h2
 /* =DEALER
 ------------------------------------------------------- */
 
+@keyframes blink
+{
+  0% { height: 0; }
+  20% { height: 0; }
+  22% { height: 0.5em; }
+  24% { height: 0; }
+}
+
 #dealer-info
 {
   margin-bottom: 1em;
@@ -222,6 +230,29 @@ h2
   border-radius: 5em;
   height: 5em;
   width: 5em;
+}
+
+#dealer-picture::before, #dealer-picture::after
+{
+  animation: blink 3s infinite;
+  background: red;
+  content: '';
+  display: block;
+  height: 0;
+  left: 1.25em;
+  position: absolute;
+  top: 1.875em;
+  width: 0.5em;
+}
+
+#dealer-picture::before
+{
+  left: 1.25em;
+}
+
+#dealer-picture::after
+{
+  left: 3.25em;
 }
 
 #dealer-dialog
