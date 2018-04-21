@@ -232,7 +232,16 @@ h2
   width: 5em;
 }
 
-#dealer-picture::before, #dealer-picture::after
+#dealer-face
+{
+  background: url('../images/chip_face_default.png') no-repeat;
+  height: 100%;
+  top: 0.2em;
+  position: absolute;
+  width: 100%;
+}
+
+#dealer-face::before, #dealer-face::after
 {
   animation: blink 3s infinite;
   background: red;
@@ -241,16 +250,16 @@ h2
   height: 0;
   left: 1.25em;
   position: absolute;
-  top: 1.875em;
+  top: 1.75em;
   width: 0.5em;
 }
 
-#dealer-picture::before
+#dealer-face::before
 {
   left: 1.25em;
 }
 
-#dealer-picture::after
+#dealer-face::after
 {
   left: 3.25em;
 }
