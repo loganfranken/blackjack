@@ -295,7 +295,7 @@ h2
 {
   clear: both;
   height: 3em;
-  overflow: auto;
+  overflow: visible;
 }
 
 .player-control
@@ -304,9 +304,11 @@ h2
   border-radius: 0.5em;
   border: 0;
   cursor: pointer;
-  display: none;
+  display: block;
   font-size: 1em;
   height: 3em;
+  margin-top: 2em;
+  opacity: 0;
   padding: 0.5em;
   width: 47%;
 }
@@ -314,16 +316,20 @@ h2
 #action-hit
 {
   float: left;
+  transition: opacity 0.2s, margin 0.2s;
 }
 
 #action-stand
 {
   float: right;
+  transition: opacity 0.2s, margin 0.2s;
+  transition-delay: 100ms;
 }
 
 #player-controls.active .player-control
 {
-  display: block;
+  margin-top: 0;
+  opacity: 1;
 }
 
 /* =PLAYER-SCORE
