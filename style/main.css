@@ -42,6 +42,7 @@ h2
     border-radius: 0.5em;
     box-shadow: inset 0 0 10px #044626;
     margin-top: 2em;
+    overflow: hidden;
     padding: 3em;
   }
 }
@@ -218,6 +219,12 @@ h2
   24% { height: 0; }
 }
 
+@keyframes intro
+{
+  0%   { transform: rotate(180deg) translate(10em); }
+  100% { transform: rotate(0); }
+}
+
 #dealer-info
 {
   margin-bottom: 1em;
@@ -225,6 +232,7 @@ h2
 
 #dealer-picture
 {
+  animation: intro 1.25s;
   background: red url('../images/chip.png') no-repeat;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5em;
