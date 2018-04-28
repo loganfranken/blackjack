@@ -221,7 +221,8 @@ h2
 
 @keyframes intro
 {
-  0%   { transform: rotate(180deg) translate(10em); }
+  0% { transform: rotate(-180deg); margin-left: -10em; }
+  70% { transform: rotate(20deg); margin-left: 1em; }
   100% { transform: rotate(0); }
 }
 
@@ -232,7 +233,8 @@ h2
 
 #dealer-picture
 {
-  animation: intro 1.25s;
+  animation: intro 1s;
+  animation-timing-function: ease-in-out;
   background: red url('../images/chip.png') no-repeat;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5em;
