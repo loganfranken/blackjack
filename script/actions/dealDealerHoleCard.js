@@ -1,5 +1,5 @@
 const dealDealerHoleCard = () => {
-  let card = deck.dealFaceDownCard();
+  let card = shoe.dealFaceDownCard();
   dealerHand.takeCard(card);
   return card;
 };

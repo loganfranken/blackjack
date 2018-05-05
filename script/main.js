@@ -18,7 +18,7 @@ const domElements = {
 
 const dealerDialogManager = new DialogManager(domElements.chipDialog);
 
-let deck = new Deck();
+let shoe = new Shoe(3);
 
 let playerHand = null;
 let playerHandDisplay = null;
@@ -61,6 +61,13 @@ async function startRound()
   while(true)
   {
     let card = null;
+
+    // Have we passed where the shoe was split? If so, reset
+    console.log(shoe.cards.length);
+    if(shoe.needsReset())
+    {
+      shoe.reset();
+    }
 
     playerHand = new Hand();
     playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
