@@ -23,10 +23,7 @@ function getStandardPlayerChoice()
     hitPlayerResponse: "*Hit*",
     standPlayerResponse: "*Stand*",
     hitChipResponse: "Alright, here's your card.",
-    standChipResponse: {
-      holeCard: "Alright, let's look at that hidden card.",
-      newCard: "Another for me."
-    }
+    standChipResponse: "Alright, let's look at that hidden card."
   };
 }
 
