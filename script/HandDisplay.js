@@ -10,6 +10,12 @@ const HandDisplay = class {
 
   refreshHand() {
 
+    // If applicable, remove the "hidden" class
+    if(this.domElement.classList.contains('hidden'))
+    {
+      this.domElement.classList.remove('hidden');
+    }
+
     // Remove all cards
     // Source: https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
     while (this.listElement.firstChild)
@@ -49,6 +55,11 @@ const HandDisplay = class {
     {
       this.pipTotalElement.className += ' active';
     }
+  }
+
+  hideHand() {
+    this.domElement.classList.add('hidden');
+    this.pipTotalElement.innerHTML = '0';
   }
 
 };

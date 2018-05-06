@@ -60,14 +60,21 @@ async function startRound()
   // Loop: Round
   while(true)
   {
+    playerHandDisplay && playerHandDisplay.hideHand();
+    dealerHandDisplay && dealerHandDisplay.hideHand();
+
     let card = null;
 
     // Have we passed where the shoe was split? If so, reset
-    console.log(shoe.cards.length);
     if(shoe.needsReset())
     {
       shoe.reset();
     }
+
+    // Have Chip start the round before we refresh the hands
+    // to give a little time for the cards from the previous hand
+    // to disappear
+    await chipRoundStart(state.roundCount);
 
     playerHand = new Hand();
     playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
@@ -76,8 +83,6 @@ async function startRound()
     dealerHand = new Hand();
     dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
     dealerHandDisplay.refreshHand();
-
-    await chipRoundStart(state.roundCount);
 
     // First Card: Player, face-up
     card = dealPlayerCard();
