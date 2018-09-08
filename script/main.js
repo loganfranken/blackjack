@@ -44,7 +44,7 @@ let state = {
 
   domElements: domElements,
 
-  playerPot: 10,
+  playerPot: 100,
   bet: 10
 
 };
@@ -161,7 +161,6 @@ async function startRound()
         {
           let isHoleCard = !dealerHand.cards[1].isFaceUp;
 
-          // Are there different responses based on hole card vs new card?
           if(isFirstStand)
           {
             await chip(dialogInfo.standChipResponse);
