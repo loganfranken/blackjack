@@ -44,7 +44,7 @@ let state = {
 
   domElements: domElements,
 
-  playerPot: 100,
+  playerPot: 10,
   bet: 10
 
 };
@@ -60,6 +60,12 @@ async function startRound()
   // Loop: Round
   while(true)
   {
+    if(state.playerPot <= 0)
+    {
+      await chipGameOver();
+      break;
+    }
+
     playerHandDisplay && playerHandDisplay.hideHand();
     dealerHandDisplay && dealerHandDisplay.hideHand();
 
