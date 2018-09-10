@@ -479,3 +479,17 @@ h2
 {
   opacity: 0.1;
 }
+
+/* =BET
+------------------------------------------------------- */
+
+#bet-display
+{
+  color: #FFE200;
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  top: 2em;
+}

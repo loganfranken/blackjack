@@ -9,6 +9,7 @@ const domElements = {
   hitButton: document.getElementById('action-hit'),
   standButton: document.getElementById('action-stand'),
   scoreDisplay: document.getElementById('player-pot'),
+  betDisplay: document.getElementById('bet-display'),
   playerControls: document.getElementById('player-controls')
 };
 
@@ -65,6 +66,10 @@ async function startRound()
       await chipGameOver();
       break;
     }
+
+    // Update bet
+    await chipUpdateBet(state);
+    updateBetDisplay(state);
 
     playerHandDisplay && playerHandDisplay.hideHand();
     dealerHandDisplay && dealerHandDisplay.hideHand();
