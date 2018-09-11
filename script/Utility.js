@@ -51,3 +51,8 @@ const getRandomInt = (min, max) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+// Source: https://stackoverflow.com/questions/5915096/get-random-item-from-javascript-array
+const getRandomElement = (items) => {
+  return items[Math.floor(Math.random()*items.length)];
+}

@@ -22,9 +22,48 @@ function getStandardPlayerChoice()
   return {
     hitPlayerResponse: "*Hit*",
     standPlayerResponse: "*Stand*",
-    hitChipResponse: "Alright, here's your card.",
-    standChipResponse: "Alright, let's look at that hidden card."
+    hitChipResponse: getStandardHitChipResponse(),
+    standChipResponse: getStandardStandChipResponse()
   };
+}
+
+function getStandardHitChipResponse()
+{
+  return getStandardChipResponse(getRandomElement([
+    "here's your card.",
+    "take a card.",
+    "a card for you.",
+    "here's a card."
+  ]));
+}
+
+function getStandardStandChipResponse()
+{
+  return getStandardChipResponse(getRandomElement([
+    "let's look at that hidden card.",
+    "I'll flip over my hidden card.",
+    "let's reveal the hidden card.",
+    "I'll show my card."
+  ]));
+}
+
+function getStandardChipResponse(response)
+{
+  let opener = getOpeningResponse();
+
+  return (!opener)
+    ? response[0].toUpperCase() + response.substring(1)
+    : opener + ", " + response;
+}
+
+function getOpeningResponse()
+{
+  return getRandomElement([
+    null,
+    "Alright",
+    "Okay",
+    "Sounds good"
+  ]);
 }
 
 function getPlayerChoice(firstStatement, firstResponse, firstAction, secondStatement, secondResponse, secondAction)
