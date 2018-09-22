@@ -1,4 +1,6 @@
-const updatePot = (scoreResult, state) => {
+import RoundEndState from '../RoundEndState';
+
+export default (scoreResult, state) => {
 
   state.previousPlayerPot = (state.playerPot);
 

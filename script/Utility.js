@@ -56,3 +56,5 @@ const getRandomInt = (min, max) => {
 const getRandomElement = (items) => {
   return items[Math.floor(Math.random()*items.length)];
 }
+
+export { shuffle, convertMessageToHtml, getRandomInt, getRandomElement, halt };

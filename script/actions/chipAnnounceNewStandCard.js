@@ -1,4 +1,7 @@
-async function chipAnnounceNewStandCard()
+import chip from './chip';
+import { getRandomInt } from '../Utility';
+
+export default async function()
 {
   let key = getRandomInt(0, 4);
 

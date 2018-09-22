@@ -1,10 +1,13 @@
-async function chipPlayerChoice(roundCount, choiceCount, gameState)
+import chip from './chip';
+import { getRandomElement } from '../Utility';
+
+export default async function chipPlayerChoice(roundCount, choiceCount, state)
 {
-  gameState.dialogLevel++;
+  state.dialogLevel++;
 
   for(let i = 0; i < dialogChoices.length; i++)
   {
-    if(dialogChoices[i].filter(gameState))
+    if(dialogChoices[i].filter(state))
     {
       let dialogChoice = dialogChoices[i];
       dialogChoices.splice(i, 1);

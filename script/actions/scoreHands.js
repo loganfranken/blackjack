@@ -1,6 +1,9 @@
-const scoreHands = () => {
+import RoundEndCondition from '../RoundEndCondition';
+import RoundEndState from '../RoundEndState';
 
-  if(playerHand.getPipTotal() === 21)
+export default (state) => {
+
+  if(state.playerHand.getPipTotal() === 21)
   {
     return {
       isRoundOver: true,
@@ -9,7 +12,7 @@ const scoreHands = () => {
     };
   }
 
-  if(playerHand.getPipTotal() > 21)
+  if(state.playerHand.getPipTotal() > 21)
   {
     return {
       isRoundOver: true,
@@ -18,7 +21,7 @@ const scoreHands = () => {
     };
   }
 
-  if(dealerHand.getPipTotal() === 21)
+  if(state.dealerHand.getPipTotal() === 21)
   {
     return {
       isRoundOver: true,
@@ -27,7 +30,7 @@ const scoreHands = () => {
     };
   }
 
-  if(dealerHand.getPipTotal() > 21)
+  if(state.dealerHand.getPipTotal() > 21)
   {
     return {
       isRoundOver: true,
@@ -36,9 +39,9 @@ const scoreHands = () => {
     };
   }
 
-  if(dealerHand.getPipTotal() > 17)
+  if(state.dealerHand.getPipTotal() > 17)
   {
-    if(dealerHand.getPipTotal() > playerHand.getPipTotal())
+    if(state.dealerHand.getPipTotal() > state.playerHand.getPipTotal())
     {
       return {
         isRoundOver: true,
@@ -46,7 +49,7 @@ const scoreHands = () => {
         roundEndCondition: RoundEndCondition.HigherScore
       };
     }
-    else if(playerHand.getPipTotal() > dealerHand.getPipTotal())
+    else if(state.playerHand.getPipTotal() > state.dealerHand.getPipTotal())
     {
       return {
         isRoundOver: true,

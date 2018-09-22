@@ -1,9 +1,11 @@
-const DialogManager = class {
+import { convertMessageToHtml, halt } from './Utility';
+
+class DialogManager {
 
   constructor(domElement)
   {
     this.currMessageIndex = 0;
-    this.domElement = domElement;
+    this.domElement = null;
     this.isSkipping = false;
     this.isTalking = false;
     this.onFinished = null;
@@ -15,6 +17,11 @@ const DialogManager = class {
         self.advanceMessage();
       }
     });
+  }
+
+  setOutputTarget(domElement)
+  {
+    this.domElement = domElement;
   }
 
   async outputMessage(message, skipConfirm)
@@ -84,3 +91,6 @@ const DialogManager = class {
   }
 
 };
+
+window.DialogManager = window.DialogManager || (new DialogManager());
+export default window.DialogManager;

@@ -1,4 +1,8 @@
-async function chipRoundEnd(score, roundCount)
+import chip from './chip';
+import RoundEndCondition from '../RoundEndCondition';
+import RoundEndState from '../RoundEndState';
+
+export default async function(score, roundCount)
 {
   let message = '';
 
@@ -62,7 +66,7 @@ async function chipRoundEnd(score, roundCount)
       break;
   }
 
-  await dealerDialogManager.outputMessage(message);
+  await chip(message);
 
   // Explain pot
   let potExplanation = '';
@@ -84,6 +88,6 @@ async function chipRoundEnd(score, roundCount)
         break;
     }
 
-    await dealerDialogManager.outputMessage(potExplanation);
+    await chip(potExplanation);
   }
 };

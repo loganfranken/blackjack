@@ -1,3 +1,0 @@
-const refreshDealerHandDisplay = () => {
-  dealerHandDisplay.refreshHand();
-};

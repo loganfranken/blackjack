@@ -1,4 +1,4 @@
-const Hand = class {
+export default class {
 
   constructor() {
     this.cards = [];

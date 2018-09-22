@@ -1,4 +1,9 @@
-async function chipReactToDealerCard(newCard, isHoleCard, state)
+import chip from './chip';
+import chipExplainFaceCard from './chipExplainFaceCard';
+import chipExplainAceCard from './chipExplainAceCard';
+import getRankDescription from './getRankDescription';
+
+export default async function chipReactToDealerCard(newCard, isHoleCard, state)
 {
   if(isHoleCard)
   {

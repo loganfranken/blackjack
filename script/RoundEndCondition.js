@@ -1,4 +1,4 @@
-const RoundEndCondition = {
+export default {
   NaturalBlackjack: 0,
   Blackjack: 1,
   Busted: 2,

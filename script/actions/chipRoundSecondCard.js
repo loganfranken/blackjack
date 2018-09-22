@@ -1,4 +1,6 @@
-async function chipRoundSecondCard(roundCount)
+import chip from './chip';
+
+export default async function chipRoundSecondCard(roundCount)
 {
   if(roundCount === 0)
   {

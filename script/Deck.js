@@ -1,4 +1,9 @@
-const Deck = class {
+import Card from './Card';
+import Ranks from './Ranks';
+import { shuffle } from './Utility';
+import Suits from './Suits';
+
+export default class {
 
   constructor()
   {

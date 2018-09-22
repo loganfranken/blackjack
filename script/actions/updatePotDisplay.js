@@ -1,4 +1,4 @@
-const updatePotDisplay = (state) => {
+export default (state) => {
 
   let scoreDisplay = state.domElements.scoreDisplay;
   let scoreDisplayWrapper = state.domElements.scoreDisplay.parentElement;

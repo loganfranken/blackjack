@@ -1,3 +1,33 @@
+import chip from './actions/chip';
+import chipAnnounceNewStandCard from './actions/chipAnnounceNewStandCard';
+import chipExplainPot from './actions/chipExplainPot';
+import chipGameOver from './actions/chipGameOver';
+import chipPlayerChoice from './actions/chipPlayerChoice';
+import chipReactToDealerCard from './actions/chipReactToDealerCard';
+import chipReactToPlayerCard from './actions/chipReactToPlayerCard';
+import chipRoundEnd from './actions/chipRoundEnd';
+import chipRoundFirstCard from './actions/chipRoundFirstCard';
+import chipRoundFourthCard from './actions/chipRoundFourthCard';
+import chipRoundSecondCard from './actions/chipRoundSecondCard';
+import chipRoundStart from './actions/chipRoundStart';
+import chipRoundThirdCard from './actions/chipRoundThirdCard';
+import chipUpdateBet from './actions/chipUpdateBet';
+import dealDealerFaceUpCard from './actions/dealDealerFaceUpCard';
+import dealDealerHoleCard from './actions/dealDealerHoleCard';
+import dealPlayerCard from './actions/dealPlayerCard';
+import DialogManager from './DialogManager';
+import getPlayerMove from './actions/getPlayerMove';
+import Hand from './Hand';
+import HandDisplay from './HandDisplay';
+import PlayerMove from './PlayerMove';
+import revealDealerHoleCardOrDeal from './actions/revealDealerHoleCardOrDeal';
+import scoreHands from './actions/scoreHands';
+import scoreOpeningHands from './actions/scoreOpeningHands';
+import Shoe from './Shoe';
+import updateBetDisplay from './actions/updateBetDisplay';
+import updatePot from './actions/updatePot';
+import updatePotDisplay from './actions/updatePotDisplay';
+
 // ==================
 // DOM ELEMENTS
 // ==================
@@ -14,21 +44,8 @@ const domElements = {
 };
 
 // ==================
-// GAME FIELDS
+// STATE
 // ==================
-
-const dealerDialogManager = new DialogManager(domElements.chipDialog);
-
-let shoe = new Shoe(3);
-
-let playerHand = null;
-let playerHandDisplay = null;
-
-let dealerHand = null;
-let dealerHandDisplay = null;
-
-let hasExplainedFaceCard = false;
-let hasExplainedAceCard = false;
 
 let state = {
 
@@ -46,13 +63,26 @@ let state = {
   domElements: domElements,
 
   playerPot: 100,
-  bet: 10
+  bet: 10,
+
+  shoe: new Shoe(3),
+
+  playerHand: null,
+  playerHandDisplay: null,
+
+  dealerHand: null,
+  dealerHandDisplay: null,
+
+  hasExplainedFaceCard: false,
+  hasExplainedAceCard: false
 
 };
 
 // ==================
 // MAIN GAME LOGIC
 // ==================
+
+DialogManager.setOutputTarget(domElements.chipDialog);
 
 async function startRound()
 {
@@ -71,15 +101,15 @@ async function startRound()
     await chipUpdateBet(state);
     updateBetDisplay(state);
 
-    playerHandDisplay && playerHandDisplay.hideHand();
-    dealerHandDisplay && dealerHandDisplay.hideHand();
+    state.playerHandDisplay && state.playerHandDisplay.hideHand();
+    state.dealerHandDisplay && state.dealerHandDisplay.hideHand();
 
     let card = null;
 
     // Have we passed where the shoe was split? If so, reset
-    if(shoe.needsReset())
+    if(state.shoe.needsReset())
     {
-      shoe.reset();
+      state.shoe.reset();
     }
 
     // Have Chip start the round before we refresh the hands
@@ -87,45 +117,45 @@ async function startRound()
     // to disappear
     await chipRoundStart(state.roundCount);
 
-    playerHand = new Hand();
-    playerHandDisplay = new HandDisplay(playerHand, domElements.playerHand);
-    playerHandDisplay.refreshHand();
+    state.playerHand = new Hand();
+    state.playerHandDisplay = new HandDisplay(state.playerHand, domElements.playerHand);
+    state.playerHandDisplay.refreshHand();
 
-    dealerHand = new Hand();
-    dealerHandDisplay = new HandDisplay(dealerHand, domElements.dealerHand);
-    dealerHandDisplay.refreshHand();
+    state.dealerHand = new Hand();
+    state.dealerHandDisplay = new HandDisplay(state.dealerHand, domElements.dealerHand);
+    state.dealerHandDisplay.refreshHand();
 
     // First Card: Player, face-up
-    card = dealPlayerCard();
-    refreshPlayerHandDisplay();
+    card = dealPlayerCard(state);
+    state.playerHandDisplay.refreshHand();
     await chipRoundFirstCard(state.roundCount);
     await chipReactToPlayerCard(card, state);
 
     // Second Card: Dealer, face-up
-    card = dealDealerFaceUpCard();
-    refreshDealerHandDisplay();
+    card = dealDealerFaceUpCard(state);
+    state.dealerHandDisplay.refreshHand();
     await chipRoundSecondCard(state.roundCount);
     await chipReactToDealerCard(card, false, state);
 
     // Third Card: Player, face-up
-    card = dealPlayerCard();
-    refreshPlayerHandDisplay();
+    card = dealPlayerCard(state);
+    state.playerHandDisplay.refreshHand();
     await chipRoundThirdCard(state.roundCount);
     await chipReactToPlayerCard(card, state);
 
     // We have to score after the third opening card since the player
     // may win with a natural blackjack
-    if(await handleOpeningHandScoring())
+    if(await handleOpeningHandScoring(state))
     {
       continue;
     }
 
     // Fourth Card: Dealer, face-down
-    dealDealerHoleCard();
-    refreshDealerHandDisplay();
+    dealDealerHoleCard(state);
+    state.dealerHandDisplay.refreshHand();
     await chipRoundFourthCard(state.roundCount);
 
-    if(await handleOpeningHandScoring())
+    if(await handleOpeningHandScoring(state))
     {
       continue;
     }
@@ -137,7 +167,7 @@ async function startRound()
       choiceCount++;
 
       let dialogInfo = await chipPlayerChoice(state.roundCount, choiceCount, state);
-      let playerMove = await getPlayerMove(dialogInfo.hitPlayerResponse, dialogInfo.standPlayerResponse);
+      let playerMove = await getPlayerMove(dialogInfo.hitPlayerResponse, dialogInfo.standPlayerResponse, state);
 
       if(playerMove === PlayerMove.Hit)
       {
@@ -148,8 +178,8 @@ async function startRound()
           dialogInfo.hitAction(state);
         }
 
-        card = dealPlayerCard();
-        refreshPlayerHandDisplay();
+        card = dealPlayerCard(state);
+        state.dealerHandDisplay.refreshHand();
         await chipReactToPlayerCard(card, state);
       }
 
@@ -164,7 +194,7 @@ async function startRound()
         let isFirstStand = true;
         while(true)
         {
-          let isHoleCard = !dealerHand.cards[1].isFaceUp;
+          let isHoleCard = !state.dealerHand.cards[1].isFaceUp;
 
           if(isFirstStand)
           {
@@ -176,18 +206,18 @@ async function startRound()
             await chipAnnounceNewStandCard();
           }
 
-          card = revealDealerHoleCardOrDeal();
-          refreshDealerHandDisplay();
+          card = revealDealerHoleCardOrDeal(state);
+          state.dealerHandDisplay.refreshHand();
           await chipReactToDealerCard(card, isHoleCard, state);
 
-          if(scoreHands().isRoundOver)
+          if(scoreHands(state).isRoundOver)
           {
             break;
           }
         }
       }
 
-      let score = scoreHands();
+      let score = scoreHands(state);
       if(score.isRoundOver)
       {
         await handleRoundEnd(score, state);
@@ -197,18 +227,18 @@ async function startRound()
   }
 };
 
-async function handleOpeningHandScoring()
+async function handleOpeningHandScoring(state)
 {
-  let score = scoreOpeningHands();
+  let score = scoreOpeningHands(state);
 
   if(score.isRoundOver)
   {
     // Has the dealer been dealt two cards yet?
-    if(dealerHand.cards.length > 1)
+    if(state.dealerHand.cards.length > 1)
     {
       // Reveal the hole card so the player can understand why the round ended
-      revealDealerHoleCardOrDeal();
-      refreshDealerHandDisplay();
+      revealDealerHoleCardOrDeal(state);
+      state.dealerHandDisplay.refreshHand();
     }
 
     await handleRoundEnd(score, state);

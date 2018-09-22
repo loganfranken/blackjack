@@ -1,4 +1,4 @@
-const getRankDescription = (rank) => {
+export default (rank) => {
 
   switch(rank)
   {

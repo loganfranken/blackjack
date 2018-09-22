@@ -1,4 +1,6 @@
-async function chipExplainFaceCard(state)
+import chip from './chip';
+
+export default async function chipExplainFaceCard(state)
 {
   if(!state.hasExplainedFaceCard)
   {

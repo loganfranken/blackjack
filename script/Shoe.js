@@ -1,4 +1,7 @@
-const Shoe = class {
+import Deck from './Deck';
+import { getRandomInt, shuffle } from './Utility';
+
+export default class {
 
   constructor(deckCount)
   {

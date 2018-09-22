@@ -1,4 +1,6 @@
-async function chip(message, skipConfirm)
+import DialogManager from '../DialogManager';
+
+export default async function chip(message, skipConfirm)
 {
-  await dealerDialogManager.outputMessage(message, skipConfirm);
+  await DialogManager.outputMessage(message, skipConfirm);
 }

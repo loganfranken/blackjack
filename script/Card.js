@@ -1,4 +1,4 @@
-const Card = class {
+export default class {
 
   constructor(suit, rank, isFaceUp)
   {

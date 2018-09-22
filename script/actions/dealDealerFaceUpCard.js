@@ -1,5 +1,5 @@
-const dealDealerFaceUpCard = () => {
-  let card = shoe.dealFaceUpCard();
-  dealerHand.takeCard(card);
+export default (state) => {
+  let card = state.shoe.dealFaceUpCard();
+  state.dealerHand.takeCard(card);
   return card;
 };

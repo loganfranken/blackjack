@@ -1,7 +1,10 @@
-const scoreOpeningHands = () => {
+import RoundEndCondition from '../RoundEndCondition';
+import RoundEndState from '../RoundEndState';
 
-  let dealerPipTotal = dealerHand.getPipTotal(true);
-  let playerPipTotal = playerHand.getPipTotal();
+export default (state) => {
+
+  let dealerPipTotal = state.dealerHand.getPipTotal(true);
+  let playerPipTotal = state.playerHand.getPipTotal();
 
   // Dealer has a "natural" blackjack
   if(dealerPipTotal === 21)

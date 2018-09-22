@@ -1,4 +1,6 @@
-async function chipUpdateBet(state)
+import chip from './chip';
+
+export default async function chipUpdateBet(state)
 {
   if(state.roundCount > 0 && state.roundCount % 2 === 0)
   {

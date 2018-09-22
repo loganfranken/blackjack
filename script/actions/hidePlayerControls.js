@@ -1,3 +1,3 @@
-const hidePlayerControls = () => {
-  domElements.playerControls.className = '';
+export default (state) => {
+  state.domElements.playerControls.className = '';
 };

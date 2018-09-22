@@ -1,4 +1,4 @@
-const Ranks = [
+export default [
   'A',
   '2',
   '3',

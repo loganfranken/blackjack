@@ -1,4 +1,6 @@
-async function chipExplainAceCard(state)
+import chip from './chip';
+
+export default async function chipExplainAceCard(state)
 {
   if(!state.hasExplainedAceCard)
   {

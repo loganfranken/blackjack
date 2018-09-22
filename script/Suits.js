@@ -1,4 +1,4 @@
-const Suits = [
+export default [
   'Clubs',
   'Diamonds',
   'Hearts',

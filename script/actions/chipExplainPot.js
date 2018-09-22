@@ -1,4 +1,7 @@
-async function chipExplainPot(score, state)
+import chip from './chip';
+import RoundEndState from '../RoundEndState';
+
+export default async function(score, state)
 {
   if(score.roundEndState === RoundEndState.DealerWins && !state.hasExplainedPot)
   {

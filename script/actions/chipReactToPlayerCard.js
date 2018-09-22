@@ -1,4 +1,9 @@
-async function chipReactToPlayerCard(newCard, state)
+import chip from './chip';
+import chipExplainAceCard from './chipExplainAceCard';
+import chipExplainFaceCard from './chipExplainFaceCard';
+import getRankDescription from './getRankDescription';
+
+export default async function chipReactToPlayerCard(newCard, state)
 {
   if(!state.hasReactedToPlayerCard)
   {

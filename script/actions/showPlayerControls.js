@@ -1,3 +1,3 @@
-const showPlayerControls = () => {
-  domElements.playerControls.className = 'active';
+export default (state) => {
+  state.domElements.playerControls.className = 'active';
 };

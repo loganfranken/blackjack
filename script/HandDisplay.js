@@ -1,4 +1,4 @@
-const HandDisplay = class {
+export default class {
 
   constructor(hand, domElement) {
     this.domElement = domElement;
