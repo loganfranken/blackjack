@@ -41,6 +41,7 @@ h2
     border: 10px solid #65351C;
     border-radius: 0.5em;
     box-shadow: inset 0 0 10px #044626;
+    margin-bottom: 2em;
     margin-top: 2em;
     overflow: hidden;
     padding: 3em;
@@ -335,7 +336,8 @@ h2
   opacity: 0;
   outline: none;
   padding: 0.5em;
-  position: relative;
+  position: absolute;
+  top: 0;
   width: 47%;
 }
 
@@ -364,27 +366,27 @@ h2
 
 #action-hit
 {
-  float: left;
-  transition: opacity 0.2s, margin 0.2s;
+  left: 0;
+  transition: opacity 0.2s, top 0.2s;
 }
 
 #action-stand
 {
-  float: right;
-  transition: opacity 0.2s, margin 0.2s;
+  right: 0;
+  transition: opacity 0.2s, top 0.2s;
   transition-delay: 100ms;
 }
 
 #player-controls.active .player-control
 {
-  margin-top: 0;
+  top: -2em;
   opacity: 1;
 }
 
 #player-controls.active .player-control:hover
 {
   background-image: linear-gradient(-180deg, rgba(0, 220, 255, 0.23) 0%, transparent 60%);
-  margin-top: -0.3em;
+  top: -2.3em;
 }
 
 /* =PLAYER-SCORE
