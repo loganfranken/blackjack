@@ -292,10 +292,12 @@ h2
 {
   background: #FFF;
   border-radius: 8px;
+  cursor: pointer;
   height: 3.25em;
   margin-top: 1.25em;
   padding: 1em;
   position: relative;
+  user-select: none;
 }
 
 #dealer-dialog::before
@@ -383,7 +385,7 @@ h2
   opacity: 1;
 }
 
-#player-controls.active .player-control:hover
+#player-controls.active .player-control:hover, #player-controls.active .player-control:focus
 {
   background-image: linear-gradient(-180deg, rgba(0, 220, 255, 0.23) 0%, transparent 60%);
   top: -2.3em;

@@ -11,12 +11,6 @@ class DialogManager {
     this.onFinished = null;
 
     const self = this;
-    document.addEventListener('keydown', (event) => {
-      if(event.keyCode === 13)
-      {
-        self.advanceMessage();
-      }
-    });
   }
 
   setOutputTarget(domElement)

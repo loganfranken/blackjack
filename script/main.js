@@ -43,6 +43,8 @@ const domElements = {
   playerControls: document.getElementById('player-controls')
 };
 
+domElements.playerControlButtons = domElements.playerControls.querySelectorAll('button');
+
 // ==================
 // STATE
 // ==================
@@ -83,6 +85,7 @@ let state = {
 // ==================
 
 DialogManager.setOutputTarget(domElements.chipDialog);
+setUpDialogControls();
 
 async function startRound()
 {
@@ -256,6 +259,22 @@ async function handleRoundEnd(score, state)
   await chipExplainPot(score, state);
 
   state.roundCount++;
+}
+
+function setUpDialogControls()
+{
+  // Enter
+  document.addEventListener('keydown', (event) => {
+    if(event.keyCode === 13)
+    {
+      DialogManager.advanceMessage();
+    }
+  });
+
+  // Click
+  domElements.chipDialog.addEventListener('click', () => {
+    DialogManager.advanceMessage();
+  });
 }
 
 startRound();
