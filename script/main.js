@@ -182,7 +182,7 @@ async function startRound()
         }
 
         card = dealPlayerCard(state);
-        state.dealerHandDisplay.refreshHand();
+        state.playerHandDisplay.refreshHand();
         await chipReactToPlayerCard(card, state);
       }
 
@@ -252,7 +252,7 @@ async function handleOpeningHandScoring(state)
 
 async function handleRoundEnd(score, state)
 {
-  await chipRoundEnd(score, state.roundCount);
+  await chipRoundEnd(score, state);
 
   updatePot(score, state);
   updatePotDisplay(state);

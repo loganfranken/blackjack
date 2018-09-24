@@ -1,8 +1,9 @@
 import chip from './chip';
 import RoundEndCondition from '../RoundEndCondition';
 import RoundEndState from '../RoundEndState';
+import showBet from './showBet';
 
-export default async function(score, roundCount)
+export default async function(score, state)
 {
   let message = '';
 
@@ -71,23 +72,24 @@ export default async function(score, roundCount)
   // Explain pot
   let potExplanation = '';
 
-  if(roundCount === 0)
+  if(state.roundCount === 0)
   {
     switch(score.roundEndState)
     {
       case RoundEndState.DealerWins:
-        potExplanation = `Since I win, you lose 10 coins.`;
+        potExplanation = `Since I win, you lose the current bet, which is ${state.bet} coins.`;
         break;
 
       case RoundEndState.PlayerWins:
-        potExplanation = `Since you win, you get 10 coins.`;
+        potExplanation = `Since you win, you win the current bet, which is ${state.bet} coins.`;
         break;
 
       case RoundEndState.Tie:
-        potExplanation = `Since we tied, no one gets any coins`;
+        potExplanation = `Since we tied, no one wins the bet, which is ${state.bet} coins.`;
         break;
     }
 
+    showBet(state);
     await chip(potExplanation);
   }
 };
