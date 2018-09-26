@@ -17,4 +17,9 @@ export default class {
     return (this.rank === 'A');
   }
 
+  isNumber()
+  {
+    return !this.isAce() && !this.isFaceCard();
+  }
+
 };

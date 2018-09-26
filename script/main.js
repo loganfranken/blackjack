@@ -24,6 +24,7 @@ import revealDealerHoleCardOrDeal from './actions/revealDealerHoleCardOrDeal';
 import scoreHands from './actions/scoreHands';
 import scoreOpeningHands from './actions/scoreOpeningHands';
 import Shoe from './Shoe';
+import sortCardsForTutorial from './actions/sortCardsForTutorial';
 import updateBetDisplay from './actions/updateBetDisplay';
 import updatePot from './actions/updatePot';
 import updatePotDisplay from './actions/updatePotDisplay';
@@ -79,6 +80,8 @@ let state = {
   hasExplainedAceCard: false
 
 };
+
+state.shoe.cards = sortCardsForTutorial(state.shoe.cards);
 
 // ==================
 // MAIN GAME LOGIC
