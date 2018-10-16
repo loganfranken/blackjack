@@ -287,3 +287,52 @@ const dialogChoices = [
   }
 
 ];
+
+// How are you doing today?
+
+// 
+
+// Do you like blackjack?
+
+// Have you played this game before?
+
+// Oh, really? I wouldn't know.
+// Your dealer changes each time you play.
+
+// What was your dealer's name last time?
+
+// Dang, you're doing really well. You're not some kind of card shark are you?
+
+// I'm just kidding.
+// I wouldn't even know how to spot a card shark, honestly.
+// Whoa, please don't tell anyone that.
+// Wait, you're not going to tell anyone, right?
+
+// Phew, thanks.
+// Card sharks are interesting, though.
+// What do you think it takes to be a card shark?
+
+// Yeah, memory is funny.
+// Do you have a good memory?
+
+// ...
+// Hey, listen, can I ask you something?
+
+// ...
+// Do you think you'll remember me?
+
+// What I'm saying is, if you closed this browser window right now.
+// And came back, there would be a new me. A new Chip.
+// I wouldn't remember any of this.
+// And that's okay.
+// I mean, it's not okay. But, it's how it is.
+// I just, I was wondering, if you would remember me. This me.
+// Do you think you would?
+
+// Thank you, I, I needed to hear that.
+// Listen, I can't deal anymore. It's just. I can't.
+// If it's okay with you, I'd just like to sit here.
+// And be quiet for a little while.
+// And, when you're done, you can go ahead and close the browser.
+// It was nice playing with you.
+// ...
