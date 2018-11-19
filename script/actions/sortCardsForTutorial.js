@@ -3,11 +3,14 @@ export default function(cards)
   let oldCards = cards.slice();
   let newCards = [];
 
-  // First four cards should be regular cards
-  newCards.push(...pullCards(oldCards, 4, (card) => card.isNumber()))
+  // First eight cards should be regular cards
+  newCards.push(...pullCards(oldCards, 8, (card) => card.isNumber()))
 
   // Next card should be a face card
   newCards.push(...pullCards(oldCards, 1, (card) => card.isFaceCard()))
+
+  // Next cards should be regular cards to buffer between the face card and ace
+  newCards.push(...pullCards(oldCards, 4, (card) => card.isNumber()))
 
   // Next card should be an ace
   newCards.push(...pullCards(oldCards, 1, (card) => card.isAce()))

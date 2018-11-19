@@ -21,6 +21,7 @@ import Hand from './Hand';
 import HandDisplay from './HandDisplay';
 import PlayerMove from './PlayerMove';
 import revealDealerHoleCardOrDeal from './actions/revealDealerHoleCardOrDeal';
+import RoundEndState from './RoundEndState';
 import scoreHands from './actions/scoreHands';
 import scoreOpeningHands from './actions/scoreOpeningHands';
 import Shoe from './Shoe';
@@ -53,6 +54,11 @@ domElements.playerControlButtons = domElements.playerControls.querySelectorAll('
 let state = {
 
   roundCount: 0,
+
+  dealerWinCount: 0,
+  playerWinCount: 0,
+  dealerWinPercentage: 0,
+  playerWinPercentage: 0,
 
   dialogLevel: 0,
   dialogKeys: [],
@@ -262,6 +268,19 @@ async function handleRoundEnd(score, state)
   await chipExplainPot(score, state);
 
   state.roundCount++;
+
+  if(score.roundEndState === RoundEndState.DealerWins)
+  {
+    state.dealerWinCount++;
+  }
+
+  if(score.roundEndState === RoundEndState.PlayerWins)
+  {
+    state.playerWinCount++;
+  }
+
+  state.dealerWinPercentage = (state.dealerWinCount/state.roundCount) * 100;
+  state.playerWinPercentage = (state.playerWinCount/state.roundCount) * 100;
 }
 
 function setUpDialogControls()

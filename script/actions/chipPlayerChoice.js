@@ -137,160 +137,46 @@ const dialogChoices = [
       action: async () => {
         await chip("How are you doing today?", true);
         return getPlayerChoice(
-          "Pretty good!", "That's great!", (state) => { state.dialogKeys['good-day'] = true; },
-          "Not so great.", "Oh no, sorry to hear that.", (state) => { state.dialogKeys['bad-day'] = true; }
+          "Pretty good!", "That's great!", null,
+          "Not so great.", "Oh no, well hopefully this game will cheer you up.", null
         );
       }
   },
 
   {
-    filter: (state) => (state.dialogKeys['good-day']),
-    action: async () => {
-      await chip("Any reason you're in such a good mood?", true);
+      filter: (state) => (state.dialogLevel === 7),
+      action: async () => {
+        await chip("Are you feeling lucky today?", true);
+        return getPlayerChoice(
+          "Oh, totally!", "Nice! That's the spirit!", (state) => { state.dialogKeys['lucky'] = true; },
+          "Oof, no, not at all.", "Aww, come on. Not with that attitude!", (state) => { state.dialogKeys['not-lucky'] = true; }
+        );
+      }
+  },
+
+  {
+    filter: (state) => (state.dialogKeys['lucky']),
+    action: async (state) => {
+      await chip("What's got you feeling so lucky?", true);
       return getPlayerChoice(
-        "Yes, it's a big day for me!", "Oh, wow!", null,
-        "Nope, just feeling good!", "How nice!", null
+        "I'm just a lucky person.", (state.playerWinPercentage > 50) ? "Dang, must be nice! Yeah, you've definitely had some good hands." : "Yeah? Well, I've got to say: I've had most of the luck so far!", null,
+        "I'm just feeling lucky today.", (state.playerWinPercentage > 50) ? "You must be! You've had some good hands!" : "Oh yeah? Alright, well I can't wait to see your comeback.", null
       );
     }
   },
 
   {
-    filter: (state) => (state.dialogKeys['bad-day']),
-    action: async () => {
-      await chip("What's bringing you down today?", true);
+    filter: (state) => (state.dialogKeys['not-lucky']),
+    action: async (state) => {
+      await chip("Why do you feel so unlucky?", true);
       return getPlayerChoice(
-        "I just woke up feeling terrible.", "Ouch, hopefully you'll feel better.", null,
-        "I don't really want to talk about it.", "Oh. I totally understand. Sorry.", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 7),
-    action: async () => {
-      await chip("Do you think I'm good at this?", true);
-      return getPlayerChoice(
-        "Yeah, you're great!", "Really? Thanks!", (state) => { state.mood++; },
-        "Honestly, not really.", "Oh. Well. That's honest.", (state) => { state.mood--; }
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.mood > 0),
-    action: async () => {
-      await chip("You're really nice, you know?", true);
-      return getPlayerChoice(
-        "Aww, thanks!", "No, thank *you*!", null,
-        "Oh, no, I can be a real jerk.", "What? I don't see that at all.", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 7),
-    action: async () => {
-      await chip("Have you been playing blackjack long?", true);
-      return getPlayerChoice(
-        "Oh yeah, I'm an expert.", "Dang, I knew it!", null,
-        "Nah, just getting started.", "Oh, great! Welcome to the game!", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 8),
-    action: async () => {
-      await chip("Nice weather this afternoon, right?", true);
-      return getPlayerChoice(
-        "Oh yeah, I've been loving the sun.", "I just love a little sun on my plastic!", null,
-        "You think so? It's so dreary and overcast.", "Oh. Yeah. Well, the cool weather is better for my plastic.", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 9),
-    action: async () => {
-      await chip("What are you going to do with your winnings?", true);
-      return getPlayerChoice(
-        "Put them right in the bank.", "Wow, so practical!", null,
-        "Blow them on something fun.", "Well, you only live once.", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 10),
-    action: async () => {
-      await chip("Are you feeling lucky today?", true);
-      return getPlayerChoice(
-        "Oh yeah!", "That's the spirit!", null,
-        "No way.", "Not with that attitude!", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 11),
-    action: async () => {
-      await chip("Do you think it's usually better to hit or stand?", true);
-      return getPlayerChoice(
-        "Better to stand.", "Better safe than sorry, right?", null,
-        "Always hit!", "Got to take the risk!", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 12),
-    action: async () => {
-      await chip("Do you believe in fate?", true);
-      return getPlayerChoice(
-        "Yes, I think we are all on a predetermined path.", "Wow, I wonder what's in store for the both of us.", null,
-        "No, our actions determine our path in life.", "How exciting!", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 13),
-    action: async () => {
-      await chip("Do you think you'll win this round?", true);
-      return getPlayerChoice(
-        "Yes, I'm sure of it.", "How confident!", null,
-        "No, probably not.", "You gotta have hope!", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 14),
-    action: async () => {
-      await chip("Would you want to know how you would die?", true);
-      return getPlayerChoice(
-        "Yeah, it would be better to just know.", "It's true, it would no longer be a question.", null,
-        "No, I wouldn't want that always on my mind.", "Yeah, it could really wear on you.", null
-      );
-    }
-  },
-
-  {
-    filter: (state) => (state.dialogLevel === 15),
-    action: async () => {
-      await chip("Are you responsible for your own actions?", true);
-      return getPlayerChoice(
-        "Yes, I have shaped my life.", "What about the things out of your control?", null,
-        "No, external forces have shaped my life.", "What about the things in your control?", null
+        "I never win at anything.", (state.playerWinPercentage > 50) ? "Really? You've had some good hands so far, though." : "You haven't had a great game so far, but maybe things will turn around?", null,
+        "I'm just not feeling lucky today.", (state.playerWinPercentage > 50) ? "Well, even if you're not feeling it, you've had some good hands." : "Yeah, you've had kind of a tough game, but maybe things will turn around!", null
       );
     }
   }
 
 ];
-
-// How are you doing today?
-
-// 
 
 // Do you like blackjack?
 
@@ -336,3 +222,130 @@ const dialogChoices = [
 // And, when you're done, you can go ahead and close the browser.
 // It was nice playing with you.
 // ...
+
+/*
+{
+  filter: (state) => (state.dialogLevel === 10),
+  action: async () => {
+    await chip("Are you feeling lucky today?", true);
+    return getPlayerChoice(
+      "Oh yeah!", "That's the spirit!", null,
+      "No way.", "Not with that attitude!", null
+    );
+  }
+},
+*/
+
+/*
+
+
+{
+  filter: (state) => (state.dialogLevel === 7),
+  action: async () => {
+    await chip("Do you think I'm good at this?", true);
+    return getPlayerChoice(
+      "Yeah, you're great!", "Really? Thanks!", (state) => { state.mood++; },
+      "Honestly, not really.", "Oh. Well. That's honest.", (state) => { state.mood--; }
+    );
+  }
+},
+
+{
+  filter: (state) => (state.mood > 0),
+  action: async () => {
+    await chip("You're really nice, you know?", true);
+    return getPlayerChoice(
+      "Aww, thanks!", "No, thank *you*!", null,
+      "Oh, no, I can be a real jerk.", "What? I don't see that at all.", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 7),
+  action: async () => {
+    await chip("Have you been playing blackjack long?", true);
+    return getPlayerChoice(
+      "Oh yeah, I'm an expert.", "Dang, I knew it!", null,
+      "Nah, just getting started.", "Oh, great! Welcome to the game!", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 8),
+  action: async () => {
+    await chip("Nice weather this afternoon, right?", true);
+    return getPlayerChoice(
+      "Oh yeah, I've been loving the sun.", "I just love a little sun on my plastic!", null,
+      "You think so? It's so dreary and overcast.", "Oh. Yeah. Well, the cool weather is better for my plastic.", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 9),
+  action: async () => {
+    await chip("What are you going to do with your winnings?", true);
+    return getPlayerChoice(
+      "Put them right in the bank.", "Wow, so practical!", null,
+      "Blow them on something fun.", "Well, you only live once.", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 11),
+  action: async () => {
+    await chip("Do you think it's usually better to hit or stand?", true);
+    return getPlayerChoice(
+      "Better to stand.", "Better safe than sorry, right?", null,
+      "Always hit!", "Got to take the risk!", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 12),
+  action: async () => {
+    await chip("Do you believe in fate?", true);
+    return getPlayerChoice(
+      "Yes, I think we are all on a predetermined path.", "Wow, I wonder what's in store for the both of us.", null,
+      "No, our actions determine our path in life.", "How exciting!", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 13),
+  action: async () => {
+    await chip("Do you think you'll win this round?", true);
+    return getPlayerChoice(
+      "Yes, I'm sure of it.", "How confident!", null,
+      "No, probably not.", "You gotta have hope!", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 14),
+  action: async () => {
+    await chip("Would you want to know how you would die?", true);
+    return getPlayerChoice(
+      "Yeah, it would be better to just know.", "It's true, it would no longer be a question.", null,
+      "No, I wouldn't want that always on my mind.", "Yeah, it could really wear on you.", null
+    );
+  }
+},
+
+{
+  filter: (state) => (state.dialogLevel === 15),
+  action: async () => {
+    await chip("Are you responsible for your own actions?", true);
+    return getPlayerChoice(
+      "Yes, I have shaped my life.", "What about the things out of your control?", null,
+      "No, external forces have shaped my life.", "What about the things in your control?", null
+    );
+  }
+}
+*/

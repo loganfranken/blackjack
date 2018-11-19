@@ -11,14 +11,14 @@ export default class {
 
   dealFaceUpCard()
   {
-    const card = this.cards.pop();
+    const card = this.cards.shift();
     card.isFaceUp = true;
     return card;
   }
 
   dealFaceDownCard()
   {
-    const card = this.cards.pop();
+    const card = this.cards.shift();
     card.isFaceUp = false;
     return card;
   }

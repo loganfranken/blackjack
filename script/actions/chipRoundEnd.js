@@ -77,15 +77,15 @@ export default async function(score, state)
     switch(score.roundEndState)
     {
       case RoundEndState.DealerWins:
-        potExplanation = `Since I win, you lose the current bet, which is ${state.bet} coins.`;
+        potExplanation = `Since I win, you lose the current bet, which is *${state.bet} coins*.`;
         break;
 
       case RoundEndState.PlayerWins:
-        potExplanation = `Since you win, you win the current bet, which is ${state.bet} coins.`;
+        potExplanation = `Since you win, you win the current bet, which is *${state.bet} coins*.`;
         break;
 
       case RoundEndState.Tie:
-        potExplanation = `Since we tied, no one wins the bet, which is ${state.bet} coins.`;
+        potExplanation = `Since we tied, no one wins the bet, which is *${state.bet} coins*.`;
         break;
     }
 
