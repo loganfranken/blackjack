@@ -268,16 +268,13 @@ const dialogChoices = [
         await chip("Card sharks are super interesting, though.", true);
         await chip("What do you think it takes to be a card shark?", true);
         return getPlayerChoice(
-          "A good memory.", "Phew, thanks.", null,
-          "Sharp math skills.", ["Aww, come on.", "Don't be like that!", "Please, I've got a reputation here."], null
+          "A good memory.", ["Right?", "It seems so hard to remember all of those cards."], null,
+          "Sharp math skills.", ["Yeah, you're probably right.", "A good memory seems important too, though, right?"], null
         );
       }
   }
 
 ];
-
-// Card sharks are interesting, though.
-// What do you think it takes to be a card shark?
 
 // Yeah, memory is funny.
 // Do you have a good memory?
