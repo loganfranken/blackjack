@@ -1,5 +1,6 @@
 import chip from './actions/chip';
 import chipAnnounceNewStandCard from './actions/chipAnnounceNewStandCard';
+import chipExplainPipStandLimit from './actions/chipExplainPipStandLimit';
 import chipExplainPot from './actions/chipExplainPot';
 import chipGameOver from './actions/chipGameOver';
 import chipPlayerChoice from './actions/chipPlayerChoice';
@@ -62,7 +63,6 @@ let state = {
 
   dialogLevel: 0,
   dialogKeys: [],
-  mood: 0,
   hasExplainedPot: false,
   hasReactedToPlayerCard: false,
   hasReactedToHoleCard: false,
@@ -71,7 +71,7 @@ let state = {
 
   domElements: domElements,
 
-  playerPot: 100,
+  playerPot: 50,
   bet: 10,
 
   shoe: new Shoe(3),
@@ -83,7 +83,8 @@ let state = {
   dealerHandDisplay: null,
 
   hasExplainedFaceCard: false,
-  hasExplainedAceCard: false
+  hasExplainedAceCard: false,
+  hasExplainedPipStandLimit: false
 
 };
 
@@ -103,9 +104,9 @@ async function startRound()
   // Loop: Round
   while(true)
   {
-    if(state.playerPot <= 0)
+    if(state.playerPot <= 0 || state.playerPot >= 999)
     {
-      await chipGameOver();
+      await chipGameOver(state);
       break;
     }
 
@@ -215,12 +216,13 @@ async function startRound()
           }
           else
           {
-            await chipAnnounceNewStandCard();
+            await chipAnnounceNewStandCard(state);
           }
 
           card = revealDealerHoleCardOrDeal(state);
           state.dealerHandDisplay.refreshHand();
           await chipReactToDealerCard(card, isHoleCard, state);
+          await chipExplainPipStandLimit(state);
 
           if(scoreHands(state).isRoundOver)
           {
@@ -294,7 +296,7 @@ function setUpDialogControls()
   });
 
   // Click
-  domElements.chipDialog.addEventListener('click', () => {
+  document.addEventListener('click', () => {
     DialogManager.advanceMessage();
   });
 }

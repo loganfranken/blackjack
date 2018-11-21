@@ -10,6 +10,10 @@ export default (state) => {
   {
     displayPot = '999';
   }
+  else if(state.playerPot < 0)
+  {
+    displayPot = '<span class="leading-zero">000</span>';
+  }
   else if(state.playerPot < 100)
   {
     displayPot = `<span class="leading-zero">0</span>${state.playerPot}`;

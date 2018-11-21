@@ -81,7 +81,7 @@ export default async function(score, state)
         break;
 
       case RoundEndState.PlayerWins:
-        potExplanation = `Since you win, you win the current bet, which is *${state.bet} coins*.`;
+        potExplanation = `Since you win, you get the current bet, which is *${state.bet} coins*.`;
         break;
 
       case RoundEndState.Tie:
