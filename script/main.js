@@ -1,6 +1,6 @@
 import chip from './actions/chip';
 import chipAnnounceNewStandCard from './actions/chipAnnounceNewStandCard';
-import ChipEmotion from './ChipEmotion';
+import chipExplainPipStandLimit from './actions/chipExplainPipStandLimit';
 import chipExplainPot from './actions/chipExplainPot';
 import chipGameOver from './actions/chipGameOver';
 import chipPlayerChoice from './actions/chipPlayerChoice';
@@ -22,14 +22,12 @@ import Hand from './Hand';
 import HandDisplay from './HandDisplay';
 import PlayerMove from './PlayerMove';
 import revealDealerHoleCardOrDeal from './actions/revealDealerHoleCardOrDeal';
+import RoundEndState from './RoundEndState';
 import scoreHands from './actions/scoreHands';
 import scoreOpeningHands from './actions/scoreOpeningHands';
 import Shoe from './Shoe';
 import sortCardsForTutorial from './actions/sortCardsForTutorial';
 import updateBetDisplay from './actions/updateBetDisplay';
-import updateChipFace from './actions/updateChipFace';
-import updateChipFaceForRoundEnd from './actions/updateChipFaceForRoundEnd';
-import updateChipFaceForRoundStart from './actions/updateChipFaceForRoundStart';
 import updatePot from './actions/updatePot';
 import updatePotDisplay from './actions/updatePotDisplay';
 
@@ -45,8 +43,7 @@ const domElements = {
   standButton: document.getElementById('action-stand'),
   scoreDisplay: document.getElementById('player-pot'),
   betDisplay: document.getElementById('bet-display'),
-  playerControls: document.getElementById('player-controls'),
-  dealerPicture: document.getElementById('dealer-picture')
+  playerControls: document.getElementById('player-controls')
 };
 
 domElements.playerControlButtons = domElements.playerControls.querySelectorAll('button');
@@ -59,9 +56,13 @@ let state = {
 
   roundCount: 0,
 
+  dealerWinCount: 0,
+  playerWinCount: 0,
+  dealerWinPercentage: 0,
+  playerWinPercentage: 0,
+
   dialogLevel: 0,
   dialogKeys: [],
-  mood: 0,
   hasExplainedPot: false,
   hasReactedToPlayerCard: false,
   hasReactedToHoleCard: false,
@@ -70,7 +71,7 @@ let state = {
 
   domElements: domElements,
 
-  playerPot: 100,
+  playerPot: 50,
   bet: 10,
 
   shoe: new Shoe(3),
@@ -82,7 +83,8 @@ let state = {
   dealerHandDisplay: null,
 
   hasExplainedFaceCard: false,
-  hasExplainedAceCard: false
+  hasExplainedAceCard: false,
+  hasExplainedPipStandLimit: false
 
 };
 
@@ -97,15 +99,14 @@ setUpDialogControls();
 
 async function startRound()
 {
-  updateChipFaceForRoundStart(state);
   updatePotDisplay(state);
 
   // Loop: Round
   while(true)
   {
-    if(state.playerPot <= 0)
+    if(state.playerPot <= 0 || state.playerPot >= 999)
     {
-      await chipGameOver();
+      await chipGameOver(state);
       break;
     }
 
@@ -128,8 +129,6 @@ async function startRound()
     // to give a little time for the cards from the previous hand
     // to disappear
     await chipRoundStart(state.roundCount);
-
-    updateChipEmotion(ChipEmotion.Happy, state);
 
     state.playerHand = new Hand();
     state.playerHandDisplay = new HandDisplay(state.playerHand, domElements.playerHand);
@@ -217,12 +216,13 @@ async function startRound()
           }
           else
           {
-            await chipAnnounceNewStandCard();
+            await chipAnnounceNewStandCard(state);
           }
 
           card = revealDealerHoleCardOrDeal(state);
           state.dealerHandDisplay.refreshHand();
           await chipReactToDealerCard(card, isHoleCard, state);
+          await chipExplainPipStandLimit(state);
 
           if(scoreHands(state).isRoundOver)
           {
@@ -263,7 +263,6 @@ async function handleOpeningHandScoring(state)
 
 async function handleRoundEnd(score, state)
 {
-  updateChipFaceForRoundEnd(score, state);
   await chipRoundEnd(score, state);
 
   updatePot(score, state);
@@ -271,6 +270,19 @@ async function handleRoundEnd(score, state)
   await chipExplainPot(score, state);
 
   state.roundCount++;
+
+  if(score.roundEndState === RoundEndState.DealerWins)
+  {
+    state.dealerWinCount++;
+  }
+
+  if(score.roundEndState === RoundEndState.PlayerWins)
+  {
+    state.playerWinCount++;
+  }
+
+  state.dealerWinPercentage = (state.dealerWinCount/state.roundCount) * 100;
+  state.playerWinPercentage = (state.playerWinCount/state.roundCount) * 100;
 }
 
 function setUpDialogControls()
@@ -284,7 +296,7 @@ function setUpDialogControls()
   });
 
   // Click
-  domElements.chipDialog.addEventListener('click', () => {
+  document.addEventListener('click', () => {
     DialogManager.advanceMessage();
   });
 }

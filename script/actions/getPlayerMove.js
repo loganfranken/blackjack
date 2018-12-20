@@ -13,14 +13,16 @@ export default (hitPlayerResponse, standPlayerResponse, state) => {
 
   return new Promise((resolve, reject) => {
 
-    const onClickHitButton = () => {
+    const onClickHitButton = (event) => {
+      event.stopPropagation();
       hitButton.removeEventListener('click', onClickHitButton);
       standButton.removeEventListener('click', onClickStandButton);
       hidePlayerControls(state);
       resolve(PlayerMove.Hit);
     };
 
-    const onClickStandButton = () => {
+    const onClickStandButton = (event) => {
+      event.stopPropagation();
       hitButton.removeEventListener('click', onClickHitButton);
       standButton.removeEventListener('click', onClickStandButton);
       hidePlayerControls(state);
