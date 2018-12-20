@@ -222,6 +222,16 @@ h2
   background-color: red;
 }
 
+/* =DEALER-EMOTIONS
+------------------------------------------------------- */
+
+@keyframes intro
+{
+  0% { transform: rotate(-180deg); margin-left: -10em; }
+  70% { transform: rotate(20deg); margin-left: 1em; }
+  100% { transform: rotate(0); }
+}
+
 /* =DEALER
 ------------------------------------------------------- */
 
@@ -233,10 +243,11 @@ h2
   24% { height: 0; }
 }
 
-@keyframes intro
+@keyframes emotion-happy
 {
-  0% { transform: rotate(-180deg); margin-left: -10em; }
-  70% { transform: rotate(20deg); margin-left: 1em; }
+  0% { transform: rotate(0); }
+  33% { transform: rotate(-20deg); margin-left: -1em; }
+  66% { transform: rotate(20deg); margin-left: 1em; }
   100% { transform: rotate(0); }
 }
 
@@ -263,6 +274,16 @@ h2
   top: 0.2em;
   position: absolute;
   width: 100%;
+}
+
+#dealer-picture.happy
+{
+  animation: emotion-happy 1s;
+}
+
+#dealer-picture.happy #dealer-face
+{
+  background-image: url('../images/chip_face_happy.png');
 }
 
 #dealer-face::before, #dealer-face::after
