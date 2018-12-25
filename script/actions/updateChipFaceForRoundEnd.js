@@ -1,9 +1,11 @@
+import ChipEmotion from '../ChipEmotion';
 import RoundEndState from '../RoundEndState';
+import updateChipFace from './updateChipFace';
 
 export default async function(score, state)
 {
   if(score.roundEndState === RoundEndState.DealerWins)
   {
-    updateChipEmotion(ChipEmotion.Happy, state);
+    updateChipFace(ChipEmotion.Happy, state);
   }
 };
