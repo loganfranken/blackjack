@@ -232,9 +232,6 @@ h2
   100% { transform: rotate(0); }
 }
 
-/* =DEALER
-------------------------------------------------------- */
-
 @keyframes blink
 {
   0% { height: 0; }
@@ -250,6 +247,16 @@ h2
   66% { transform: rotate(20deg); margin-left: 1em; }
   100% { transform: rotate(0); }
 }
+
+@keyframes emotion-astonished
+{
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(0, -0.8em); }
+  100% { transform: translate(0, 0); }
+}
+
+/* =DEALER
+------------------------------------------------------- */
 
 #dealer-info
 {
@@ -294,6 +301,16 @@ h2
 #dealer-picture.happy #dealer-face
 {
   background-image: url('../images/chip_face_happy.png');
+}
+
+#dealer-picture.astonished
+{
+  animation: emotion-astonished 0.3s ease-in-out;
+}
+
+#dealer-picture.astonished #dealer-face
+{
+  background-image: url('../images/chip_face_astonished.png');
 }
 
 #dealer-face::before, #dealer-face::after
