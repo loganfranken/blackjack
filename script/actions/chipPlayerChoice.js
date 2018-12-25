@@ -162,8 +162,23 @@ const dialogChoices = [
       let isPlayerWinning = (state.playerWinPercentage > 50);
 
       return getPlayerChoice(
-        "I've always been a lucky person.", isPlayerWinning ? "Dang, must be nice! Yeah, you've definitely had some good hands." : "Yeah? Well, I've got to say: I've had most of the luck so far!", null,
-        "I'm just feeling lucky today.", isPlayerWinning ? "You must be! You've had some good hands!" : ["Oh... yeah?", "But you haven't really...", "Uhh, well, I'm excited for your comeback!"], null
+
+        "I've always been a lucky person.",
+        isPlayerWinning
+          ? "Dang, must be nice! Yeah, you've definitely had some good hands."
+          : "Yeah? Well, I've got to say: I've had most of the luck so far!",
+        null,
+
+        "I'm just feeling lucky today.",
+        isPlayerWinning
+          ? "You must be! You've had some good hands!"
+          : [
+              "Oh... yeah?",
+              "But you haven't really...",
+              "Uhh, well, I'm excited for your comeback!"
+            ],
+        null
+
       );
     }
   },
@@ -176,8 +191,19 @@ const dialogChoices = [
       let isPlayerWinning = (state.playerWinPercentage > 50);
 
       return getPlayerChoice(
-        "I never win at anything.", isPlayerWinning ? "Really? You've had some good hands so far, though." : "You haven't had a great game so far, but maybe things will turn around?", null,
-        "I'm just not feeling lucky today.", isPlayerWinning ? "Well, even if you're not feeling it, you've had some good hands." : "Yeah, you've had kind of a tough game, but maybe things will turn around!", null
+
+        "I never win at anything.",
+        isPlayerWinning
+          ? "Really? You've had some good hands so far, though."
+          : "You haven't had a great game so far, but maybe things will turn around?",
+        null,
+
+        "I'm just not feeling lucky today.",
+        isPlayerWinning
+          ? "Well, even if you're not feeling it, you've had some good hands."
+          : "Yeah, you've had kind of a tough game, but maybe things will turn around!",
+        null
+
       );
     }
   },
@@ -198,8 +224,21 @@ const dialogChoices = [
       action: async () => {
         await chip("Have you played this game before?", true);
         return getPlayerChoice(
-          "Nope, first time.", ["Oh, really? I wouldn't know.", "Your dealer changes each time you play."], (state) => { state.dialogKeys['first-time'] = true; },
-          "Oh yeah, remember?", ["Oh, sorry, no, I don't remember.", "That wasn't me", "Your dealer changes each time you play"], (state) => { state.dialogKeys['return-player'] = true; }
+
+          "Nope, first time.",
+          [
+              "Oh, really? I wouldn't know.",
+              "Your dealer changes each time you play."
+          ],
+          (state) => { state.dialogKeys['first-time'] = true; },
+
+          "Oh yeah, remember?",
+          [
+            "Oh, sorry, no, I don't remember.",
+            "That wasn't me.", "Your dealer changes each time you play."
+          ],
+          (state) => { state.dialogKeys['return-player'] = true; }
+
         );
       }
   },
@@ -209,8 +248,26 @@ const dialogChoices = [
       action: async () => {
         await chip("Since it's your first time, do you think you'll play again?", true);
         return getPlayerChoice(
-          "Oh yeah!", ["Nice!", "Well, next time...", "Tell Chip I said hi!", "...", "Because we're all named Chip, is what I'm saying."], null,
-          "No, I don't think so.", ["Oof.", "Oh, well.", "Sorry I didn't make a better first impression.", "Maybe you'll like the next Chip better."], null
+
+          "Oh yeah!",
+          [
+            "Nice!",
+            "Well, next time...",
+            "Tell Chip I said hi!",
+            "...",
+            "Because we're all named Chip, is what I'm saying."
+          ],
+          null,
+
+          "No, I don't think so.",
+          [
+            "Oof.",
+            "Oh, well.",
+            "Sorry I didn't make a better first impression.",
+            "Maybe you'll like the next Chip better."
+          ],
+          null
+
         );
       }
   },
@@ -220,8 +277,29 @@ const dialogChoices = [
       action: async () => {
         await chip("What was your dealer's name last time?", true);
         return getPlayerChoice(
-          "Chip, just like you.", ["Oh, yeah? How weird!", "...", "Actually, I knew that.", "We're all named Chip.", "I was just kidding.", "Sorry, that was weird I tricked you.", "I thought it would be funny.", "...", "Anyway..."], null,
-          "Harold.", ["Uhh... what?", "Oh, are you messing with me?", "We're all named Chip."], null
+
+          "Chip, just like you.",
+          [
+            "Oh, yeah? How weird!",
+            "...",
+            "Actually, I knew that.",
+            "We're all named Chip.",
+            "I was just kidding.",
+            "Sorry, that was weird I tricked you.",
+            "I thought it would be funny.",
+            "...",
+            "Anyway..."
+          ],
+          null,
+
+          "Harold.",
+          [
+            "Uhh... what?",
+            "Oh, are you messing with me?",
+            "We're all named Chip."
+          ],
+          null
+
         );
       }
   },
@@ -232,8 +310,28 @@ const dialogChoices = [
         await chip("Dang, you're doing really well.");
         await chip("You're not some kind of card shark are you?", true);
         return getPlayerChoice(
-          "What? Of course not!", ["Oh! No, I'm just joking!", "I wouldn't even know how to spot a card shark, honestly.", "Whoa, please don't tell anyone that."], (state) => { state.dialogKeys['card-shark'] = true; },
-          "Oh, totally.", ["...", "Wait, what?", "Seriously?", "I was just joking.", "You're messing with me, right?", "I hope so.", "I wouldn't even know how to spot a card shark, honestly.", "Whoa, please don't tell anyone that."], (state) => { state.dialogKeys['card-shark'] = true; }
+
+          "What? Of course not!",
+          [
+            "Oh! No, I'm just joking!",
+            "I wouldn't even know how to spot a card shark, honestly.",
+            "Whoa, please don't tell anyone that."
+          ],
+          (state) => { state.dialogKeys['card-shark'] = true; },
+
+          "Oh, totally.",
+          [
+            "...",
+            "Wait, what?",
+            "Seriously?",
+            "I was just joking.",
+            "You're messing with me, right?",
+            "I hope so.",
+            "I wouldn't even know how to spot a card shark, honestly.",
+            "Whoa, please don't tell anyone that."
+          ],
+          (state) => { state.dialogKeys['card-shark'] = true; }
+
         );
       }
   },
@@ -244,8 +342,24 @@ const dialogChoices = [
         await chip("Oof, so it's kind of been a rough game for you, huh?");
         await chip("Well, at least you're not a card shark.", true);
         return getPlayerChoice(
-          "Haha, right?", ["Just kidding!", "I wouldn't even know how to spot a card shark, honestly.", "Whoa, please don't tell anyone that."], null,
-          "...yeah, I guess not.", ["Oh, uhh, geez! I'm sorry!", "I was just joking.", "I wouldn't even know how to spot a card shark, honestly.", "Whoa, please don't tell anyone that."], null
+
+          "Haha, right?",
+          [
+            "Just kidding!",
+            "I wouldn't even know how to spot a card shark, honestly.",
+            "Whoa, please don't tell anyone that."
+          ],
+          null,
+
+          "...yeah, I guess not.",
+          [
+            "Oh, uhh, geez! I'm sorry!",
+            "I was just joking.",
+            "I wouldn't even know how to spot a card shark, honestly.",
+            "Whoa, please don't tell anyone that."
+          ],
+          null
+
         );
       }
   },
@@ -256,8 +370,19 @@ const dialogChoices = [
         await chip("Hey, so, uhh, remember when I said I couldn't spot a card shark?");
         await chip("You're not going to tell anyone about that, right?", true);
         return getPlayerChoice(
-          "Your secret's safe with me.", "Phew, thanks.", null,
-          "I'm telling everyone.", ["Aww, come on.", "Don't be like that!", "Please, I've got a reputation here."], null
+
+          "Your secret's safe with me.",
+          "Phew, thanks.",
+          null,
+
+          "I'm telling everyone.",
+          [
+            "Aww, come on.",
+            "Don't be like that!",
+            "Please, I've got a reputation here."
+          ],
+          null
+
         );
       }
   },
@@ -268,8 +393,21 @@ const dialogChoices = [
         await chip("Card sharks are super interesting, though.");
         await chip("What do you think it takes to be a card shark?", true);
         return getPlayerChoice(
-          "A good memory.", ["Right?", "It seems so hard to remember all of those cards."], null,
-          "Sharp math skills.", ["Yeah, you're probably right.", "A good memory seems important too, though, right?"], null
+
+          "A good memory.",
+          [
+            "Right?",
+            "It seems so hard to remember all of those cards."
+          ],
+          null,
+
+          "Sharp math skills.",
+          [
+            "Yeah, you're probably right.",
+            "A good memory seems important too, though, right?"
+          ],
+          null
+
         );
       }
   },
@@ -291,8 +429,19 @@ const dialogChoices = [
         await chip("Well, enough, about me: what about your memory?");
         await chip("I mean, can you even remember how many rounds we've played so far?", true);
         return getPlayerChoice(
-          `Uhh, ${roundCount + 1}.`, ["That's right!", "Wow, you have a good memory!"], null,
-          `Uhh, ${roundCount + 2}.`, ["Ahh, sorry, that's wrong", "But, hey, at least you're saving that room for something else."], null
+
+          `Uhh, ${roundCount + 1}.`,
+          [
+            "That's right!", "Wow, you have a good memory!"
+          ],
+          null,
+
+          `Uhh, ${roundCount + 2}.`,
+          [
+            "Ahh, sorry, that's wrong", "But, hey, at least you're saving that room for something else."
+          ],
+          null
+
         );
       }
   },
@@ -303,8 +452,24 @@ const dialogChoices = [
         await chip("...", true);
         await chip("Hey, listen, can I ask you something?", true);
         return getPlayerChoice(
-          "Yeah, of course.", ["Oh, yeah?", "Okay.", "...", "After this round!"], (state) => { state.dialogKeys['ask-final-question'] = true; },
-          "No, I want to focus on the game.", ["Oh, hey, okay.", "That's okay.", "You're right.", "Let's focus on the game."], (state) => { state.dialogKeys['ask-final-question'] = false; }
+
+          "Yeah, of course.",
+          [
+            "Oh, yeah?",
+            "Okay.",
+            "...",
+            "After this round!"
+          ],
+          (state) => { state.dialogKeys['ask-final-question'] = true; },
+
+          "No, I want to focus on the game.",
+          [
+            "Oh, hey, okay.",
+            "That's okay.", "You're right.",
+            "Let's focus on the game."
+          ],
+          (state) => { state.dialogKeys['ask-final-question'] = false; }
+
         );
       }
   },
@@ -329,34 +494,39 @@ const dialogChoices = [
         await chip("...");
         await chip("Do you think you would?", true);
         return getPlayerChoice(
+
           "Yes, Chip, I would.",
-            [
-              "Thank you, I, I needed to hear that.",
-              "Listen, I can't deal anymore.",
-              "It's just...",
-              "I can't.",
-              "If it's okay with you, I'd just like to sit here.",
-              "And be quiet for a little while.",
-              "And, when you're done, you can go ahead and close the browser.",
-              "It was nice playing with you",
-              "..."
-            ], null,
+          [
+            "Thank you, I, I needed to hear that.",
+            "Listen, I can't deal anymore.",
+            "It's just...",
+            "I can't.",
+            "If it's okay with you, I'd just like to sit here.",
+            "And be quiet for a little while.",
+            "And, when you're done, you can go ahead and close the browser.",
+            "It was nice playing with you",
+            "..."
+          ],
+          null,
+
           "No, Chip, I wouldn't.",
-            [
-              "Oh...",
-              "...",
-              "That's honest.",
-              "...",
-              "No, I, I needed to hear that.",
-              "...",
-              "Listen, I can't really play anymore.",
-              "It just doesn't, I don't feel..",
-              "I just can't",
-              "I'm just going to sit here.",
-              "And be quiet for a little while.",
-              "You can close the browser whenever you're ready.",
-              "..."
-            ], null
+          [
+            "Oh...",
+            "...",
+            "That's honest.",
+            "...",
+            "No, I, I needed to hear that.",
+            "...",
+            "Listen, I can't really play anymore.",
+            "It just doesn't, I don't feel..",
+            "I just can't",
+            "I'm just going to sit here.",
+            "And be quiet for a little while.",
+            "You can close the browser whenever you're ready.",
+            "..."
+          ],
+          null
+          
         );
       }
   },
