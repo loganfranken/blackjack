@@ -1,5 +1,6 @@
 import chip from './actions/chip';
 import chipAnnounceNewStandCard from './actions/chipAnnounceNewStandCard';
+import ChipEmotion from './ChipEmotion';
 import chipExplainPipStandLimit from './actions/chipExplainPipStandLimit';
 import chipExplainPot from './actions/chipExplainPot';
 import chipGameOver from './actions/chipGameOver';
@@ -28,6 +29,9 @@ import scoreOpeningHands from './actions/scoreOpeningHands';
 import Shoe from './Shoe';
 import sortCardsForTutorial from './actions/sortCardsForTutorial';
 import updateBetDisplay from './actions/updateBetDisplay';
+import updateChipFace from './actions/updateChipFace';
+import updateChipFaceForRoundEnd from './actions/updateChipFaceForRoundEnd';
+import updateChipFaceForRoundStart from './actions/updateChipFaceForRoundStart';
 import updatePot from './actions/updatePot';
 import updatePotDisplay from './actions/updatePotDisplay';
 
@@ -43,7 +47,8 @@ const domElements = {
   standButton: document.getElementById('action-stand'),
   scoreDisplay: document.getElementById('player-pot'),
   betDisplay: document.getElementById('bet-display'),
-  playerControls: document.getElementById('player-controls')
+  playerControls: document.getElementById('player-controls'),
+  dealerPicture: document.getElementById('dealer-picture')
 };
 
 domElements.playerControlButtons = domElements.playerControls.querySelectorAll('button');
@@ -130,8 +135,6 @@ async function startRound()
     // to give a little time for the cards from the previous hand
     // to disappear
     await chipRoundStart(state.roundCount);
-
-    updateChipEmotion(ChipEmotion.Happy, state);
 
     state.playerHand = new Hand();
     state.playerHandDisplay = new HandDisplay(state.playerHand, domElements.playerHand);

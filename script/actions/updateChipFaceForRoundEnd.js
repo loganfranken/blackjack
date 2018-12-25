@@ -1,3 +1,5 @@
+import RoundEndState from '../RoundEndState';
+
 export default async function(score, state)
 {
   if(score.roundEndState === RoundEndState.DealerWins)
