@@ -99,6 +99,7 @@ setUpDialogControls();
 
 async function startRound()
 {
+  updateChipFaceForRoundStart(state);
   updatePotDisplay(state);
 
   // Loop: Round
@@ -129,6 +130,8 @@ async function startRound()
     // to give a little time for the cards from the previous hand
     // to disappear
     await chipRoundStart(state.roundCount);
+
+    updateChipEmotion(ChipEmotion.Happy, state);
 
     state.playerHand = new Hand();
     state.playerHandDisplay = new HandDisplay(state.playerHand, domElements.playerHand);
@@ -263,6 +266,7 @@ async function handleOpeningHandScoring(state)
 
 async function handleRoundEnd(score, state)
 {
+  updateChipFaceForRoundEnd(score, state);
   await chipRoundEnd(score, state);
 
   updatePot(score, state);
