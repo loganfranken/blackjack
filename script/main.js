@@ -89,7 +89,9 @@ let state = {
 
   hasExplainedFaceCard: false,
   hasExplainedAceCard: false,
-  hasExplainedPipStandLimit: false
+  hasExplainedPipStandLimit: false,
+
+  isGameOver: false
 
 };
 
@@ -110,6 +112,11 @@ async function startRound()
   // Loop: Round
   while(true)
   {
+    if(state.isGameOver)
+    {
+      break;
+    }
+
     if(state.playerPot <= 0 || state.playerPot >= 999)
     {
       await chipGameOver(state);
@@ -197,6 +204,11 @@ async function startRound()
           dialogInfo.hitAction(state);
         }
 
+        if(state.isGameOver)
+        {
+          break;
+        }
+
         card = dealPlayerCard(state);
         state.playerHandDisplay.refreshHand();
         await chipReactToPlayerCard(card, state);
@@ -219,6 +231,11 @@ async function startRound()
           {
             await chip(dialogInfo.standChipResponse);
             isFirstStand = false;
+
+            if(state.isGameOver)
+            {
+              break;
+            }
           }
           else
           {
@@ -235,6 +252,11 @@ async function startRound()
             break;
           }
         }
+
+        if(state.isGameOver)
+        {
+          break;
+        }
       }
 
       let score = scoreHands(state);
@@ -243,6 +265,11 @@ async function startRound()
         await handleRoundEnd(score, state);
         break;
       }
+    }
+
+    if(state.isGameOver)
+    {
+      break;
     }
   }
 };

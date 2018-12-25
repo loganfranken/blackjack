@@ -98,7 +98,7 @@ function getPlayerChoice(firstStatement, firstResponse, firstAction, secondState
 const dialogChoices = [
 
   {
-    filter: (state) => (state.dialogLevel === 1),
+    filter: (state) => (state.dialogLevel === 2),
     action: async () => {
       await chip("Now you get to make a *choice*...");
       await chip("You can *hit* and take another card.");
@@ -310,8 +310,9 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 15),
-      action: async () => {
+      filter: (state) => (state.dialogLevel === 1),
+      action: async (state) => {
+        state.isGameOver = true;
         await chip("Okay, about that question...");
         await chip("...");
         await chip("Do you think you'll remember me?");
