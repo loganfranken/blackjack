@@ -276,6 +276,16 @@ h2
   width: 100%;
 }
 
+#dealer-picture.default
+{
+  animation: none;
+}
+
+#dealer-picture.default #dealer-face
+{
+  background-image: url('../images/chip_face_default.png');
+}
+
 #dealer-picture.happy
 {
   animation: emotion-happy 1s;

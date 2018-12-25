@@ -98,7 +98,7 @@ function getPlayerChoice(firstStatement, firstResponse, firstAction, secondState
 const dialogChoices = [
 
   {
-    filter: (state) => (state.dialogLevel === 2),
+    filter: (state) => (state.dialogLevel === 1),
     action: async () => {
       await chip("Now you get to make a *choice*...");
       await chip("You can *hit* and take another card.");

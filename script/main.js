@@ -106,12 +106,13 @@ setUpDialogControls();
 
 async function startRound()
 {
-  updateChipFaceForRoundStart(state);
   updatePotDisplay(state);
 
   // Loop: Round
   while(true)
   {
+    updateChipFaceForRoundStart(state);
+
     if(state.isGameOver)
     {
       break;

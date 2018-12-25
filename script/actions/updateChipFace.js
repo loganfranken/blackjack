@@ -7,7 +7,7 @@ export default function(emotion, state)
   switch(emotion)
   {
     case ChipEmotion.Default:
-      dealerPicture.className = '';
+      dealerPicture.className = 'default';
       break;
 
     case ChipEmotion.Happy:
