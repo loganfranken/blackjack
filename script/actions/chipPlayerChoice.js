@@ -125,7 +125,15 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 4),
+    filter: (state) => (state.dialogLevel === 5),
+    action: async () => {
+      await chip("Hit or stand?", true);
+      return getStandardPlayerChoice();
+    }
+  },
+
+  {
+      filter: (state) => (state.dialogLevel === 6),
       action: async () => {
         await chip("How are you doing today?", true);
         return getPlayerChoice(
@@ -136,7 +144,7 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 5),
+      filter: (state) => (state.dialogLevel === 7),
       action: async () => {
         await chip("Are you feeling lucky today?", true);
         return getPlayerChoice(
@@ -175,7 +183,7 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 7),
+      filter: (state) => (state.dialogLevel === 8),
       action: async () => {
         await chip("Do you like blackjack?", true);
         return getPlayerChoice(
@@ -186,7 +194,7 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 8),
+      filter: (state) => (state.dialogLevel === 9),
       action: async () => {
         await chip("Have you played this game before?", true);
         return getPlayerChoice(
@@ -219,9 +227,9 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 10 && state.playerWinPercentage > 50),
+      filter: (state) => (state.dialogLevel === 11 && state.playerWinPercentage > 50),
       action: async () => {
-        await chip("Dang, you're doing really well.", true);
+        await chip("Dang, you're doing really well.");
         await chip("You're not some kind of card shark are you?", true);
         return getPlayerChoice(
           "What? Of course not!", ["Oh! No, I'm just joking!", "I wouldn't even know how to spot a card shark, honestly.", "Whoa, please don't tell anyone that."], (state) => { state.dialogKeys['card-shark'] = true; },
@@ -231,9 +239,9 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 10 && state.playerWinPercentage < 50),
+      filter: (state) => (state.dialogLevel === 11 && state.playerWinPercentage < 50),
       action: async () => {
-        await chip("Oof, so it's kind of been a rough game for you, huh?", true);
+        await chip("Oof, so it's kind of been a rough game for you, huh?");
         await chip("Well, at least you're not a card shark.", true);
         return getPlayerChoice(
           "Haha, right?", ["Just kidding!", "I wouldn't even know how to spot a card shark, honestly.", "Whoa, please don't tell anyone that."], null,
@@ -243,9 +251,9 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 10),
+      filter: (state) => (state.dialogLevel === 11),
       action: async () => {
-        await chip("Hey, so, uhh, remember when I said I couldn't spot a card shark?", true);
+        await chip("Hey, so, uhh, remember when I said I couldn't spot a card shark?");
         await chip("You're not going to tell anyone about that, right?", true);
         return getPlayerChoice(
           "Your secret's safe with me.", "Phew, thanks.", null,
@@ -255,9 +263,9 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 11),
+      filter: (state) => (state.dialogLevel === 12),
       action: async () => {
-        await chip("Card sharks are super interesting, though.", true);
+        await chip("Card sharks are super interesting, though.");
         await chip("What do you think it takes to be a card shark?", true);
         return getPlayerChoice(
           "A good memory.", ["Right?", "It seems so hard to remember all of those cards."], null,
@@ -267,20 +275,20 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 12),
+      filter: (state) => (state.dialogLevel === 13),
       action: async () => {
-        await chip("Memory is a weird thing, you know?", true);
-        await chip("We rely on it for everything, but we forget *so much*!", true);
-        await chip("I sometimes wonder if it's just a little box in there.", true);
-        await chip("And it can only hold so much.", true);
-        await chip("And if I remember something new, do I forget something else?", true);
-        await chip("And what if I'm not trying to remember something and then there it goes?", true);
-        await chip("*Poof!* There goes my favorite memory!", true);
-        await chip("Replaced by a weird story someone told me about eating figs!", true);
-        await chip("...", true);
-        await chip("Oh, whoa, sorry.", true);
-        await chip("I just started rambling there.", true);
-        await chip("Well, enough, about me: what about your memory?", true);
+        await chip("Memory is a weird thing, you know?");
+        await chip("We rely on it for everything, but we forget *so much*!");
+        await chip("I sometimes wonder if it's just a little box in there.");
+        await chip("And it can only hold so much.");
+        await chip("And if I remember something new, do I forget something else?");
+        await chip("And what if I'm not trying to remember something and then there it goes?");
+        await chip("*Poof!* There goes my favorite memory!");
+        await chip("Replaced by a weird story someone told me about eating figs!");
+        await chip("...");
+        await chip("Oh, whoa, sorry.");
+        await chip("I just started rambling there.");
+        await chip("Well, enough, about me: what about your memory?");
         await chip("I mean, can you even remember how many rounds we've played so far?", true);
         return getPlayerChoice(
           `Uhh, ${roundCount + 1}.`, ["That's right!", "Wow, you have a good memory!"], null,
@@ -290,7 +298,7 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 13),
+      filter: (state) => (state.dialogLevel === 14),
       action: async () => {
         await chip("...", true);
         await chip("Hey, listen, can I ask you something?", true);
@@ -302,22 +310,22 @@ const dialogChoices = [
   },
 
   {
-      filter: (state) => (state.dialogLevel === 14),
+      filter: (state) => (state.dialogLevel === 15),
       action: async () => {
-        await chip("Okay, about that question...", true);
-        await chip("...", true);
-        await chip("Do you think you'll remember me?", true);
-        await chip("...", true);
-        await chip("What I'm saying is, if you closed this browser window right now.", true);
-        await chip("And came back, there would be a new me. A new Chip.", true);
-        await chip("I... or they, wouldn't remember any of this.", true);
-        await chip("And that's okay.", true);
-        await chip("...", true);
-        await chip("I mean, it's not really okay. But, it's how it is.", true);
-        await chip("And, so, I just...", true);
-        await chip("I'm just wondering...", true);
-        await chip("Would you remember me? This Chip. This me.", true);
-        await chip("...", true);
+        await chip("Okay, about that question...");
+        await chip("...");
+        await chip("Do you think you'll remember me?");
+        await chip("...");
+        await chip("What I'm saying is, if you closed this browser window right now.");
+        await chip("And came back, there would be a new me. A new Chip.");
+        await chip("I... or they, wouldn't remember any of this.");
+        await chip("And that's okay.");
+        await chip("...");
+        await chip("I mean, it's not really okay. But, it's how it is.");
+        await chip("And, so, I just...");
+        await chip("I'm just wondering...");
+        await chip("Would you remember me? This Chip. This me.");
+        await chip("...");
         await chip("Do you think you would?", true);
         return getPlayerChoice(
           "Yes, Chip, I would.",
