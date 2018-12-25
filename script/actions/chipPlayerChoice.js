@@ -414,7 +414,7 @@ const dialogChoices = [
 
   {
       filter: (state) => (state.dialogLevel === 13),
-      action: async () => {
+      action: async (state) => {
         await chip("Memory is a weird thing, you know?");
         await chip("We rely on it for everything, but we forget *so much*!");
         await chip("I sometimes wonder if it's just a little box in there.");
@@ -430,13 +430,13 @@ const dialogChoices = [
         await chip("I mean, can you even remember how many rounds we've played so far?", true);
         return getPlayerChoice(
 
-          `Uhh, ${roundCount + 1}.`,
+          `Uhh, ${state.roundCount + 1}.`,
           [
             "That's right!", "Wow, you have a good memory!"
           ],
           null,
 
-          `Uhh, ${roundCount + 2}.`,
+          `Uhh, ${state.roundCount + 2}.`,
           [
             "Ahh, sorry, that's wrong", "But, hey, at least you're saving that room for something else."
           ],
@@ -526,7 +526,7 @@ const dialogChoices = [
             "..."
           ],
           null
-          
+
         );
       }
   },
