@@ -313,6 +313,16 @@ h2
   background-image: url('../images/chip_face_astonished.png');
 }
 
+#dealer-picture.awkward
+{
+  animation: none;
+}
+
+#dealer-picture.awkward #dealer-face
+{
+  background-image: url('../images/chip_face_awkward.png');
+}
+
 #dealer-face::before, #dealer-face::after
 {
   animation: blink 3s infinite;
