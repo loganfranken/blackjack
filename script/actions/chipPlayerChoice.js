@@ -303,14 +303,14 @@ const dialogChoices = [
         await chip("...", true);
         await chip("Hey, listen, can I ask you something?", true);
         return getPlayerChoice(
-          "Yeah, of course.", ["Oh, yeah?", "Okay.", "...", "After this round!"], null,
-          "No, I want to focus on the game.", ["Oh, hey, okay.", "That's okay.", "You're right.", "Let's focus on the game."], null
+          "Yeah, of course.", ["Oh, yeah?", "Okay.", "...", "After this round!"], (state) => { state.dialogKeys['ask-final-question'] = true; },
+          "No, I want to focus on the game.", ["Oh, hey, okay.", "That's okay.", "You're right.", "Let's focus on the game."], (state) => { state.dialogKeys['ask-final-question'] = false; }
         );
       }
   },
 
   {
-      filter: (state) => (state.dialogLevel === 1),
+      filter: (state) => (state.dialogLevel === 15 && state.dialogKeys['ask-final-question']),
       action: async (state) => {
         state.isGameOver = true;
         await chip("Okay, about that question...");
