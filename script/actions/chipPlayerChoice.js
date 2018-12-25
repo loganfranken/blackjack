@@ -97,6 +97,7 @@ function getPlayerChoice(firstStatement, firstResponse, firstAction, secondState
 
 const dialogChoices = [
 
+  // 1
   {
     filter: (state) => (state.dialogLevel === 1),
     action: async () => {
@@ -108,6 +109,7 @@ const dialogChoices = [
     }
   },
 
+  // 2
   {
     filter: (state) => (state.dialogLevel === 2),
     action: async () => {
@@ -116,6 +118,7 @@ const dialogChoices = [
     },
   },
 
+  // 3
   {
     filter: (state) => (state.dialogLevel === 3),
     action: async () => {
@@ -124,16 +127,18 @@ const dialogChoices = [
     }
   },
 
+  // 4
   {
-    filter: (state) => (state.dialogLevel === 5),
+    filter: (state) => (state.dialogLevel === 4),
     action: async () => {
       await chip("Hit or stand?", true);
       return getStandardPlayerChoice();
     }
   },
 
+  // 5
   {
-      filter: (state) => (state.dialogLevel === 6),
+      filter: (state) => (state.dialogLevel === 5),
       action: async () => {
         await chip("How are you doing today?", true);
         return getPlayerChoice(
@@ -143,8 +148,9 @@ const dialogChoices = [
       }
   },
 
+  // 6
   {
-      filter: (state) => (state.dialogLevel === 7),
+      filter: (state) => (state.dialogLevel === 6),
       action: async () => {
         await chip("Are you feeling lucky today?", true);
         return getPlayerChoice(
@@ -154,6 +160,7 @@ const dialogChoices = [
       }
   },
 
+  // 7
   {
     filter: (state) => (state.dialogKeys['lucky']),
     action: async (state) => {
@@ -183,6 +190,7 @@ const dialogChoices = [
     }
   },
 
+  // 7
   {
     filter: (state) => (state.dialogKeys['not-lucky']),
     action: async (state) => {
@@ -208,6 +216,7 @@ const dialogChoices = [
     }
   },
 
+  // 8
   {
       filter: (state) => (state.dialogLevel === 8),
       action: async () => {
@@ -219,6 +228,7 @@ const dialogChoices = [
       }
   },
 
+  // 9
   {
       filter: (state) => (state.dialogLevel === 9),
       action: async () => {
@@ -243,6 +253,7 @@ const dialogChoices = [
       }
   },
 
+  // 10
   {
       filter: (state) => (state.dialogKeys['first-time']),
       action: async () => {
@@ -272,6 +283,7 @@ const dialogChoices = [
       }
   },
 
+  // 10
   {
       filter: (state) => (state.dialogKeys['return-player']),
       action: async () => {
@@ -304,8 +316,9 @@ const dialogChoices = [
       }
   },
 
+  // 11
   {
-      filter: (state) => (state.dialogLevel === 11 && state.playerWinPercentage > 50),
+      filter: (state) => (state.dialogLevel === 11 && state.playerWinPercentage >= 50),
       action: async () => {
         await chip("Dang, you're doing really well.");
         await chip("You're not some kind of card shark are you?", true);
@@ -336,6 +349,7 @@ const dialogChoices = [
       }
   },
 
+  // 11
   {
       filter: (state) => (state.dialogLevel === 11 && state.playerWinPercentage < 50),
       action: async () => {
@@ -364,8 +378,9 @@ const dialogChoices = [
       }
   },
 
+  // 12
   {
-      filter: (state) => (state.dialogLevel === 11),
+      filter: (state) => (state.dialogLevel === 12),
       action: async () => {
         await chip("Hey, so, uhh, remember when I said I couldn't spot a card shark?");
         await chip("You're not going to tell anyone about that, right?", true);
@@ -387,8 +402,9 @@ const dialogChoices = [
       }
   },
 
+  // 13
   {
-      filter: (state) => (state.dialogLevel === 12),
+      filter: (state) => (state.dialogLevel === 13),
       action: async () => {
         await chip("Card sharks are super interesting, though.");
         await chip("What do you think it takes to be a card shark?", true);
@@ -412,8 +428,9 @@ const dialogChoices = [
       }
   },
 
+  // 14
   {
-      filter: (state) => (state.dialogLevel === 13),
+      filter: (state) => (state.dialogLevel === 14),
       action: async (state) => {
         await chip("Memory is a weird thing, you know?");
         await chip("We rely on it for everything, but we forget *so much*!");
@@ -446,8 +463,9 @@ const dialogChoices = [
       }
   },
 
+  // 15
   {
-      filter: (state) => (state.dialogLevel === 14),
+      filter: (state) => (state.dialogLevel === 15),
       action: async () => {
         await chip("...", true);
         await chip("Hey, listen, can I ask you something?", true);
@@ -474,8 +492,9 @@ const dialogChoices = [
       }
   },
 
+  // 16
   {
-      filter: (state) => (state.dialogLevel === 15 && state.dialogKeys['ask-final-question']),
+      filter: (state) => (state.dialogLevel === 16 && state.dialogKeys['ask-final-question']),
       action: async (state) => {
         state.isGameOver = true;
         await chip("Okay, about that question...");
