@@ -272,26 +272,95 @@ const dialogChoices = [
           "Sharp math skills.", ["Yeah, you're probably right.", "A good memory seems important too, though, right?"], null
         );
       }
-  }
+  },
+
+  {
+      filter: (state) => (state.dialogLevel === 15),
+      action: async () => {
+        await chip("Memory is a weird thing, you know?", true);
+        await chip("We rely on it for everything, but we forget *so much*!", true);
+        await chip("I sometimes wonder if it's just a little box in there.", true);
+        await chip("And it can only hold so much.", true);
+        await chip("And if I remember something new, do I forget something else?", true);
+        await chip("And what if I'm not trying to remember something and then there it goes?", true);
+        await chip("*Poof!* There goes my favorite memory!", true);
+        await chip("Replaced by a weird story someone told me about eating figs!", true);
+        await chip("...", true);
+        await chip("Oh, whoa, sorry.", true);
+        await chip("I just started rambling there.", true);
+        await chip("Well, enough, about me: what about your memory?", true);
+        await chip("I mean, can you even remember how many rounds we've played so far?", true);
+        return getPlayerChoice(
+          `Uhh, ${roundCount + 1}.`, ["That's right!", "Wow, you have a good memory!"], null,
+          `Uhh, ${roundCount + 2}.`, ["Ahh, sorry, that's wrong", "But, hey, at least you're saving that room for something else."], null
+        );
+      }
+  },
+
+  {
+      filter: (state) => (state.dialogLevel === 16),
+      action: async () => {
+        await chip("...", true);
+        await chip("Hey, listen, can I ask you something?", true);
+        return getPlayerChoice(
+          "Yeah, of course.", ["Oh, yeah?", "Okay.", "...", "After this round!"], null,
+          "No, I want to focus on the game.", ["Oh, hey, okay.", "That's okay.", "You're right.", "Let's focus on the game."], null
+        );
+      }
+  },
+
+  {
+      filter: (state) => (state.dialogLevel === 17),
+      action: async () => {
+        await chip("Okay, about that question...", true);
+        await chip("...", true);
+        await chip("Do you think you'll remember me?", true);
+        await chip("...", true);
+        await chip("What I'm saying is, if you closed this browser window right now.", true);
+        await chip("And came back, there would be a new me. A new Chip.", true);
+        await chip("I... or they, wouldn't remember any of this.", true);
+        await chip("And that's okay.", true);
+        await chip("...", true);
+        await chip("I mean, it's not really okay. But, it's how it is.", true);
+        await chip("And, so, I just...", true);
+        await chip("I'm just wondering...", true);
+        await chip("Would you remember me? This Chip. This me.", true);
+        await chip("...", true);
+        await chip("Do you think you would?", true);
+        return getPlayerChoice(
+          "Yes, Chip, I would.",
+            [
+              "Thank you, I, I needed to hear that.",
+              "Listen, I can't deal anymore.",
+              "It's just...",
+              "I can't.",
+              "If it's okay with you, I'd just like to sit here.",
+              "And be quiet for a little while.",
+              "And, when you're done, you can go ahead and close the browser.",
+              "It was nice playing with you",
+              "..."
+            ], null,
+          "No, Chip, I wouldn't.",
+            [
+              "Oh...",
+              "...",
+              "That's honest.",
+              "...",
+              "No, I, I needed to hear that.",
+              "...",
+              "Listen, I can't really play anymore.",
+              "It just doesn't, I don't feel..",
+              "I just can't",
+              "I'm just going to sit here.",
+              "And be quiet for a little while.",
+              "You can close the browser whenever you're ready.",
+              "..."
+            ], null
+        );
+      }
+  },
 
 ];
-
-// Yeah, memory is funny.
-// Do you have a good memory?
-
-// ...
-// Hey, listen, can I ask you something?
-
-// ...
-// Do you think you'll remember me?
-
-// What I'm saying is, if you closed this browser window right now.
-// And came back, there would be a new me. A new Chip.
-// I wouldn't remember any of this.
-// And that's okay.
-// I mean, it's not okay. But, it's how it is.
-// I just, I was wondering, if you would remember me. This me.
-// Do you think you would?
 
 // Thank you, I, I needed to hear that.
 // Listen, I can't deal anymore. It's just. I can't.
