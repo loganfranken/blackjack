@@ -1,7 +1,9 @@
 import chip from './chip';
+import ChipEmotion from '../ChipEmotion';
 import RoundEndCondition from '../RoundEndCondition';
 import RoundEndState from '../RoundEndState';
 import showBet from './showBet';
+import updateChipFace from './updateChipFace';
 
 export default async function(score, state)
 {
@@ -56,6 +58,7 @@ export default async function(score, state)
 
     // Tie
     case RoundEndState.Tie:
+      updateChipFace(ChipEmotion.Astonished, state);
       message = "It's a *tie!*";
 
       switch(score.roundEndCondition)

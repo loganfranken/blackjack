@@ -1,14 +1,18 @@
 import chip from './chip';
+import ChipEmotion from '../ChipEmotion';
+import updateChipFace from './updateChipFace';
 
 export default async function(state)
 {
   if(state.playerPot <= 0)
   {
+    updateChipFace(ChipEmotion.Bummed, state);
     await chip(`Oh no! That's game over!`);
     await chip(`Better luck next time!`);
   }
   else if(state.playerPot >= 999)
   {
+    updateChipFace(ChipEmotion.Awkward, state);
     await chip(`Oh, uhh, huh.`);
     await chip(`This is awkward.`);
     await chip(`But, umm...`);
@@ -18,6 +22,7 @@ export default async function(state)
     await chip(`So that's it.`);
   }
 
+  updateChipFace(ChipEmotion.Awkward, state);
   await chip(`...`);
   await chip(`...`);
   await chip(`Oh, so I'll just stay here.`);

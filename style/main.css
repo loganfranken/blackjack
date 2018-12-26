@@ -278,6 +278,7 @@ h2
 {
   background: url('../images/chip_face_default.png') no-repeat;
   height: 100%;
+  transition: transform 0.2s;
   top: 0.2em;
   position: absolute;
   width: 100%;
@@ -320,7 +321,30 @@ h2
 
 #dealer-picture.awkward #dealer-face
 {
+  transform: translate(0, -0.5em);
   background-image: url('../images/chip_face_awkward.png');
+}
+
+#dealer-picture.bummed
+{
+  animation: none;
+}
+
+#dealer-picture.bummed #dealer-face
+{
+  transform: translate(0, 0.25em);
+  background-image: url('../images/chip_face_bummed.png');
+}
+
+#dealer-picture.concerned
+{
+  animation: none;
+}
+
+#dealer-picture.concerned #dealer-face
+{
+  transform: translate(0, 0.1em);
+  background-image: url('../images/chip_face_concerned.png');
 }
 
 #dealer-face::before, #dealer-face::after

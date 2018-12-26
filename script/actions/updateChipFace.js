@@ -21,5 +21,13 @@ export default function(emotion, state)
     case ChipEmotion.Awkward:
       dealerPicture.className = 'awkward';
       break;
+
+    case ChipEmotion.Bummed:
+      dealerPicture.className = 'bummed';
+      break;
+
+    case ChipEmotion.Concerned:
+      dealerPicture.className = 'concerned';
+      break;
   }
 }

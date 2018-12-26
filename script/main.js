@@ -30,8 +30,6 @@ import Shoe from './Shoe';
 import sortCardsForTutorial from './actions/sortCardsForTutorial';
 import updateBetDisplay from './actions/updateBetDisplay';
 import updateChipFace from './actions/updateChipFace';
-import updateChipFaceForRoundEnd from './actions/updateChipFaceForRoundEnd';
-import updateChipFaceForRoundStart from './actions/updateChipFaceForRoundStart';
 import updatePot from './actions/updatePot';
 import updatePotDisplay from './actions/updatePotDisplay';
 
@@ -111,7 +109,7 @@ async function startRound()
   // Loop: Round
   while(true)
   {
-    updateChipFaceForRoundStart(state);
+    updateChipFace(ChipEmotion.Default, state);
 
     if(state.isGameOver)
     {
@@ -198,12 +196,12 @@ async function startRound()
 
       if(playerMove === PlayerMove.Hit)
       {
-        await chip(dialogInfo.hitChipResponse);
-
         if(dialogInfo.hitAction)
         {
           dialogInfo.hitAction(state);
         }
+
+        await chip(dialogInfo.hitChipResponse);
 
         if(state.isGameOver)
         {
@@ -297,7 +295,6 @@ async function handleOpeningHandScoring(state)
 
 async function handleRoundEnd(score, state)
 {
-  updateChipFaceForRoundEnd(score, state);
   await chipRoundEnd(score, state);
 
   updatePot(score, state);

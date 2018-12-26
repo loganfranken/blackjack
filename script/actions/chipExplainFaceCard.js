@@ -8,8 +8,8 @@ export default async function chipExplainFaceCard(state)
   {
     updateChipFace(ChipEmotion.Astonished, state);
     await chip(`Raise your trumpets! Here comes royalty!`);
-    updateChipFace(ChipEmotion.Awkward, state);
     await chip(`...`);
+    updateChipFace(ChipEmotion.Awkward, state);
     await chip(`The first face card, I mean.`);
     await chip(`Anyway...`);
     updateChipFace(ChipEmotion.Default, state);

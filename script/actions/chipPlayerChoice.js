@@ -1,5 +1,7 @@
 import chip from './chip';
+import ChipEmotion from '../ChipEmotion';
 import { getRandomElement } from '../Utility';
+import updateChipFace from './updateChipFace';
 
 export default async function chipPlayerChoice(roundCount, choiceCount, state)
 {
@@ -143,7 +145,7 @@ const dialogChoices = [
         await chip("How are you doing today?", true);
         return getPlayerChoice(
           "Pretty good!", "That's great!", null,
-          "Not so great.", "Oh no, well hopefully this game will cheer you up.", null
+          "Not so great.", "Oh no, well hopefully this game will cheer you up.", (state) => { updateChipFace(ChipEmotion.Bummed, state); }
         );
       }
   },
@@ -222,8 +224,8 @@ const dialogChoices = [
       action: async () => {
         await chip("Do you like blackjack?", true);
         return getPlayerChoice(
-          "I love it.", "Oh, great! Me too!", null,
-          "Not really.", "Oh... really?", null
+          "I love it.", "Oh, great! Me too!", (state) => { updateChipFace(ChipEmotion.Happy, state); },
+          "Not really.", "Oh... really?", (state) => { updateChipFace(ChipEmotion.Bummed, state); }
         );
       }
   },
@@ -330,7 +332,10 @@ const dialogChoices = [
             "I wouldn't even know how to spot a card shark, honestly.",
             "Whoa, please don't tell anyone that."
           ],
-          (state) => { state.dialogKeys['card-shark'] = true; },
+          (state) => {
+            state.dialogKeys['card-shark'] = true;
+            updateChipFace(ChipEmotion.Concerned, state);
+          },
 
           "Oh, totally.",
           [
@@ -343,7 +348,10 @@ const dialogChoices = [
             "I wouldn't even know how to spot a card shark, honestly.",
             "Whoa, please don't tell anyone that."
           ],
-          (state) => { state.dialogKeys['card-shark'] = true; }
+          (state) => {
+            state.dialogKeys['card-shark'] = true;
+            updateChipFace(ChipEmotion.Concerned, state);
+          }
 
         );
       }
@@ -372,7 +380,7 @@ const dialogChoices = [
             "I wouldn't even know how to spot a card shark, honestly.",
             "Whoa, please don't tell anyone that."
           ],
-          null
+          (state) => { updateChipFace(ChipEmotion.Concerned, state); }
 
         );
       }
@@ -440,9 +448,11 @@ const dialogChoices = [
         await chip("And what if I'm not trying to remember something and then there it goes?");
         await chip("*Poof!* There goes my favorite memory!");
         await chip("Replaced by a weird story someone told me about eating figs!");
+        updateChipFace(ChipEmotion.Awkward, state);
         await chip("...");
         await chip("Oh, whoa, sorry.");
         await chip("I just started rambling there.");
+        updateChipFace(ChipEmotion.Default, state);
         await chip("Well, enough, about me: what about your memory?");
         await chip("I mean, can you even remember how many rounds we've played so far?", true);
         return getPlayerChoice(
