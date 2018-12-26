@@ -156,8 +156,18 @@ const dialogChoices = [
       action: async () => {
         await chip("Are you feeling lucky today?", true);
         return getPlayerChoice(
-          "Oh, totally!", "Nice! That's the spirit!", (state) => { state.dialogKeys['lucky'] = true; },
-          "Oof, no, not at all.", "Aww, come on. Not with that attitude!", (state) => { state.dialogKeys['not-lucky'] = true; }
+
+          "Oh, totally!",
+          "Nice! That's the spirit!",
+          (state) => { state.dialogKeys['lucky'] = true; },
+
+          "Oof, no, not at all.",
+          "Aww, come on. Not with that attitude!",
+          (state) => {
+            state.dialogKeys['not-lucky'] = true;
+            (state) => { updateChipFace(ChipEmotion.Concerned, state); }
+          }
+
         );
       }
   },
@@ -224,8 +234,19 @@ const dialogChoices = [
       action: async () => {
         await chip("Do you like blackjack?", true);
         return getPlayerChoice(
-          "I love it.", "Oh, great! Me too!", (state) => { updateChipFace(ChipEmotion.Happy, state); },
-          "Not really.", "Oh... really?", (state) => { updateChipFace(ChipEmotion.Bummed, state); }
+
+          "I love it.",
+          "Oh, great! Me too!",
+          (state) => {
+            updateChipFace(ChipEmotion.Happy, state);
+          },
+
+          "Not really.",
+          "Oh... really?",
+          (state) => {
+            updateChipFace(ChipEmotion.Bummed, state);
+          }
+
         );
       }
   },

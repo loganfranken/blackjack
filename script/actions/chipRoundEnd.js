@@ -17,19 +17,29 @@ export default async function(score, state)
         switch(score.roundEndCondition)
         {
           case RoundEndCondition.NaturalBlackjack:
-            message = '*Hot dog!* I started off with a blackjack. *I win!*';
+            updateChipFace(ChipEmotion.Happy, state);
+            await chip(`*Hot dog!* I started off with a blackjack!`);
+            updateChipFace(ChipEmotion.Awkward, state);
+            await chip(`...`);
+            await chip(`Oof, sorry to gloat!`);
+            await chip(`Well, I guess I got lucky: that's a win for me.`);
             break;
 
           case RoundEndCondition.Blackjack:
-            message = "I got 21. That's blackjack! *I win!*";
+            await chip(`Oh, 21 for me! That's blackjack!`);
+            await chip(`Looks like I win this round.`);
             break;
 
           case RoundEndCondition.Busted:
-            message = "You went over 21 and busted. *I win!*";
+            updateChipFace(ChipEmotion.Bummed, state);
+            await chip(`Oh no! You went over 21 and busted!`);
+            updateChipFace(ChipEmotion.Default, state);
+            await chip(`Better luck next round!`);
             break;
 
           case RoundEndCondition.HigherScore:
-            message = "Phew! I made it over 17 with the highest score. *I win!*";
+            await chip(`Phew! I made it over 17 with the highest score.`);
+            await chip(`That's a win for me.`);
             break;
         }
       break;
@@ -39,38 +49,54 @@ export default async function(score, state)
       switch(score.roundEndCondition)
       {
         case RoundEndCondition.NaturalBlackjack:
-          message = "*Lucky!* You started off with a blackjack. *You win!*";
+          updateChipFace(ChipEmotion.Astonished, state);
+          await chip('*What!*');
+          await chip('You started off with a blackjack!');
+          updateChipFace(ChipEmotion.Happy, state);
+          await chip('*Lucky!*');
+          await chip('You win that round!');
           break;
 
         case RoundEndCondition.Blackjack:
-          message = "You got 21. That's blackjack! *You win!*";
+          updateChipFace(ChipEmotion.Happy, state);
+          await chip('Look at you, you made it to 21!');
+          await chip(`That's blackjack! You win!`);
+          updateChipFace(ChipEmotion.Default, state);
           break;
 
         case RoundEndCondition.Busted:
-          message = "Ahh, I went over 21 and busted. *You win!*";
+          await chip(`Ahh, I went over 21 and busted! Dang!`);
+          updateChipFace(ChipEmotion.Happy, state);
+          await chip(`Well, that's a win for you!`);
           break;
 
         case RoundEndCondition.HigherScore:
-          message = "You have the higher score! *You win!*";
+          updateChipFace(ChipEmotion.Happy, state);
+          await chip(`You have the higher score! *You win!*`);
           break;
       }
       break;
 
     // Tie
     case RoundEndState.Tie:
-      updateChipFace(ChipEmotion.Astonished, state);
-      message = "It's a *tie!*";
+
 
       switch(score.roundEndCondition)
       {
         case RoundEndCondition.NaturalBlackjack:
-          message = "We both have natural blackjacks! *It's a tie!*";
+          updateChipFace(ChipEmotion.Astonished, state);
+          await chip(`Whoa!`);
+          await chip(`Whoa-oooah!`);
+          await chip(`We both have blackjacks!`);
+          await chip(`That's a *magical* tie!`);
           break;
+
+        default:
+          updateChipFace(ChipEmotion.Astonished, state);
+          await chip(`Oh, whoa! It's a tie!`);
       }
       break;
   }
-
-  await chip(message);
 
   // Explain pot
   let potExplanation = '';
