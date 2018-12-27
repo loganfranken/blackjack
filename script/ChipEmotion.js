@@ -4,5 +4,6 @@ export default {
   Astonished: 2,
   Awkward: 3,
   Bummed: 4,
-  Concerned: 5
+  Concerned: 5,
+  Questioning: 6
 };

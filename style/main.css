@@ -347,6 +347,17 @@ h2
   background-image: url('../images/chip_face_concerned.png');
 }
 
+#dealer-picture.questioning
+{
+  animation: none;
+}
+
+#dealer-picture.questioning #dealer-face
+{
+  transform: translate(0, -0.5em);
+  background-image: url('../images/chip_face_concerned.png');
+}
+
 #dealer-face::before, #dealer-face::after
 {
   animation: blink 3s infinite;

@@ -196,11 +196,6 @@ async function startRound()
 
       if(playerMove === PlayerMove.Hit)
       {
-        if(dialogInfo.hitAction)
-        {
-          dialogInfo.hitAction(state);
-        }
-
         await chip(dialogInfo.hitChipResponse);
 
         if(state.isGameOver)
@@ -215,11 +210,6 @@ async function startRound()
 
       if(playerMove === PlayerMove.Stand)
       {
-        if(dialogInfo.standAction)
-        {
-          dialogInfo.standAction(state);
-        }
-
         // Loop: Stand
         let isFirstStand = true;
         while(true)

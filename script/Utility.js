@@ -57,4 +57,9 @@ const getRandomElement = (items) => {
   return items[Math.floor(Math.random()*items.length)];
 }
 
-export { shuffle, convertMessageToHtml, getRandomInt, getRandomElement, halt };
+// Source: https://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
+const isFunction = (target) => {
+  return typeof(target) === 'function';
+}
+
+export { shuffle, convertMessageToHtml, getRandomInt, getRandomElement, halt, isFunction };
