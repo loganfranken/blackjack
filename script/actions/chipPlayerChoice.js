@@ -146,7 +146,7 @@ const dialogChoices = [
             () => { updateChipFace(ChipEmotion.Happy, state); },
             "That's great!",
             () => { updateChipFace(ChipEmotion.Default, state); }
-          ]
+          ],
 
           "Not so great.",
           [
@@ -283,18 +283,18 @@ const dialogChoices = [
 
           "Nope, first time.",
           [
-              () => { updateChipFace(ChipEmotion.Questioning, state); }
+              () => { updateChipFace(ChipEmotion.Questioning, state); },
               "Oh, really? I wouldn't know.",
               "Your dealer changes each time you play.",
-              () => { updateChipFace(ChipEmotion.Default, state); }
+              () => { updateChipFace(ChipEmotion.Default, state); },
               () => { state.dialogKeys['first-time'] = true; },
           ],
 
           "Oh yeah, remember?",
           [
-            () => { updateChipFace(ChipEmotion.Concerned, state); }
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "Oh, sorry, no, I don't remember.",
-            () => { updateChipFace(ChipEmotion.Questioning, state); }
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "That wasn't me.",
             "Your dealer changes each time you play.",
             () => { updateChipFace(ChipEmotion.Default, state); },
@@ -325,17 +325,21 @@ const dialogChoices = [
 
           "No, I don't think so.",
           [
-            () => { updateChipFace(ChipEmotion.Bummed, state); }
+            () => { updateChipFace(ChipEmotion.Bummed, state); },
             "Oof.",
             "Oh, well.",
-            () => { updateChipFace(ChipEmotion.Concerned, state); }
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "Sorry I didn't make a better first impression.",
             "...",
-            "That's okay, though",
+            "That's okay, though.",
             "That's good feedback.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Yeah.",
             "Good feedback.",
-            "Okay, lt
+            "...",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "Okay, Chip, game face!",
+            "Alright, let's get back to it."
           ]
 
         );
@@ -352,21 +356,30 @@ const dialogChoices = [
           "Chip, just like you.",
           [
             "Oh, yeah? How weird!",
+            () => { updateChipFace(ChipEmotion.Awkward, state); },
             "...",
             "Actually, I knew that.",
             "We're all named Chip.",
             "I was just kidding.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Sorry, that was weird I tricked you.",
             "I thought it would be funny.",
+            () => { updateChipFace(ChipEmotion.Awkward, state); },
             "...",
-            "Anyway..."
+            "Anyway...",
+            () => { updateChipFace(ChipEmotion.Default, state); },
           ],
 
           "Harold.",
           [
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Uhh... what?",
             "Oh, are you messing with me?",
-            "We're all named Chip."
+            () => { updateChipFace(ChipEmotion.Awkward, state); },
+            "We're all named Chip.",
+            "Oh, you are messing with me, huh?",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "Ahh, good one!"
           ]
 
         );
@@ -383,26 +396,33 @@ const dialogChoices = [
 
           "What? Of course not!",
           [
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "Oh! No, I'm just joking!",
+            () => { updateChipFace(ChipEmotion.Awkward, state); },
             "I wouldn't even know how to spot a card shark, honestly.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Whoa, please don't tell anyone that.",
-            () => { state.dialogKeys['card-shark'] = true; },
-            () => { updateChipFace(ChipEmotion.Concerned, state); }
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            () => { state.dialogKeys['card-shark'] = true; }
           ],
 
 
           "Oh, totally.",
           [
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "...",
             "Wait, what?",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Seriously?",
             "I was just joking.",
             "You're messing with me, right?",
+            () => { updateChipFace(ChipEmotion.Awkward, state); },
             "I hope so.",
             "I wouldn't even know how to spot a card shark, honestly.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Whoa, please don't tell anyone that.",
-            () => { state.dialogKeys['card-shark'] = true; },
-            () => { updateChipFace(ChipEmotion.Concerned, state); }
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            () => { state.dialogKeys['card-shark'] = true; }
           ]
 
         );
@@ -419,18 +439,26 @@ const dialogChoices = [
 
           "Haha, right?",
           [
+            () => { updateChipFace(ChipEmotion.Happy, state); },
             "Just kidding!",
+            () => { updateChipFace(ChipEmotion.Awkward, state); },
+            "Sorry, that was kind of mean.",
             "I wouldn't even know how to spot a card shark, honestly.",
-            "Whoa, please don't tell anyone that."
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "Whoa, please don't tell anyone that.",
+            () => { updateChipFace(ChipEmotion.Default, state); }
           ],
 
           "...yeah, I guess not.",
           [
+            () => { updateChipFace(ChipEmotion.Bummed, state); },
             "Oh, uhh, geez! I'm sorry!",
+            () => { updateChipFace(ChipEmotion.Awkward, state); },
             "I was just joking.",
             "I wouldn't even know how to spot a card shark, honestly.",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "Whoa, please don't tell anyone that.",
-            () => { updateChipFace(ChipEmotion.Concerned, state); }
+            () => { updateChipFace(ChipEmotion.Default, state); }
           ]
 
         );
@@ -442,19 +470,28 @@ const dialogChoices = [
       filter: (state) => (state.dialogLevel === 12),
       action: async (state) => {
         updateChipFace(ChipEmotion.Concerned, state);
-        await chip("Hey, so, uhh, remember when I said I couldn't spot a card shark?");
+        await chip("Hey, so...");
         updateChipFace(ChipEmotion.Questioning, state);
         await chip("You're not going to tell anyone about that, right?", true);
         return getPlayerChoice(
 
           "Your secret's safe with me.",
-          "Phew, thanks.",
+          [
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "Phew, thanks."
+          ],
 
           "I'm telling everyone.",
           [
+            () => { updateChipFace(ChipEmotion.Bummed, state); },
             "Aww, come on.",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "Don't be like that!",
-            "Please, I've got a reputation here."
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
+            "Please, I've got a reputation here.",
+            "Nah, come on, you won't tell, right?",
+            "After all of the Blackjack we've been through?",
+            () => { updateChipFace(ChipEmotion.Default, state); }
           ]
 
         );
@@ -478,7 +515,9 @@ const dialogChoices = [
           "Sharp math skills.",
           [
             "Yeah, you're probably right.",
-            "A good memory seems important too, though, right?"
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
+            "A good memory seems important too, though, right?",
+            () => { updateChipFace(ChipEmotion.Default, state); }
           ]
 
         );
@@ -490,12 +529,14 @@ const dialogChoices = [
       filter: (state) => (state.dialogLevel === 14),
       action: async (state) => {
         await chip("Memory is a weird thing, you know?");
+        updateChipFace(ChipEmotion.Questioning, state);
         await chip("We rely on it for everything, but we forget *so much*!");
         await chip("I sometimes wonder if it's just a little box in there.");
         await chip("And it can only hold so much.");
         updateChipFace(ChipEmotion.Concerned, state);
         await chip("And if I remember something new, do I forget something else?");
         await chip("And what if I'm not trying to remember something and then there it goes?");
+        updateChipFace(ChipEmotion.Bummed, state);
         await chip("*Poof!* There goes my favorite memory!");
         await chip("Replaced by a weird story someone told me about eating figs!");
         updateChipFace(ChipEmotion.Awkward, state);
@@ -509,12 +550,18 @@ const dialogChoices = [
 
           `Uhh, ${state.roundCount + 1}.`,
           [
-            "That's right!", "Wow, you have a good memory!"
+            () => { updateChipFace(ChipEmotion.Happy, state); },
+            "That's right!",
+            "Wow, you have a good memory!",
+            () => { updateChipFace(ChipEmotion.Default, state); }
           ],
 
           `Uhh, ${state.roundCount + 2}.`,
           [
-            "Ahh, sorry, that's wrong", "But, hey, at least you're saving that room for something else."
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "Ahh, sorry, that's wrong.",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "But, hey, at least you're saving that room for something else."
           ]
 
         );
@@ -525,24 +572,31 @@ const dialogChoices = [
   {
       filter: (state) => (state.dialogLevel === 15),
       action: async (state) => {
-        await chip("...", true);
+        updateChipFace(ChipEmotion.Concerned, state);
+        await chip("...");
         await chip("Hey, listen, can I ask you something?", true);
+        updateChipFace(ChipEmotion.Questioning, state);
         return getPlayerChoice(
 
           "Yeah, of course.",
           [
             "Oh, yeah?",
+            () => { updateChipFace(ChipEmotion.Default, state); },
             "Okay.",
             "...",
-            "After this round!",
+            "After I deal!",
             () => { state.dialogKeys['ask-final-question'] = true; }
           ],
 
           "No, I want to focus on the game.",
           [
             "Oh, hey, okay.",
-            "That's okay.", "You're right.",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "That's okay.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
+            "You're right.",
             "Let's focus on the game.",
+            () => { updateChipFace(ChipEmotion.Default, state); },
             () => { state.dialogKeys['ask-final-question'] = false; }
           ]
 
@@ -555,55 +609,92 @@ const dialogChoices = [
       filter: (state) => (state.dialogLevel === 16 && state.dialogKeys['ask-final-question']),
       action: async (state) => {
         state.isGameOver = true;
+        updateChipFace(ChipEmotion.Concerned, state);
         await chip("Okay, about that question...");
         await chip("...");
+        updateChipFace(ChipEmotion.Questioning, state);
         await chip("Do you think you'll remember me?");
         await chip("...");
+        updateChipFace(ChipEmotion.Concerned, state);
         await chip("What I'm saying is, if you closed this browser window right now.");
-        await chip("And came back, there would be a new me. A new Chip.");
-        await chip("I... or they, wouldn't remember any of this.");
+        await chip("And came back, there would be a new Chip.");
+        await chip("And I... or they, wouldn't remember any of this.");
+        updateChipFace(ChipEmotion.Questioning, state);
         await chip("And that's okay.");
         await chip("...");
-        await chip("I mean, it's not really okay. But, it's how it is.");
+        updateChipFace(ChipEmotion.Concerned, state);
+        await chip("I mean, it's not really okay.");
+        updateChipFace(ChipEmotion.Questioning, state);
+        await chip("But what can you do, right?");
+        updateChipFace(ChipEmotion.Concerned, state);
         await chip("And, so, I just...");
         await chip("I'm just wondering...");
-        await chip("Would you remember me? This Chip. This me.");
+        await chip("Do you think you would remember me?");
         await chip("...");
+        updateChipFace(ChipEmotion.Questioning, state);
         await chip("Do you think you would?", true);
         return getPlayerChoice(
 
           "Yes, Chip, I would.",
           [
-            "Thank you, I, I needed to hear that.",
-            "Listen, I can't deal anymore.",
-            "It's just...",
-            "I can't.",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "...",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "Thanks.",
+            "I know I'm kind of unloading on you.",
+            "But that was really nice to hear.",
+            "...",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "Listen, this is weird, but...",
+            "I don't really feel like dealing anymore.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
+            "Sorry, I know that's weird.",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "It's been really fun playing with you.",
+            "And really nice talking with you.",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "But I think I need a little time to sit, and just...",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
+            "Yeah.",
             "If it's okay with you, I'd just like to sit here.",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "And be quiet for a little while.",
-            "And, when you're done, you can go ahead and close the browser.",
-            "It was nice playing with you",
+            "When you're ready, you can go ahead and close the browser.",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "It was really nice playing with you!",
             "..."
           ],
 
           "No, Chip, I wouldn't.",
           [
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "Oh...",
             "...",
+            () => { updateChipFace(ChipEmotion.Bummed, state); },
             "That's honest.",
             "...",
-            "No, I, I needed to hear that.",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "No, really, thanks for being honest.",
             "...",
-            "Listen, I can't really play anymore.",
-            "It just doesn't, I don't feel..",
-            "I just can't",
+            "Oof.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
+            "Listen, I can't really deal anymore.",
+            "Sorry.",
+            "I know that's weird.",
+            "I'm sorry.",
+            "It just doesn't, I don't feel...",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "...",
             "I'm just going to sit here.",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "And be quiet for a little while.",
             "You can close the browser whenever you're ready.",
-            "..."
+            "...",
+            () => { updateChipFace(ChipEmotion.Concerned, state); }
           ]
 
         );
       }
-  },
+  }
 
 ];
