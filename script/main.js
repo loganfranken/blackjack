@@ -136,7 +136,10 @@ async function startRound()
   // Loop: Round
   while(true)
   {
-    updateChipFace(ChipEmotion.Default, state);
+    if(state.roundCount > 0)
+    {
+      updateChipFace(ChipEmotion.Default, state);
+    }
 
     if(state.isGameOver)
     {
