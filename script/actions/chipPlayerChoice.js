@@ -488,9 +488,17 @@ const dialogChoices = [
             () => { updateChipFace(ChipEmotion.Concerned, state); },
             "Don't be like that!",
             () => { updateChipFace(ChipEmotion.Questioning, state); },
-            "Please, I've got a reputation here.",
+            "Please, I've got a reputation here!",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
+            "...",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Nah, come on, you won't tell, right?",
-            "After all of the Blackjack we've been through?",
+            "...",
+            "After all of the blackjack we've been through?",
+            "...",
+            "I'm pretty sure you're messing with me.",
+            "Pretty sure.",
+            "Yeah, good one!",
             () => { updateChipFace(ChipEmotion.Default, state); }
           ]
 
