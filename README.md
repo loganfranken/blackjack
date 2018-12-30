@@ -16,3 +16,9 @@ npx webpack --config webpack.config.js
 
 After that, webpack will watch the JavaScript files for any changes and
 generate an updated ``bundle.js`` file.
+
+## Credit
+
+The heart icon started with the heart icon from [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
+as a base. This modified heart icon was then used to create the spade icon as well.
+View [Font Awesome's license](https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt).
