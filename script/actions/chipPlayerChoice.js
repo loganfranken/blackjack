@@ -472,7 +472,7 @@ const dialogChoices = [
         updateChipFace(ChipEmotion.Concerned, state);
         await chip("Hey, so...");
         updateChipFace(ChipEmotion.Questioning, state);
-        await chip("You're not going to tell anyone about that, right?", true);
+        await chip("You're not going to tell anyone about the card shark thing, right?", true);
         return getPlayerChoice(
 
           "Your secret's safe with me.",
