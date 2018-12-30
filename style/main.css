@@ -16,6 +16,7 @@ html, body
   max-width: 25em;
   padding: 5%;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #header
