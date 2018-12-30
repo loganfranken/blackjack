@@ -11,6 +11,7 @@ html, body
 
 #table
 {
+  cursor: pointer;
   margin: 0 auto;
   max-width: 25em;
   padding: 5%;

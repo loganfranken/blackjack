@@ -34,6 +34,33 @@ import updatePot from './actions/updatePot';
 import updatePotDisplay from './actions/updatePotDisplay';
 
 // ==================
+// IMAGE PRELOADING
+// ==================
+
+async function preloadImages(imageUrls)
+{
+  imageUrls.forEach((url) => {
+    let image = new Image();
+    image.src = url;
+  });
+}
+
+preloadImages([
+  './images/card_back.png',
+  './images/chip_face_astonished.png',
+  './images/chip_face_awkward.png',
+  './images/chip_face_bummed.png',
+  './images/chip_face_concerned.png',
+  './images/chip_face_happy.png',
+  './images/chip_face_questioning.png',
+  './images/club.png',
+  './images/diamond.png',
+  './images/felt.png',
+  './images/heart.png',
+  './images/spade.png'
+]);
+
+// ==================
 // DOM ELEMENTS
 // ==================
 
@@ -311,7 +338,7 @@ function setUpDialogControls()
 {
   // Enter
   document.addEventListener('keydown', (event) => {
-    if(event.keyCode === 13)
+    if(event.keyCode === 13 || event.keyCode === 32)
     {
       DialogManager.advanceMessage();
     }
