@@ -336,10 +336,11 @@ async function handleRoundEnd(score, state)
 
 function setUpDialogControls()
 {
-  // Enter
+  // Enter/Spacebar
   document.addEventListener('keydown', (event) => {
     if(event.keyCode === 13 || event.keyCode === 32)
     {
+      event.preventDefault();
       DialogManager.advanceMessage();
     }
   });
