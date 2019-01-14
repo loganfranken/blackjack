@@ -234,7 +234,12 @@ const dialogChoices = [
               "Really? You've had some good hands so far, though.",
               () => { updateChipFace(ChipEmotion.Default, state); }
             ]
-          : "You haven't had a great game so far, but maybe things will turn around?",
+          : [
+              () => { updateChipFace(ChipEmotion.Questioning, state); },
+              "Well, you haven't had a great game so far...",
+              () => { updateChipFace(ChipEmotion.Default, state); },
+              "But maybe things will turn around!"
+            ],
 
         "I'm just not feeling lucky today.",
         isPlayerWinning
@@ -265,9 +270,15 @@ const dialogChoices = [
 
           "Not really.",
           [
+            "Oh...",
             () => { updateChipFace(ChipEmotion.Bummed, state); },
-            "Oh... really?",
-            () => { updateChipFace(ChipEmotion.Default, state); }
+            "...really?",
+            "Then, why are you...",
+            "...",
+            "You know what...",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "To each their own!",
+            "I'm enjoying playing with you!"
           ]
 
         );
