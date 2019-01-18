@@ -270,8 +270,8 @@ const dialogChoices = [
 
           "Not really.",
           [
-            "Oh...",
             () => { updateChipFace(ChipEmotion.Bummed, state); },
+            "Oh...",
             "...really?",
             "Then, why are you...",
             "...",
@@ -326,12 +326,16 @@ const dialogChoices = [
           "Oh yeah!",
           [
             "Nice!",
-            "Well, next time...",
-            "Tell Chip I said hi!",
+            () => { updateChipFace(ChipEmotion.Happy, state); },
+            "I'm glad I made such a good first impression!",
             () => { updateChipFace(ChipEmotion.Awkward, state); },
+            "Oh, I mean, not that I'm the reason you would play again.",
+            "I mean, I might be, but...",
             "...",
-            "Because we're all named Chip, is what I'm saying.",
-            () => { updateChipFace(ChipEmotion.Default, state); }
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
+            "Anyway...",
+            () => { updateChipFace(ChipEmotion.Default, state); },
+            "How about those cards!"
           ],
 
           "No, I don't think so.",
