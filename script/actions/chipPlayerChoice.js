@@ -273,12 +273,17 @@ const dialogChoices = [
             () => { updateChipFace(ChipEmotion.Bummed, state); },
             "Oh...",
             "...really?",
+            () => { updateChipFace(ChipEmotion.Questioning, state); },
             "Then, why are you...",
             "...",
+            () => { updateChipFace(ChipEmotion.Concerned, state); },
             "You know what...",
+            "That's okay.",
+            "To each their own, right?",
+            "All I know is...",
             () => { updateChipFace(ChipEmotion.Default, state); },
-            "To each their own!",
-            "I'm enjoying playing with you!"
+            "I'm enjoying playing with you.",
+            "And that's how I feel about it!"
           ]
 
         );
